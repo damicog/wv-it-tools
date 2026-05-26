@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>World Vision UK · Microsoft Copilot Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#FFF8F0;--white:#FFFFFF;--text:#1C1410;--muted:#7A6F68;
+  --border:#E8E0D8;--card:#FFFFFF;
+  --orange:#EE8F2F;--orange-lt:#FEF3E4;
+  --orange-dark:#C96E0A;--orange-mid:#F5A84A;
+  --green:#2E7D32;--green-lt:#E8F5E9;
+  --purple:#5C3D99;--purple-lt:#EDE9FE;
+  --red:#C62828;--red-lt:#FFEBEE;
+  --shadow:0 2px 16px rgba(0,0,0,.07);
+  --shadow-lg:0 8px 40px rgba(0,0,0,.12);
+  --radius:16px;--radius-sm:10px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--text);line-height:1.6;min-height:100vh}
+
+/* ── HERO ── */
+.hero{
+  background:#FFFFFF;
+  padding:36px 48px 48px;
+  position:relative;
+  border-bottom:4px solid #EE8F2F;
+}
+.hero::before{ display:none; }
+.hero-inner{
+  position:relative;z-index:1;max-width:680px;margin:0 auto;text-align:left;
+}
+.hero-brand{
+  position:absolute;top:20px;right:32px;
+  font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#EE8F2F;display:flex;align-items:center;gap:7px;
+}
+.hero-brand-dot{
+  width:8px;height:8px;border-radius:50%;background:#EE8F2F;flex-shrink:0;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#FEF3E4;border:1.5px solid #EE8F2F;
+  border-radius:40px;padding:6px 16px;font-size:12px;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;color:#C96E0A;
+  margin-bottom:20px;
+}
+.hero h1{
+  font-size:clamp(32px,5vw,52px);font-weight:900;color:#1A1A1A;
+  line-height:1.1;margin-bottom:14px;
+}
+.hero h1 span{color:#EE8F2F}
+.hero p{font-size:16px;color:#555555;margin-bottom:36px;line-height:1.7}
+
+/* ── LEVEL TOGGLE ── */
+.level-wrap{display:inline-flex;background:#F0F0F0;border-radius:50px;padding:5px;gap:4px;margin-bottom:8px}
+.level-btn{
+  padding:10px 28px;border-radius:40px;border:none;cursor:pointer;
+  font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;
+  transition:all .25s;color:#777777;background:transparent;
+}
+.level-btn.active{color:#fff;box-shadow:0 4px 16px rgba(0,0,0,.25)}
+.level-btn[data-level="beginner"].active{background:#2E7D32}
+.level-btn[data-level="advanced"].active{background:var(--orange)}
+.level-hint{font-size:12px;color:#888888;margin-top:8px}
+
+/* ── APP NAV ── */
+.app-nav-wrap{background:var(--white);border-bottom:1.5px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.app-nav{
+  display:flex;gap:4px;padding:12px 16px;max-width:960px;margin:0 auto;
+  overflow-x:auto;scrollbar-width:none;
+}
+.app-nav::-webkit-scrollbar{display:none}
+.app-pill{
+  display:flex;align-items:center;gap:7px;padding:8px 16px;border-radius:40px;
+  border:1.5px solid var(--border);background:transparent;cursor:pointer;
+  font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;
+  color:var(--muted);transition:all .2s;white-space:nowrap;
+}
+.app-pill:hover{border-color:#ccc;color:var(--text);background:var(--cream)}
+.app-pill.active{border-color:transparent;color:#fff}
+.app-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+
+/* ── MAIN ── */
+.main{max-width:960px;margin:0 auto;padding:36px 20px 80px}
+
+/* ── SECTION HEADER ── */
+.section-header{display:flex;align-items:center;gap:14px;margin-bottom:28px}
+.app-icon-big{
+  width:56px;height:56px;border-radius:16px;display:flex;align-items:center;
+  justify-content:center;font-size:28px;flex-shrink:0;
+}
+.section-header h2{font-size:26px;font-weight:900}
+.section-header p{font-size:14px;color:var(--muted);margin-top:2px}
+.level-tag{
+  display:inline-block;font-size:11px;font-weight:800;letter-spacing:.08em;
+  text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:20px;
+}
+.level-tag.beginner{background:var(--green-lt);color:var(--green)}
+.level-tag.advanced{background:var(--orange-lt);color:var(--orange-dark)}
+
+/* ── PROMPT CARDS ── */
+.prompts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-bottom:32px}
+.prompt-card{
+  background:var(--white);border-radius:var(--radius);
+  border:1.5px solid var(--border);padding:18px 18px 14px;
+  position:relative;overflow:hidden;transition:all .2s;
+}
+.prompt-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+.prompt-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px}
+.prompt-label{
+  font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  margin-bottom:10px;opacity:.7;
+}
+.prompt-text{
+  font-size:14px;font-weight:600;color:var(--text);line-height:1.6;
+  margin-bottom:10px;font-style:italic;
+  background:var(--cream);border-radius:8px;padding:10px 12px;
+}
+.prompt-why{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:12px}
+.copy-btn{
+  display:flex;align-items:center;gap:5px;padding:6px 14px;
+  border-radius:20px;border:1.5px solid var(--border);
+  background:transparent;font-family:'Nunito',sans-serif;
+  font-size:12px;font-weight:700;cursor:pointer;color:var(--muted);
+  transition:all .2s;
+}
+.copy-btn:hover{border-color:currentColor}
+.copy-btn.copied{color:var(--green);border-color:var(--green);background:var(--green-lt)}
+
+/* ── TIP BOX ── */
+.tip-box{
+  border-radius:var(--radius);padding:20px 22px;margin-bottom:28px;
+  display:flex;gap:14px;align-items:flex-start;
+}
+.tip-icon{font-size:24px;flex-shrink:0;margin-top:1px}
+.tip-title{font-size:13px;font-weight:800;margin-bottom:4px}
+.tip-body{font-size:13px;line-height:1.7;color:#444}
+
+/* ── ANATOMY BOX (advanced) ── */
+.anatomy{background:var(--white);border-radius:var(--radius);border:1.5px solid var(--border);padding:24px;margin-bottom:28px}
+.anatomy h3{font-size:15px;font-weight:800;margin-bottom:16px}
+.anatomy-parts{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.anat-part{
+  padding:7px 14px;border-radius:20px;font-size:12px;font-weight:700;
+  display:flex;align-items:center;gap:5px;
+}
+.anatomy-example{
+  background:var(--cream);border-radius:10px;padding:14px 16px;
+  font-size:13px;line-height:1.8;font-style:italic;border-left:3px solid var(--purple);
+}
+
+/* ── PANEL ── */
+.app-panel{display:none}
+.app-panel.active{display:block;animation:fadeUp .3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── DO'S & DON'TS ── */
+.dos-donts{max-width:960px;margin:0 auto;padding:0 20px 60px}
+.dos-donts h2{font-size:28px;font-weight:900;margin-bottom:8px}
+.dos-donts .sub{font-size:15px;color:var(--muted);margin-bottom:28px}
+.dd-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.dd-card{background:var(--white);border-radius:var(--radius);border:1.5px solid var(--border);overflow:hidden}
+.dd-header{padding:14px 20px;font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.dd-header.do{background:var(--green-lt);color:var(--green)}
+.dd-header.dont{background:var(--red-lt);color:var(--red)}
+.dd-item{
+  padding:14px 20px;border-top:1px solid var(--border);
+  display:flex;gap:12px;align-items:flex-start;font-size:13px;line-height:1.6;
+}
+.dd-item .icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.dd-compare{
+  background:var(--white);border-radius:var(--radius);border:1.5px solid var(--border);
+  padding:22px;margin-top:16px;grid-column:1/-1;
+}
+.dd-compare h3{font-size:14px;font-weight:800;margin-bottom:14px}
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.compare-bad{background:var(--red-lt);border-radius:8px;padding:10px 14px;font-size:13px;border-left:3px solid var(--red)}
+.compare-good{background:var(--green-lt);border-radius:8px;padding:10px 14px;font-size:13px;border-left:3px solid var(--green)}
+.compare-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;opacity:.7}
+
+/* ── QUIZ ── */
+.quiz-wrap{background:linear-gradient(135deg,#1a1040,#2d1b6b);padding:56px 20px;text-align:center}
+.quiz-inner{max-width:640px;margin:0 auto}
+.quiz-wrap h2{font-size:30px;font-weight:900;color:#fff;margin-bottom:8px}
+.quiz-wrap .sub{font-size:15px;color:rgba(255,255,255,.65);margin-bottom:32px}
+.quiz-progress-bar{
+  height:6px;background:rgba(255,255,255,.15);border-radius:3px;margin-bottom:8px;overflow:hidden;
+}
+.quiz-progress-fill{height:6px;background:var(--orange);border-radius:3px;transition:width .4s ease}
+.quiz-progress-text{font-size:12px;color:rgba(255,255,255,.5);margin-bottom:28px}
+.quiz-card{
+  background:#fff;border-radius:20px;padding:28px 28px 24px;text-align:left;
+  box-shadow:0 12px 48px rgba(0,0,0,.25);
+}
+.quiz-q{font-size:17px;font-weight:800;margin-bottom:18px;color:var(--text)}
+.quiz-options{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.quiz-opt{
+  padding:13px 18px;border-radius:12px;border:2px solid var(--border);
+  background:var(--cream);cursor:pointer;font-family:'Nunito',sans-serif;
+  font-size:14px;font-weight:600;text-align:left;transition:all .2s;color:var(--text);
+}
+.quiz-opt:hover:not(:disabled){border-color:#aaa;background:#fff}
+.quiz-opt.correct{background:var(--green-lt);border-color:var(--green);color:var(--green)}
+.quiz-opt.wrong{background:var(--red-lt);border-color:var(--red);color:var(--red)}
+.quiz-opt:disabled{cursor:default}
+.quiz-feedback{
+  font-size:13px;padding:12px 16px;border-radius:10px;margin-bottom:18px;
+  display:none;font-weight:600;line-height:1.6;
+}
+.quiz-feedback.show{display:block}
+.quiz-feedback.good{background:var(--green-lt);color:var(--green)}
+.quiz-feedback.bad{background:var(--red-lt);color:var(--red)}
+.quiz-next-btn,.quiz-restart-btn{
+  padding:12px 28px;border-radius:40px;border:none;cursor:pointer;
+  font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;
+  background:var(--orange);color:#fff;transition:all .2s;
+}
+.quiz-next-btn:hover,.quiz-restart-btn:hover{background:#ea6c0a;transform:translateY(-1px)}
+.quiz-result{display:none;text-align:center;padding:16px 0}
+.quiz-result.show{display:block}
+.quiz-score-big{font-size:64px;font-weight:900;color:var(--orange);line-height:1}
+.quiz-score-label{font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px}
+.quiz-score-msg{font-size:14px;color:var(--muted);margin-bottom:24px}
+
+/* ── FOOTER ── */
+footer{text-align:center;padding:24px;font-size:12px;color:var(--muted);border-top:1px solid var(--border)}
+
+/* ── WORKFLOW ── */
+.where-box{
+  background:linear-gradient(135deg,#1a1040,#2d1b6b);
+  border-radius:var(--radius);padding:22px 24px;margin-bottom:24px;
+  display:flex;gap:16px;align-items:flex-start;
+}
+.where-box .where-icon{font-size:28px;flex-shrink:0}
+.where-box .where-title{font-size:14px;font-weight:800;color:#FDBA74;margin-bottom:4px}
+.where-box .where-body{font-size:13px;color:rgba(255,255,255,.8);line-height:1.7}
+.where-box .where-body strong{color:#fff}
+.workflow-steps{display:flex;flex-direction:column;gap:0;margin-bottom:28px;position:relative}
+.workflow-steps::before{
+  content:'';position:absolute;left:24px;top:28px;bottom:28px;width:2px;
+  background:linear-gradient(to bottom,#EE8F2F,#C96E0A);opacity:.25;
+}
+.wf-step{
+  display:flex;gap:16px;align-items:flex-start;padding:16px 0;position:relative;
+}
+.wf-num{
+  width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:18px;font-weight:900;flex-shrink:0;position:relative;z-index:1;
+  border:2px solid var(--border);background:var(--white);
+}
+.wf-content{flex:1;padding-top:6px}
+.wf-title{font-size:14px;font-weight:800;margin-bottom:4px}
+.wf-desc{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:8px}
+.wf-app-badges{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.wf-app-badge{
+  font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;
+  background:var(--cream);border:1px solid var(--border);color:var(--muted);
+}
+.adv-only-banner{
+  background:var(--purple-lt);border:1.5px solid #C4B5FD;border-radius:var(--radius);
+  padding:14px 18px;margin-bottom:24px;display:flex;gap:10px;align-items:center;
+  font-size:13px;color:#5B21B6;font-weight:600;
+}
+@media(max-width:640px){
+  .dd-grid{grid-template-columns:1fr}
+  .compare-row{grid-template-columns:1fr}
+  .prompts-grid{grid-template-columns:1fr}
+  .hero{padding:28px 20px 32px}
+  .hero-brand{top:12px;right:16px;font-size:11px}
+  .level-btn{padding:9px 20px;font-size:13px}
+  .workflow-steps::before{left:22px}
+}
+</style>
+</head>
+<body>
+
+<!-- ── HERO ───────────────────────────────────────────── -->
+<header class="hero">
+  <div class="hero-brand">
+    <span class="hero-brand-dot"></span>World Vision UK
+  </div>
+  <div class="hero-inner">
+    <div class="hero-badge">🤖 Microsoft Copilot · Staff Guide</div>
+    <h1>Get More Done<br><span>with Copilot</span> ✨</h1>
+    <p>Your World Vision UK guide to using Microsoft Copilot across Outlook, Word, Excel, Teams, OneDrive &amp; SharePoint.<br>Pick your level and start exploring!</p>
+    <div class="level-wrap">
+      <button class="level-btn active" data-level="beginner" onclick="setLevel('beginner',this)">🌱 Beginner</button>
+      <button class="level-btn" data-level="advanced" onclick="setLevel('advanced',this)">⚡ Advanced</button>
+    </div>
+    <div class="level-hint" id="levelHint">New to AI? Start here — loads of easy examples to try today</div>
+  </div>
+</header>
+
+<!-- ── APP NAV ─────────────────────────────────────────── -->
+<nav class="app-nav-wrap">
+  <div class="app-nav" id="appNav"></div>
+</nav>
+
+<!-- ── APP PANELS ──────────────────────────────────────── -->
+<main class="main" id="appPanels"></main>
+
+<!-- ── DO'S & DON'TS ──────────────────────────────────── -->
+<section class="dos-donts">
+  <h2>✅ Do's &amp; ❌ Don'ts</h2>
+  <p class="sub">A few golden rules that'll make every prompt you write way better</p>
+  <div class="dd-grid">
+    <div class="dd-card">
+      <div class="dd-header do">✅ Do these things</div>
+      <div class="dd-item"><span class="icon">🎯</span><div><strong>Be specific.</strong> The more detail you give, the better the result. Tell it the format, the audience, the tone.</div></div>
+      <div class="dd-item"><span class="icon">🔄</span><div><strong>Follow up &amp; refine.</strong> If the first answer isn't quite right, don't give up — say "make it shorter" or "more formal" and it'll adjust.</div></div>
+      <div class="dd-item"><span class="icon">👀</span><div><strong>Always review the output.</strong> Copilot is a first draft, not a final answer. Read it before you send or share anything.</div></div>
+      <div class="dd-item"><span class="icon">💬</span><div><strong>Give it context.</strong> "I'm writing to a client who complained last week" gives much better results than "write an apology email."</div></div>
+      <div class="dd-item"><span class="icon">🎨</span><div><strong>Ask for options.</strong> Try "give me 3 versions" or "suggest 5 subject lines" — you'll find something you like faster.</div></div>
+    </div>
+    <div class="dd-card">
+      <div class="dd-header dont">❌ Avoid these mistakes</div>
+      <div class="dd-item"><span class="icon">🚫</span><div><strong>Don't be vague.</strong> "Help me with email" won't get you far. Tell it exactly what you need.</div></div>
+      <div class="dd-item"><span class="icon">🔒</span><div><strong>Don't share sensitive data.</strong> No passwords, personal client details, or confidential HR information. Treat it like a new colleague — share only what's appropriate.</div></div>
+      <div class="dd-item"><span class="icon">📋</span><div><strong>Don't copy-paste without reading.</strong> Copilot can get things wrong or sound slightly off — a quick read takes 30 seconds.</div></div>
+      <div class="dd-item"><span class="icon">🧠</span><div><strong>Don't assume it remembers.</strong> Each new chat starts fresh. You may need to re-give context if you start a new conversation.</div></div>
+      <div class="dd-item"><span class="icon">🙅</span><div><strong>Don't give up after one try.</strong> The magic is in the back-and-forth. Refine, push back, ask again differently.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WEAK VS STRONG ──────────────────────────────────── -->
+<section class="dos-donts" id="weakStrongSection" style="padding-top:0"></section>
+
+<footer>World Vision UK · Microsoft Copilot Staff Guide · © World Vision UK · Works in any browser · No internet required</footer>
+
+<script>
+// ── APP DATA ──────────────────────────────────────────────────────────────
+const apps = [
+  {
+    id:'outlook', name:'Outlook', emoji:'📧', color:'#0078D4', light:'#E8F3FC',
+    desc:'Email, calendar & scheduling',
+    tip:{
+      beginner:{icon:'💡',title:'Copilot in Outlook tip',color:'#E8F3FC',textColor:'#0078D4',body:'You can use Copilot directly inside an email. Open or select an email, look for the Copilot icon (✨) in the toolbar, and ask it to summarise, draft a reply, or suggest a tone change.'},
+      advanced:{icon:'⚡',title:'Power user tip',color:'#EDE9FE',textColor:'#C96E0A',body:'Chain your prompts: first ask Copilot to summarise a long thread, then follow up with "now draft a reply that addresses the three concerns mentioned." Multi-step prompts unlock much richer results.'}
+    },
+    beginner:[
+      {label:'Summarising',text:'Summarise this email thread in 3 bullet points',why:'Perfect when you\'ve come back to a long chain and need to catch up fast.'},
+      {label:'Writing replies',text:'Write a friendly but professional reply to this email saying I\'ll look into it and get back to them by Thursday',why:'Great starting point — swap in your real deadline and Copilot does the rest.'},
+      {label:'Drafting emails',text:'Draft an email to my team reminding them the project report is due this Friday. Keep it upbeat and brief.',why:'Gives you a solid draft in seconds. Always personalise before sending.'},
+      {label:'Subject lines',text:'Suggest 5 subject lines for this email — make them clear and attention-grabbing',why:'Use when you\'re not sure how to word the subject. Pick your favourite!'},
+      {label:'Simplifying',text:'Make this email shorter and easier to read. Cut anything that isn\'t essential.',why:'Great for emails that have grown too long or complicated.'},
+      {label:'Tone check',text:'Does this email sound too formal / too casual? Suggest a better version.',why:'Useful when you\'re unsure how you\'re coming across to the recipient.'},
+      {label:'Saying no nicely',text:'Help me decline this meeting invitation politely. I\'m busy but want to keep the relationship warm.',why:'One of the trickiest emails to write. Let Copilot handle the diplomacy.'},
+      {label:'Calendar prep',text:'I have a meeting with [Name] tomorrow about [topic]. Draft 5 questions I should ask.',why:'Takes 10 seconds and you\'ll walk in better prepared every time.'},
+    ],
+    advanced:[
+      {label:'Thread analysis',text:'Review this full email thread. List all open action items, who owns them, any unanswered questions, and flag anything that needs my urgent attention.',why:'Cuts hours of back-reading into a 30-second briefing.'},
+      {label:'Difficult message',text:'I need to push back on this proposal without damaging the relationship. Draft a response that\'s respectful but clear about my concerns, and ends with a constructive alternative.',why:'Nuanced situations need nuanced language. This prompt forces Copilot to balance multiple goals.'},
+      {label:'Stakeholder comms',text:'Summarise the last 2 weeks of emails from [Name] into a status update I can share with leadership. Focus on decisions made, blockers, and what\'s coming next.',why:'Useful for weekly reports — saves 30–45 minutes of manual synthesis.'},
+    ],
+    doTip:'Use Copilot to check your tone before sending any sensitive email — paste your draft and ask "does this come across as too blunt or too passive?"',
+    dontTip:'Don\'t send a Copilot-drafted email without reading it first — it can\'t know your personal history or relationship with the recipient.',
+    examples:[
+      {weak:'"Reply to this email"', strong:'"Reply to this email from a client who is unhappy about a delayed delivery. Acknowledge their frustration, explain we\'re investigating the cause, and promise a full update by Thursday. Keep it professional and empathetic — under 150 words."'},
+      {weak:'"Write an email about the meeting"', strong:'"Write a friendly follow-up email to my team recapping Monday\'s project meeting. List the 3 key decisions made and remind everyone that action items are due by Friday at 5pm."'},
+      {weak:'"Summarise this"', strong:'"Summarise this 12-email thread in 3 bullet points. Focus on what was decided, what\'s still open, and who I need to follow up with before end of day."'}
+    ]
+  }, {
+    id:'word', name:'Word', emoji:'📝', color:'#185ABD', light:'#EBF2FC',
+    desc:'Documents, reports & writing',
+    tip:{
+      beginner:{icon:'💡',title:'Copilot in Word tip',color:'#EBF2FC',textColor:'#185ABD',body:'In Word, press Alt+I or look for the Copilot icon in the Home ribbon. You can ask it to write a first draft, improve your writing, or summarise a document — all without leaving Word.'},
+      advanced:{icon:'⚡',title:'Power user tip',color:'#EDE9FE',textColor:'#C96E0A',body:'Use Copilot to rewrite the same content for different audiences in one session. Ask it to write a version for the exec team, then "now rewrite that for the wider staff who weren\'t in the meeting." Huge time-saver for internal comms.'}
+    },
+    beginner:[
+      {label:'First draft',text:'Write a first draft of a one-page project update report. The project is [name], we\'re on track, the main milestone this week was [X].',why:'Gets you past the blank page. You just fill in the details.'},
+      {label:'Improve writing',text:'Make this paragraph clearer and easier to read. Use shorter sentences.',why:'Paste in anything that feels clunky — Copilot will tighten it up.'},
+      {label:'Summarise',text:'Summarise this document in 5 bullet points for someone who hasn\'t read it.',why:'Brilliant for creating executive summaries or briefing notes quickly.'},
+      {label:'Create an agenda',text:'Create a simple meeting agenda for a 1-hour team catch-up. Topics: project update, risks, next steps.',why:'Structure is half the battle with meeting agendas. This gives you a clean starting point.'},
+      {label:'Professional intro',text:'Add a professional introduction to this report. It should explain the purpose and who it\'s for.',why:'Introductions are often written last — Copilot makes them painless.'},
+      {label:'Bullet to prose',text:'Turn these rough bullet points into well-written paragraphs: [paste your bullets]',why:'Write your ideas in bullets first, then let Copilot turn them into flowing text.'},
+      {label:'Simplify jargon',text:'Rewrite this section in plain English for someone who isn\'t a specialist in this area.',why:'Essential for any document that goes outside your team.'},
+      {label:'Check clarity',text:'Read this document and flag any sections that are confusing or could be misunderstood.',why:'Like having a proofreader available any time of day.'},
+    ],
+    advanced:[
+      {label:'Audience rewrite',text:'This proposal is written for a technical team. Rewrite the executive summary for a senior business leader who cares about outcomes, cost, and risk — not process or technology detail.',why:'Audience-matching is one of Copilot\'s strongest skills. Specify exactly who the reader is.'},
+      {label:'Structure overhaul',text:'Restructure this document so the key recommendation comes first, followed by the evidence, and ends with clear next steps. Add headers. Keep the total length the same.',why:'Use when you have all the right content but the flow isn\'t working.'},
+      {label:'Document compare',text:'Compare these two versions of this policy document. Highlight the key differences and flag any changes that might cause confusion or need further clarification.',why:'Saves an hour of manual side-by-side comparison.'},
+    ],
+    doTip:'Tell Copilot who will read the document — "write this for a non-technical manager" produces a completely different result than leaving audience unspecified.',
+    dontTip:'Don\'t accept Copilot\'s restructured version without checking tracked changes — it occasionally drops a sentence or merges sections unintentionally.',
+    examples:[
+      {weak:'"Write a report"', strong:'"Write a 2-page project status report for [project name]. Structure it with: Executive Summary (3 sentences), Progress This Week (bullets), Current Blockers, and Next Steps with owners. The reader is my manager who isn\'t involved day-to-day."'},
+      {weak:'"Make this better"', strong:'"This paragraph is too long and uses too much jargon. Rewrite it in plain English for a non-technical audience. Use shorter sentences and keep it under 100 words."'},
+      {weak:'"Summarise this document"', strong:'"Summarise this 20-page report in 5 bullet points. Focus on the key recommendations and any actions required from leadership. Write it for someone who has 2 minutes to read it."'}
+    ]
+  }, {
+    id:'excel', name:'Excel', emoji:'📊', color:'#217346', light:'#E8F5EE',
+    desc:'Data, spreadsheets & analysis',
+    tip:{
+      beginner:{icon:'💡',title:'Copilot in Excel tip',color:'#E8F5EE',textColor:'#217346',body:'Look for the Copilot button in the Home ribbon. You can describe what you want in plain English — "add a column that calculates the total" or "highlight the top 10 values" — and Copilot will write the formula or make the change for you.'},
+      advanced:{icon:'⚡',title:'Power user tip',color:'#EDE9FE',textColor:'#C96E0A',body:'Ask Copilot to explain its own formulas before you use them. "Write a formula to do X, then explain each part so I understand it." This builds your skills while getting the job done — and helps you catch any errors.'}
+    },
+    beginner:[
+      {label:'Explain a formula',text:'What does this formula do, in plain English? [paste formula here]',why:'No more Googling mysterious formulas. Paste it in and get a clear explanation instantly.'},
+      {label:'Simple formula',text:'Write a formula to add up all the values in column B and show the total at the bottom.',why:'A great starter — works for totals, averages, counts, and more.'},
+      {label:'Budget template',text:'Create a simple monthly budget tracker with columns for category, planned amount, actual amount, and difference. Add a summary row at the bottom.',why:'Takes 5 minutes to create manually — Copilot does it in 5 seconds.'},
+      {label:'Explain my data',text:'Look at this spreadsheet and explain what it\'s showing me in plain English.',why:'Really useful when you\'ve inherited a spreadsheet you didn\'t build.'},
+      {label:'Highlight data',text:'Highlight all cells in column C where the value is over 1000 in red.',why:'Conditional formatting in plain English — no menu-diving required.'},
+      {label:'Chart help',text:'What type of chart would work best to show this data, and how do I create it?',why:'Copilot will recommend the right chart type based on what your data is trying to show.'},
+      {label:'Task tracker',text:'Create a simple project task tracker with columns for task name, owner, due date, status (Not started / In progress / Done), and notes.',why:'Ready-to-use template for any team project.'},
+      {label:'Clean up data',text:'This column has dates in different formats. How do I make them all consistent?',why:'A classic spreadsheet headache — Copilot walks you through the fix step by step.'},
+    ],
+    advanced:[
+      {label:'Cross-sheet lookup',text:'Write a formula to match the employee IDs in column A of Sheet1 with the salary data in Sheet2, and return the salary. Flag in red any IDs that don\'t match.',why:'VLOOKUP/XLOOKUP made simple. The "flag mismatches" instruction catches data errors automatically.'},
+      {label:'Trend analysis',text:'Analyse this sales data and identify the top 3 trends. Based on margin and growth rate, which product lines should we prioritise next quarter? Explain your reasoning.',why:'Combines data analysis with business reasoning — the kind of insight that used to take an analyst hours.'},
+      {label:'Dashboard formula',text:'Create a formula structure for a dashboard that automatically updates when I add new rows. Include a running total, percentage change from last month, and a RAG status indicator (Red/Amber/Green).',why:'Builds the backbone of a self-updating management dashboard in one prompt.'},
+    ],
+    doTip:'Ask Copilot to explain any formula it writes before you use it — "now explain each part in plain English" builds your skills and helps you catch errors.',
+    dontTip:'Don\'t use a Copilot-generated formula in a critical report without testing it on a small sample of data first — always verify the output makes sense.',
+    examples:[
+      {weak:'"Make a formula"', strong:'"Write a formula that looks up the Employee ID in cell A2 against the range D2:E100 and returns the matching salary from column E. If there\'s no match, display \'Not found\' instead of an error."'},
+      {weak:'"Create a spreadsheet"', strong:'"Create a monthly budget tracker with columns for: Category, Planned Amount, Actual Amount, Difference, and % Variance. Add a totals row at the bottom and highlight in red any row where Actual exceeds Planned."'},
+      {weak:'"Analyse this data"', strong:'"Analyse the sales figures in columns A–D. Identify the top 3 products by revenue, the month with the highest total, and flag any products where sales dropped more than 20% compared to the previous month."'}
+    ]
+  }, {
+    id:'teams', name:'Teams', emoji:'💬', color:'#6264A7', light:'#EEEEF5',
+    desc:'Meetings, chat & collaboration',
+    tip:{
+      beginner:{icon:'💡',title:'Copilot in Teams tip',color:'#EEEEF5',textColor:'#6264A7',body:'After a Teams meeting, Copilot can summarise what was discussed — even if you missed part of it. Look for the Copilot icon in the meeting recap. You can also use it in chat by typing your request in the Copilot app.'},
+      advanced:{icon:'⚡',title:'Power user tip',color:'#EDE9FE',textColor:'#C96E0A',body:'After your next meeting, ask Copilot for three outputs in one prompt: "Give me a 3-sentence summary for my manager, a full action log with owners and deadlines, and a list of any questions that came up but weren\'t answered." One prompt, three documents done.'}
+    },
+    beginner:[
+      {label:'Meeting summary',text:'Summarise what was discussed in this meeting. List the main topics covered.',why:'Brilliant for catching up if you were late, multitasking, or just need a refresher.'},
+      {label:'Action items',text:'List all the action items from this meeting. Include who is responsible and any deadlines mentioned.',why:'Never miss a follow-up again. Run this right after every meeting.'},
+      {label:'Monday message',text:'Write a short, upbeat Teams message to kick off the team\'s week. Mention we have a deadline on Thursday and a team lunch on Friday.',why:'Sets a positive tone and keeps everyone aligned. Takes 10 seconds.'},
+      {label:'Catch up message',text:'Draft a message to my colleague asking for a project update. Keep it friendly and brief — I don\'t want to come across as chasing them.',why:'Gets the tone right so you don\'t accidentally sound like you\'re nagging.'},
+      {label:'Meeting notes',text:'Turn these rough notes into a clean, clearly structured meeting summary I can share with the team: [paste your notes]',why:'Takes messy scribbles and makes them presentation-ready.'},
+      {label:'Team announcement',text:'Write a Teams post announcing that [project/initiative] is launching next week. Keep it exciting and include 3 key things people need to know.',why:'Announcements always need a little polish — Copilot adds it instantly.'},
+      {label:'Meeting prep',text:'I have a 30-minute catch-up with my manager tomorrow. Write 5 talking points based on what I\'ve been working on this week: [paste brief notes]',why:'Walk into every 1:1 prepared, not scrambling.'},
+      {label:'Polite decline',text:'Draft a Teams message declining a meeting invitation. I\'m overloaded this week but want to stay involved — suggest an alternative like a quick update by email instead.',why:'Saying no is hard. Copilot makes it gracious.'},
+    ],
+    advanced:[
+      {label:'Triple output',text:'From this meeting transcript, produce three things: 1) a 3-sentence summary for leadership, 2) a detailed action log with owners and deadlines, 3) a list of unresolved questions that need a follow-up meeting.',why:'One prompt, three high-quality outputs. This alone saves 30–45 minutes per meeting.'},
+      {label:'Feedback prep',text:'I need to give difficult feedback to a team member about missing deadlines. Draft key talking points for our 1:1 that are direct, fair, constructive, and end with agreed next steps.',why:'Copilot can help you find the right words for conversations you\'ve been putting off.'},
+      {label:'Rally the team',text:'Write a Teams channel post that rallies the team around our Q3 goal of [X]. Make it specific to what we\'ve achieved, honest about the challenge ahead, and end with a clear call to action.',why:'Leadership messages land better when they\'re specific and energetic — not generic.'},
+    ],
+    doTip:'Run a Copilot meeting summary immediately after every Teams call while the recording is fresh — it takes 10 seconds and saves hours of note-taking.',
+    dontTip:'Don\'t share a Copilot meeting summary externally without checking it first — it may include internal comments or candid remarks not meant for outside eyes.',
+    examples:[
+      {weak:'"Write a meeting summary"', strong:'"Write a summary of this Teams meeting transcript. Include: the 3 key decisions made, all action items with the owner\'s name and deadline, and any questions raised but not answered. Format it so I can paste it into an email."'},
+      {weak:'"Write a message to my team"', strong:'"Write a short Teams message to kick off Monday morning. Remind the team the client presentation is Thursday, slides are due to me by Wednesday noon, and keep the tone energetic and brief."'},
+      {weak:'"Help me write something for my manager"', strong:'"Write a 3-sentence Teams update to my manager on [project name]: we\'re on track, completed user testing this week, and the design review is on [date]. Keep it professional but conversational."'}
+    ]
+  }, {
+    id:'onedrive', name:'OneDrive', emoji:'☁️', color:'#0364B8', light:'#E6F0FB',
+    desc:'Personal files & documents',
+    tip:{
+      beginner:{icon:'💡',title:'Copilot with OneDrive tip',color:'#E6F0FB',textColor:'#0364B8',body:'Open any Office file stored in OneDrive (Word, Excel, PowerPoint) and Copilot is available inside it. You can also reference your files in Microsoft 365 Chat — just type "/" and pick a file to bring it into the conversation.'},
+      advanced:{icon:'⚡',title:'Power user tip',color:'#EDE9FE',textColor:'#C96E0A',body:'Reference multiple files in a single prompt using Microsoft 365 Chat: "Compare /ProjectBriefV1 and /ProjectBriefV2 and tell me what changed." Copilot can pull from several documents at once to give you synthesised insights.'}
+    },
+    beginner:[
+      {label:'Understand a file',text:'What is this document about? Give me a plain English summary of what\'s in it.',why:'Start here whenever you open an unfamiliar file — instant orientation.'},
+      {label:'Find key info',text:'What does this document say about [topic]? I\'m looking for the part about [specific thing].',why:'Like Ctrl+F but smarter — finds meaning, not just keywords.'},
+      {label:'Summarise a PDF',text:'Summarise the key points of this document in 5 bullet points. Write it for someone who hasn\'t read it.',why:'Perfect for long reports you need to understand quickly.'},
+      {label:'Spot changes',text:'What are the main differences between this version and the previous version of this document?',why:'Saves the painstaking job of manually comparing two similar files.'},
+      {label:'Create from notes',text:'I have rough notes saved here. Turn them into a properly formatted document with an introduction, sections, and a summary.',why:'Your rough notes become a polished document in one step.'},
+      {label:'Quick brief',text:'I\'m about to present this document to my team. Give me a 2-minute verbal summary I can use to introduce it.',why:'Prep for any presentation or meeting in under a minute.'},
+      {label:'Check completeness',text:'Is this report missing anything obvious? What sections or information would you expect to see that aren\'t here?',why:'Like having a second pair of eyes review your work before you share it.'},
+      {label:'Simplify language',text:'This document uses a lot of technical language. Rewrite it so someone outside our industry could understand it.',why:'Essential for anything going to clients, external partners, or senior leadership.'},
+    ],
+    advanced:[
+      {label:'Folder status',text:'Review the documents in this project folder and give me a status summary — what\'s complete, what\'s in draft, and what seems to be missing based on the project brief.',why:'Instant project audit — turns a folder of files into a status report.'},
+      {label:'Theme extraction',text:'I have meeting notes from the last 6 weeks saved here. Identify the recurring themes, any unresolved issues, and flag any decisions that seem to contradict each other.',why:'Synthesises weeks of information into the patterns that actually matter.'},
+      {label:'Cross-file check',text:'Cross-reference this budget spreadsheet with the project scope document and flag any deliverables that aren\'t accounted for in the budget.',why:'The kind of analysis that used to take hours of careful manual work.'},
+    ],
+    doTip:'Use "/" in Microsoft 365 Chat to reference a specific OneDrive file by name — it gives Copilot precise context instead of searching broadly.',
+    dontTip:'Don\'t assume Copilot has found every relevant file — for important work, always do a quick manual check to confirm nothing critical was missed.',
+    examples:[
+      {weak:'"Summarise this"', strong:'"Summarise this 15-page strategy document in 3 parts: 1) The main goal in one sentence, 2) The 5 key actions proposed, 3) Any risks or concerns mentioned. Write it for a senior leader who has 2 minutes to read it."'},
+      {weak:'"Find information"', strong:'"Search my OneDrive for everything related to [project name]. List the documents you find, when each was last updated, and give me a one-sentence description of what each contains."'},
+      {weak:'"Compare these documents"', strong:'"Compare /ProposalV1 and /ProposalV2 in my OneDrive. List what was added, what was removed, and flag any changes that might affect the project budget or timeline."'}
+    ]
+  }, {
+    id:'sharepoint', name:'SharePoint', emoji:'🏢', color:'#038387', light:'#E0F3F4',
+    desc:'Intranet, team sites & knowledge',
+    tip:{
+      beginner:{icon:'💡',title:'Copilot with SharePoint tip',color:'#E0F3F4',textColor:'#038387',body:'In Microsoft 365 Chat, you can ask Copilot to search across your SharePoint sites by asking questions in natural language: "Find the latest version of the travel expenses policy." It searches your org\'s content, not the whole internet.'},
+      advanced:{icon:'⚡',title:'Power user tip',color:'#EDE9FE',textColor:'#C96E0A',body:'Use Copilot to help build self-serve knowledge bases on SharePoint. Give it a rough briefing note and ask it to structure it as a proper article with a summary, step-by-step guide, FAQs, and links. What used to take a day of writing can be done in an hour.'}
+    },
+    beginner:[
+      {label:'Find info',text:'Find information about our [expense policy / onboarding process / leave policy] and summarise the key rules.',why:'No more searching through folders — describe what you need and Copilot finds it.'},
+      {label:'Summarise a page',text:'Summarise this SharePoint page for me. What are the 3 most important things on it?',why:'Great for long intranet pages where you just need the essentials.'},
+      {label:'Write a news post',text:'Write a short news post for our team SharePoint site announcing [project / achievement / event]. Make it engaging and under 150 words.',why:'Keeps your team site active without spending time writing from scratch.'},
+      {label:'Create an FAQ',text:'Turn these rough notes into a clear FAQ page. Write it so any new starter could understand it.',why:'FAQs are one of the most useful things on any intranet — and one of the easiest to create with Copilot.'},
+      {label:'Folder description',text:'Write a short description for a SharePoint folder called "[name]" so team members know what belongs in it.',why:'Small thing, big difference — clear folder descriptions reduce misplaced files.'},
+      {label:'Page introduction',text:'Write a welcome introduction for our team\'s SharePoint site. Include what the site is for, how to navigate it, and who to contact for help.',why:'A good introduction means fewer "where do I find...?" messages.'},
+      {label:'Search for docs',text:'Find all documents on SharePoint related to [topic]. Which is the most recent version?',why:'Cuts through the mess of versioned files to surface what you actually need.'},
+      {label:'Onboarding guide',text:'Help me write a simple onboarding checklist for new starters in our team. Include the systems they\'ll need access to, key contacts, and first-week tasks.',why:'Every team should have one. Copilot can build a solid first draft based on what you tell it.'},
+    ],
+    advanced:[
+      {label:'Site audit',text:'Review the structure of our SharePoint site. Suggest improvements to the navigation, naming conventions, and how content is organised. Highlight anything that looks outdated.',why:'Periodic audits keep your intranet useful instead of becoming a digital junk drawer.'},
+      {label:'Knowledge article',text:'Turn this rough internal briefing note into a structured knowledge base article. Include: a plain-English summary, step-by-step guide, FAQs, common mistakes to avoid, and links to related content.',why:'Transforms institutional knowledge from someone\'s head (or a messy email) into something the whole org can use.'},
+      {label:'Content search',text:'Search across our SharePoint sites for all content related to [project name]. Group findings by document type and date, and flag anything that looks outdated or potentially conflicting.',why:'Org-wide search with editorial intelligence — surfaces what you need and what you should clean up.'},
+    ],
+    doTip:'Use Copilot to write consistent folder descriptions and page introductions across your SharePoint sites — small effort, big improvement to navigation.',
+    dontTip:'Don\'t let Copilot publish content directly to SharePoint without a human review — inaccurate or poorly structured content on the intranet erodes trust quickly.',
+    examples:[
+      {weak:'"Write a SharePoint page"', strong:'"Write a SharePoint page introducing our IT helpdesk to new starters. Include: what the helpdesk does, how to raise a ticket, typical response times, and a FAQ covering the 5 most common requests. Keep it friendly and clear."'},
+      {weak:'"Find something on SharePoint"', strong:'"Search our SharePoint sites for the most recent version of the Data Protection Policy. Summarise the 5 key rules staff need to follow and tell me when the document was last updated."'},
+      {weak:'"Help me with our intranet"', strong:'"Review the navigation of our team SharePoint site and suggest 3 specific improvements that would help a new starter find what they need in their first week."'}
+    ]
+  }, {
+    id:'reportbuilder', name:'Report Builder', emoji:'🔗', color:'#E65C00', light:'#FFF3EB',
+    desc:'Pull info from multiple apps into one report',
+    isWorkflow: true,
+    tip:{
+      beginner:{icon:'💡',title:'What is this?',color:'#FFF3EB',textColor:'#C2410C',body:'This section shows you how to pull information together from your emails, files, and SharePoint into one report. It\'s a bit more advanced — but the step-by-step guide below makes it easy to follow. Come back here once you\'re comfortable with the other apps!'},
+      advanced:{icon:'⚡',title:'Microsoft 365 Copilot Chat — your cross-app superpower',color:'#EDE9FE',textColor:'#C96E0A',body:'<strong>Where to do this:</strong> Open <strong>Microsoft 365 Copilot Chat</strong> — find it at <strong>copilot.microsoft.com</strong>, in the Copilot app in Teams, or via the M365 app launcher. This is different from Copilot inside individual apps. It can see across your emails, files, Teams, and calendar all at once.<br><br>Use <strong>"/"</strong> to reference a specific file. Use <strong>"@"</strong> to reference a person. The more context you give it, the better the result.'}
+    },
+    beginner:[
+      {label:'Simple version',text:'I need to write a short update on [project]. I have some emails about it and a document in OneDrive. Can you find what\'s relevant and give me a summary to work from?',why:'A gentle starting point — just describe what you\'re looking for and let Copilot hunt for it.'},
+      {label:'Status update',text:'Find my recent emails and Teams messages about [project name] and summarise what\'s been happening. What are the main updates from the last two weeks?',why:'Great for weekly status updates when you\'ve been too busy to keep notes.'},
+      {label:'Meeting prep',text:'I have a meeting about [project] tomorrow. Find everything I have on it — emails, files, meeting notes — and give me a 5-point briefing so I\'m prepared.',why:'Walk into any meeting fully briefed, even when you\'ve had no time to prepare.'},
+    ],
+    advanced:[
+      {label:'Step 1 — Discover',text:'Search across my emails, OneDrive files, SharePoint, and Teams messages for everything related to [project name] from the last [4 weeks / quarter]. List what you found, where it came from, and give me a brief summary of each item.',why:'This is your starting point. Let Copilot do the hunting first before you ask it to write anything.'},
+      {label:'Step 2 — Synthesise',text:'Based on what you\'ve found: summarise the current project status, list all key decisions made, identify any open questions or blockers, and note who the main contributors and stakeholders are.',why:'Turns a pile of scattered information into structured intelligence. This is the insight layer before you start writing.'},
+      {label:'Step 3 — Structure',text:'Use this information to create a detailed outline for a [monthly / quarterly / project close] report. Include sections for: Executive Summary, Progress This Period, Key Decisions Made, Risks and Blockers, Financial Summary, and Next Steps with owners.',why:'The outline is the hardest part. Once Copilot builds it from real data, the rest is just filling it in.'},
+      {label:'Step 4 — Draft',text:'Write a first draft of the Executive Summary section using the information gathered. The audience is senior leadership who aren\'t close to the project — focus on outcomes, impact, and anything they need to decide. Keep it to 200 words.',why:'Specify the audience every time — it completely changes the tone and level of detail Copilot uses.'},
+      {label:'Step 5 — Refine in Word',text:'Open this draft in Word. The Progress section needs more detail — pull in the relevant content from /[filename] in my OneDrive and expand it. Keep the same tone and structure as the rest of the document.',why:'Use "/" to reference a specific file and tell Copilot exactly where to inject more detail.'},
+      {label:'Bonus — Gap check',text:'Review this draft report against the original project brief and the emails from [person / team] about deliverables. Is there anything we committed to that isn\'t reflected in the report? Flag any gaps.',why:'Ensures nothing falls through the cracks before you share the report with stakeholders.'},
+    ],
+    doTip:'Always run the Discover step first before asking for a draft — let Copilot find everything relevant before you ask it to write anything.',
+    dontTip:'Don\'t try to do it all in one prompt ("write a report from all my emails") — the staged approach always gives better, more accurate results.',
+    examples:[
+      {weak:'"Write a report from my emails"', strong:'"Search my Outlook emails, OneDrive files, and SharePoint for everything related to [project name] from the last 4 weeks. List what you found, where it came from, and give me a 2-sentence summary of each — before writing anything."'},
+      {weak:'"Pull together information for a report"', strong:'"I need to write a monthly status report for [project name]. Before drafting, search my emails and files for: decisions made this month, any risks flagged, and progress against the 3 milestones in the project plan. List findings first."'},
+      {weak:'"Summarise everything about this project"', strong:'"Based on my emails, Teams messages, and OneDrive files from the last 6 weeks: summarise the current status, list all key decisions, identify open blockers, and note the main contributors. Then create a structured report outline using these as sections."'}
+    ]
+  }
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────
+var currentLevel = 'beginner';
+var currentApp = 'outlook';
+
+// ── RENDER NAV ─────────────────────────────────────────────────────────────
+function renderNav() {
+  var nav = document.getElementById('appNav');
+  var html = '';
+  for (var i = 0; i < apps.length; i++) {
+    var a = apps[i];
+    var isActive = a.id === currentApp;
+    html += '<button class="app-pill ' + (isActive ? 'active' : '') + '"'
+      + ' style="' + (isActive ? 'background:' + a.color : '') + '"'
+      + ' onclick="setApp(\'' + a.id + '\')">'
+      + '<span class="app-dot" style="background:' + (isActive ? '#fff' : a.color) + '"></span>'
+      + a.emoji + ' ' + a.name + '</button>';
+  }
+  nav.innerHTML = html;
+}
+
+// ── RENDER HELPERS ─────────────────────────────────────────────────────────
+function promptCard(p, i, appId, color) {
+  var safe = p.text.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+  return '<div class="prompt-card" style="border-left-color:' + color + '">'
+    + '<div class="prompt-label" style="color:' + color + '">' + p.label + '</div>'
+    + '<div class="prompt-text">&ldquo;' + p.text + '&rdquo;</div>'
+    + '<div class="prompt-why">' + p.why + '</div>'
+    + '<button class="copy-btn" onclick="copyPrompt(this,\'' + safe + '\',\'' + appId + '-' + i + '\')" style="color:' + color + ';border-color:' + color + '30">'
+    + '📋 Copy prompt</button></div>';
+}
+
+function workflowSteps(prompts, appId) {
+  var steps = [
+    {num:'1️⃣', title:'Discover — find everything',       color:'#FFF3EB', border:'#E65C00'},
+    {num:'2️⃣', title:'Synthesise — make sense of it',    color:'#FEF3C7', border:'#D97706'},
+    {num:'3️⃣', title:'Structure — build the outline',    color:'#FEF3E4', border:'#C96E0A'},
+    {num:'4️⃣', title:'Draft — write the first version',  color:'#E0F3F0', border:'#0B7A6B'},
+    {num:'5️⃣', title:'Refine — polish in Word',          color:'#EBF2FC', border:'#185ABD'},
+    {num:'✅',  title:'Bonus — gap check before sharing', color:'#DCFCE7', border:'#16A34A'},
+  ];
+  var html = '<div class="where-box">'
+    + '<span class="where-icon">🖥️</span><div>'
+    + '<div class="where-title">Where to do this: Microsoft 365 Copilot Chat</div>'
+    + '<div class="where-body">Go to <strong>copilot.microsoft.com</strong> — or open Copilot in Teams or the M365 app launcher. '
+    + 'This is the one place Copilot can see across <strong>all your apps at once</strong>: emails, OneDrive files, SharePoint, Teams messages, and calendar.<br><br>'
+    + 'Type <strong>&ldquo;/&rdquo;</strong> to reference a specific file. Type <strong>&ldquo;@&rdquo;</strong> to reference a colleague.</div>'
+    + '</div></div>'
+    + '<p style="font-size:13px;font-weight:700;color:#E65C00;margin-bottom:16px">📋 Use these prompts in order — they build on each other into a complete report:</p>'
+    + '<div class="workflow-steps">';
+  for (var i = 0; i < steps.length; i++) {
+    var s = steps[i];
+    var p = prompts[i];
+    if (!p) continue;
+    var safe = p.text.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+    html += '<div class="wf-step">'
+      + '<div class="wf-num" style="background:' + s.color + ';border-color:' + s.border + ';font-size:20px">' + s.num + '</div>'
+      + '<div class="wf-content">'
+      + '<div class="wf-title" style="color:' + s.border + '">' + s.title + '</div>'
+      + '<div class="wf-desc">' + p.why + '</div>'
+      + '<div class="prompt-text" style="font-size:13px;margin-bottom:8px">&ldquo;' + p.text + '&rdquo;</div>'
+      + '<button class="copy-btn" onclick="copyPrompt(this,\'' + safe + '\',\'' + appId + '-' + i + '\')" style="color:' + s.border + ';border-color:' + s.border + '30">'
+      + '📋 Copy this prompt</button>'
+      + '</div></div>';
+  }
+  html += '</div>';
+  return html;
+}
+
+function promptGrid(prompts, appId, color) {
+  var html = '<p style="font-size:13px;color:var(--muted);margin-bottom:16px;font-weight:600">'
+    + prompts.length + ' prompts to try — click 📋 to copy any of them:</p>'
+    + '<div class="prompts-grid">';
+  for (var i = 0; i < prompts.length; i++) {
+    html += promptCard(prompts[i], i, appId, color);
+  }
+  html += '</div>';
+  return html;
+}
+
+function advPromptGrid(prompts, appId, color) {
+  var html = '<p style="font-size:13px;color:var(--muted);margin-bottom:16px;font-weight:600">'
+    + prompts.length + ' high-impact prompts — copy, customise, and go:</p>'
+    + '<div class="prompts-grid">';
+  for (var i = 0; i < prompts.length; i++) {
+    html += promptCard(prompts[i], i, appId, color);
+  }
+  html += '</div>';
+  return html;
+}
+
+// ── RENDER PANELS ──────────────────────────────────────────────────────────
+function renderPanels() {
+  var isAdv = currentLevel === 'advanced';
+  var html = '';
+  for (var ai = 0; ai < apps.length; ai++) {
+    var a = apps[ai];
+    var prompts = a[currentLevel];
+    var tip = a.tip[currentLevel];
+    var active = a.id === currentApp ? 'active' : '';
+
+    html += '<section id="panel-' + a.id + '" class="app-panel ' + active + '">';
+    html += '<div class="section-header">'
+      + '<div class="app-icon-big" style="background:' + a.light + '">' + a.emoji + '</div>'
+      + '<div><h2>' + a.name + '</h2><p>' + a.desc + '</p></div>'
+      + '</div>';
+    html += '<span class="level-tag ' + currentLevel + '">' + (isAdv ? '⚡ Advanced track' : '🌱 Beginner track') + '</span>';
+
+    if (isAdv) {
+      html += '<div class="anatomy">'
+        + '<h3>🧩 Anatomy of a great prompt</h3>'
+        + '<div class="anatomy-parts">'
+        + '<span class="anat-part" style="background:#FFF0E6;color:#C2410C">🎯 Task — what do you want?</span>'
+        + '<span class="anat-part" style="background:#E8F5EE;color:#15803D">📋 Context — relevant background</span>'
+        + '<span class="anat-part" style="background:#FEF3E4;color:#C96E0A">🎨 Format — length, structure, tone</span>'
+        + '<span class="anat-part" style="background:#FEF3C7;color:#92400E">👤 Audience — who will read it?</span>'
+        + '</div>'
+        + '<div class="anatomy-example">&ldquo;<strong style="color:#C2410C">Draft a project status update</strong> '
+        + '<strong style="color:#15803D">for the redesign project — we\'re on track, main milestone this week was completing user testing</strong>. '
+        + '<strong style="color:#C96E0A">Use 3 short paragraphs with a header.</strong> '
+        + '<strong style="color:#92400E">It\'s for the senior leadership team who aren\'t involved day-to-day.</strong>&rdquo;</div>'
+        + '</div>';
+    }
+
+    html += '<div class="tip-box" style="background:' + tip.color + '">'
+      + '<span class="tip-icon">' + tip.icon + '</span>'
+      + '<div><div class="tip-title" style="color:' + tip.textColor + '">' + tip.title + '</div>'
+      + '<div class="tip-body">' + tip.body + '</div></div>'
+      + '</div>';
+
+    if (a.isWorkflow && isAdv) {
+      html += workflowSteps(prompts, a.id);
+    } else if (isAdv) {
+      html += advPromptGrid(prompts, a.id, a.color);
+    } else {
+      html += promptGrid(prompts, a.id, a.color);
+    }
+
+    // App-specific Do / Don't — shown after prompts
+    if (a.doTip) {
+      html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;margin-bottom:20px">'
+        + '<div style="background:var(--green-lt);border-radius:var(--radius-sm);padding:14px 16px;border-left:3px solid var(--green)">'
+        + '<div style="font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:6px">✅ Do — ' + a.name + ' specific</div>'
+        + '<div style="font-size:13px;line-height:1.6;color:#1a1a1a">' + a.doTip + '</div>'
+        + '</div>'
+        + '<div style="background:var(--red-lt);border-radius:var(--radius-sm);padding:14px 16px;border-left:3px solid var(--red)">'
+        + '<div style="font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:6px">❌ Don\'t — ' + a.name + ' specific</div>'
+        + '<div style="font-size:13px;line-height:1.6;color:#1a1a1a">' + a.dontTip + '</div>'
+        + '</div>'
+        + '</div>';
+    }
+
+    html += '</section>';
+  }
+  document.getElementById('appPanels').innerHTML = html;
+}
+
+// ── RENDER WEAK VS STRONG ──────────────────────────────────────────────────
+function renderWeakStrong() {
+  var a = apps.find(function(x){ return x.id === currentApp; });
+  var section = document.getElementById('weakStrongSection');
+  if (!a || !a.examples) { section.innerHTML = ''; return; }
+  var html = '<h2 style="font-size:22px;font-weight:900;margin-bottom:6px">🔍 Weak vs. Strong Prompts</h2>'
+    + '<p class="sub" style="margin-bottom:24px">' + a.emoji + ' ' + a.name + ' examples — see exactly what makes the difference</p>';
+  for (var i = 0; i < a.examples.length; i++) {
+    var ex = a.examples[i];
+    html += '<div style="background:var(--white);border-radius:var(--radius);border:1.5px solid var(--border);padding:18px 20px;margin-bottom:14px">'
+      + '<div style="font-size:11px;font-weight:800;color:var(--muted);margin-bottom:12px;letter-spacing:.06em">EXAMPLE ' + (i+1) + ' OF ' + a.examples.length + '</div>'
+      + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">'
+      + '<div style="background:var(--red-lt);border-radius:10px;padding:14px 16px;border-left:3px solid var(--red)">'
+      + '<div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--red);margin-bottom:8px">❌ Too vague</div>'
+      + '<div style="font-size:13px;font-style:italic;color:#333;line-height:1.6">' + ex.weak + '</div>'
+      + '</div>'
+      + '<div style="background:var(--green-lt);border-radius:10px;padding:14px 16px;border-left:3px solid var(--green)">'
+      + '<div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--green);margin-bottom:8px">✅ Much better</div>'
+      + '<div style="font-size:13px;font-style:italic;color:#333;line-height:1.6">' + ex.strong + '</div>'
+      + '</div>'
+      + '</div></div>';
+  }
+  section.innerHTML = html;
+}
+function setLevel(level) {
+  currentLevel = level;
+  document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`[data-level="${level}"]`).classList.add('active');
+  document.getElementById('levelHint').textContent = level === 'beginner'
+    ? 'New to AI? Start here — loads of easy examples to try today'
+    : 'Ready to go deeper? Power prompts for experienced Copilot users';
+  renderPanels();
+}
+
+function setApp(id) {
+  currentApp = id;
+  renderNav();
+  document.querySelectorAll('.app-panel').forEach(function(p){p.classList.remove('active');});
+  var panel = document.getElementById('panel-'+id);
+  if(panel){panel.classList.add('active');panel.scrollIntoView({behavior:'smooth',block:'start'});}
+  renderWeakStrong();
+}
+
+function showCopied(btn) {
+  btn.textContent = '✅ Copied!';
+  btn.classList.add('copied');
+  setTimeout(function() {
+    btn.textContent = '📋 Copy prompt';
+    btn.classList.remove('copied');
+  }, 2000);
+}
+
+function fallbackCopy(text, btn) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.left = '-9999px';
+  ta.style.top = '-9999px';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  try {
+    var ok = document.execCommand('copy');
+    if (ok) { showCopied(btn); }
+    else { btn.textContent = '⚠️ Select text manually'; }
+  } catch(e) {
+    btn.textContent = '⚠️ Select text manually';
+  }
+  document.body.removeChild(ta);
+}
+
+function copyPrompt(btn, text, id) {
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text)
+      .then(function() { showCopied(btn); })
+      .catch(function() { fallbackCopy(text, btn); });
+  } else {
+    fallbackCopy(text, btn);
+  }
+}
+
+// ── INIT ───────────────────────────────────────────────────────────────────
+renderNav();
+renderPanels();
+renderWeakStrong();
+</script>
+</body>
+</html>
