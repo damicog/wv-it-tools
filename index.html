@@ -331,6 +331,18 @@ window.addEventListener('hashchange', render);
 
 // === RENDER ===
 function render() {
+  // Remember focused input so search/text fields don't lose focus on re-render
+  var focused = document.activeElement;
+  var focusInfo = null;
+  if (focused && (focused.tagName === 'INPUT' || focused.tagName === 'TEXTAREA')) {
+    focusInfo = {
+      id: focused.id || null,
+      cls: focused.className || null,
+      placeholder: focused.placeholder || null,
+      selStart: focused.selectionStart,
+      selEnd: focused.selectionEnd
+    };
+  }
   const r = getRoute();
   const app = document.getElementById('app');
   updateNav(r);
@@ -344,6 +356,24 @@ function render() {
   else if (r.path[0] === 'audit') renderAudit(app);
   else if (r.path[0] === 'settings') renderSettings(app);
   else renderDashboard(app);
+  // Keep global search box in sync with deviceSearch
+  var gs = document.getElementById('globalSearch');
+  if (gs && document.activeElement !== gs && gs.value !== deviceSearch) gs.value = deviceSearch;
+  // Restore focus to the same input after re-render
+  if (focusInfo) {
+    var el = null;
+    if (focusInfo.id) el = document.getElementById(focusInfo.id);
+    if (!el && focusInfo.placeholder) {
+      var inputs = document.querySelectorAll('input, textarea');
+      for (var i = 0; i < inputs.length; i++) {
+        if (inputs[i].placeholder === focusInfo.placeholder) { el = inputs[i]; break; }
+      }
+    }
+    if (el) {
+      el.focus();
+      try { el.setSelectionRange(focusInfo.selStart, focusInfo.selEnd); } catch(e) {}
+    }
+  }
 }
 
 const NAV_ITEMS = [
@@ -565,7 +595,7 @@ function renderDevices(app) {
   app.innerHTML =
     '<h1 class="page-title">Devices</h1>'+
     '<div class="chip-bar">'+chips.map(function(c) { return '<span class="chip '+(deviceFilter===c[0]?'active':'')+'" onclick="deviceFilter=\''+c[0]+'\';deviceSearch=\'\';render()">'+c[1]+'</span>'; }).join('')+'</div>'+
-    '<div class="toolbar"><input class="search-input" placeholder="Search tag, name, serial, user..." value="'+esc(deviceSearch)+'" oninput="deviceSearch=this.value;render()" /><span class="spacer"></span><button class="btn btn-secondary btn-sm" onclick="exportCSV()">Export CSV</button><button class="btn btn-primary btn-sm" onclick="showAddDevice()">+ Add Device</button></div>'+
+    '<div class="toolbar"><input class="search-input" placeholder="Search tag, name, serial, user..." value="'+esc(deviceSearch)+'" oninput="deviceSearch=this.value;syncGlobalSearch();render()" /><span class="spacer"></span><button class="btn btn-secondary btn-sm" onclick="exportCSV()">Export CSV</button><button class="btn btn-secondary btn-sm" onclick="exportHTML()" title="Download self-contained HTML with current data — upload to GitHub to publish updates">📥 Save as index.html</button><button class="btn btn-primary btn-sm" onclick="showAddDevice()">+ Add Device</button></div>'+
     '<div style="overflow-x:auto"><table class="data-table"><thead><tr>'+
       '<th onclick="sortDevices(\'tag\')">Tag '+arrow('tag')+'</th>'+
       '<th onclick="sortDevices(\'name\')">Device '+arrow('name')+'</th>'+
@@ -614,6 +644,24 @@ function exportCSV() {
   a.download = 'wv_devices_export.csv';
   a.click();
   toast('CSV exported');
+}
+function exportHTML() {
+  // Generate a fresh self-contained HTML with current devices + users baked in as SEED data.
+  // This lets you upload it as index.html to GitHub and everyone sees the updated data.
+  var html = document.documentElement.outerHTML;
+  var newDevicesJson = JSON.stringify(state.devices);
+  var newUsersJson = JSON.stringify(state.users);
+  // Replace the SEED_DEVICES = [...]; line
+  html = html.replace(/const\s+SEED_DEVICES\s*=\s*\[[\s\S]*?\];/, 'const SEED_DEVICES = ' + newDevicesJson + ';');
+  html = html.replace(/const\s+SEED_USERS\s*=\s*\[[\s\S]*?\];/, 'const SEED_USERS = ' + newUsersJson + ';');
+  // Add doctype back (outerHTML doesn't include it)
+  html = '<!DOCTYPE html>\n' + html;
+  var blob = new Blob([html], {type: 'text/html'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'index.html';
+  a.click();
+  toast('HTML exported as index.html — upload to GitHub to publish');
 }
 
 // === DEVICE DETAIL ===
@@ -1490,9 +1538,20 @@ function importJSON(file) {
 }
 
 // === GLOBAL SEARCH ===
+function syncGlobalSearch() {
+  var g = document.getElementById('globalSearch');
+  if (g && g.value !== deviceSearch) g.value = deviceSearch;
+}
 document.getElementById('globalSearch').addEventListener('input', function() {
-  var q = this.value.trim();
-  if (q.length >= 2) { deviceSearch = q; deviceFilter = 'all'; navigate('#/devices'); }
+  var q = this.value;
+  deviceSearch = q;
+  deviceFilter = 'all';
+  // Only navigate if we're not already on the devices page
+  if (location.hash.indexOf('#/devices') !== 0) {
+    navigate('#/devices');
+  } else {
+    render();
+  }
 });
 document.addEventListener('keydown', function(e) {
   if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); document.getElementById('globalSearch').focus(); }
