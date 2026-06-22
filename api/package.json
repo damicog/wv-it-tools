@@ -1,0 +1,8 @@
+{
+  "name": "camd-asset-manager-api",
+  "version": "1.0.0",
+  "description": "Azure Functions API for CAMD Events Asset Manager",
+  "engines": {
+    "node": ">=18"
+  }
+}
