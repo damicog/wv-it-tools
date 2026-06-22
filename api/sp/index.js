@@ -97,24 +97,46 @@ app.http('sp', {
         if (action === 'getme') {
             const user = getUserFromHeader(request);
             if (!user) {
-                return okRes({ name: 'User', email: '', isAdmin: false });
-            }
-            let isAdmin = false;
+               let isAdmin = false;
             try {
-                const ownersRes = await fetch(
-                    `${spBaseUrl}/_api/web/associatedownergroup/users?$select=Email&$format=json`,
-                    { headers: { Authorization: `Bearer ${token}`, Accept: 'application/json;odata=nometadata' } }
+                // Get site owners via Graph API groups
+                const groupsRes = await fetch(
+                    `https://graph.microsoft.com/v1.0/sites/${siteId}/permissions`,
+                    { headers: { Authorization: `Bearer ${token}` } }
                 );
-                if (ownersRes.ok) {
-                    const ownersData = await ownersRes.json();
-                    isAdmin = (ownersData.value || []).some(
-                        u => (u.Email || '').toLowerCase() === user.email.toLowerCase()
+                const groupsData = await groupsRes.json();
+                context.log('permissions response:', JSON.stringify(groupsData).slice(0, 500));
+
+                // Try SharePoint groups via Graph
+                const spGroupRes = await fetch(
+                    `https://graph.microsoft.com/v1.0/groups?$filter=startswith(displayName,'AssetTest')&$select=id,displayName`,
+                    { headers: { Authorization: `Bearer ${token}` } }
+                );
+                const spGroupData = await spGroupRes.json();
+                context.log('groups response:', JSON.stringify(spGroupData).slice(0, 500));
+
+                // Check user against site owners via SharePoint search
+                const userRes = await fetch(
+                    `https://graph.microsoft.com/v1.0/users/${user.email}?$select=id`,
+                    { headers: { Authorization: `Bearer ${token}` } }
+                );
+                const userData = await userRes.json();
+                const userId = userData.id;
+                context.log('userId:', userId, 'userEmail:', user.email);
+
+                if (userId) {
+                    // Check if user has owner role on the site
+                    const checkRes = await fetch(
+                        `https://graph.microsoft.com/v1.0/sites/${siteId}/permissions`,
+                        { headers: { Authorization: `Bearer ${token}` } }
                     );
+                    const checkData = await checkRes.json();
+                    context.log('site permissions:', JSON.stringify(checkData).slice(0,1000));
                 }
             } catch (e) {
-                context.log('isAdmin check failed (non-fatal):', e.message);
+                context.log('isAdmin check error:', e.message);
             }
-            return okRes({ name: user.name, email: user.email, isAdmin });
+            return okRes({ name: user.name, email: user.email, isAdmin, debug: 'v2' });
         }
 
         // ── ROUTE: getassets ─────────────────────────────────────────────
