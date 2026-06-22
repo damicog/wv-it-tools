@@ -139,9 +139,9 @@ app.http('sp', {
                     const f = item.fields;
                     return {
                         id:          f.Ref             || ('REQ-' + item.id),
-                        assetId:     f.AssetId         || '',
+                        assetId:     f.Title           || '',
                         assetName:   f.AssetName       || '',
-                        qty:         Number(f.Qty)          || 0,
+                        qty:         Number(f.QTY)          || 0,
                         returnedQty: f.ReturnedQty != null ? Number(f.ReturnedQty) : null,
                         requester:   f.RequesterName   || '',
                         email:       f.RequesterEmail  || '',
@@ -183,11 +183,10 @@ app.http('sp', {
                         headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             fields: {
-                                Title:          body.assetName || '',
+                                Title:          body.assetId   || '',
                                 Ref:            ref,
-                                AssetId:        body.assetId   || '',
                                 AssetName:      body.assetName || '',
-                                Qty:            body.qty       || 1,
+                                QTY:            body.qty       || 1,
                                 RequesterName:  body.requester || '',
                                 RequesterEmail: body.email     || '',
                                 Event:          body.event     || '',
