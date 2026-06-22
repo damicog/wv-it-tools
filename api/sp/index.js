@@ -102,7 +102,7 @@ app.http('sp', {
             let isAdmin = false;
             try {
                 const ownersRes = await fetch(
-                    `${spBaseUrl}/_api/web/associatedownergroup/users?$select=Email`,
+                    `${spBaseUrl}/_api/web/associatedownergroup/users?$select=Email&$format=json`,
                     { headers: { Authorization: `Bearer ${token}`, Accept: 'application/json;odata=nometadata' } }
                 );
                 if (ownersRes.ok) {
