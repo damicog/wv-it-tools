@@ -101,7 +101,7 @@ app.http('sp', {
             }
             const adminEmails = (process.env.ADMIN_EMAILS || '')
                 .split(',').map(e => e.trim().toLowerCase()).filter(Boolean);
-            const isAdmin = adminEmails.includes(user.email.toLowerCase());
+            const isAdmin = adminEmails.includes((user.email || '').toLowerCase());
             return okRes({ name: user.name, email: user.email, isAdmin });
         }
 
