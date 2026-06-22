@@ -1,0 +1,1853 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CAMD Events Asset Manager</title>
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<style>/* cyrillic-ext */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("22c188bb-17d9-4899-841c-1e57d33a7836") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("115163de-d017-4d2e-ad0a-106dadaa16e1") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("cd0ab35c-42fb-4171-9b74-3eec75f7c6f3") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("aafe65b8-8630-43ef-b7c3-f52f6049832c") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("7171a02e-6783-46cc-b6be-1e9860924ce8") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("da705bfd-e526-42f8-b878-395154912f58") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("22c188bb-17d9-4899-841c-1e57d33a7836") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("115163de-d017-4d2e-ad0a-106dadaa16e1") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("cd0ab35c-42fb-4171-9b74-3eec75f7c6f3") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("aafe65b8-8630-43ef-b7c3-f52f6049832c") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("7171a02e-6783-46cc-b6be-1e9860924ce8") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("da705bfd-e526-42f8-b878-395154912f58") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("22c188bb-17d9-4899-841c-1e57d33a7836") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("115163de-d017-4d2e-ad0a-106dadaa16e1") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("cd0ab35c-42fb-4171-9b74-3eec75f7c6f3") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("aafe65b8-8630-43ef-b7c3-f52f6049832c") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("7171a02e-6783-46cc-b6be-1e9860924ce8") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("da705bfd-e526-42f8-b878-395154912f58") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("22c188bb-17d9-4899-841c-1e57d33a7836") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("115163de-d017-4d2e-ad0a-106dadaa16e1") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("cd0ab35c-42fb-4171-9b74-3eec75f7c6f3") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("aafe65b8-8630-43ef-b7c3-f52f6049832c") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("7171a02e-6783-46cc-b6be-1e9860924ce8") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("da705bfd-e526-42f8-b878-395154912f58") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("22c188bb-17d9-4899-841c-1e57d33a7836") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("115163de-d017-4d2e-ad0a-106dadaa16e1") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("cd0ab35c-42fb-4171-9b74-3eec75f7c6f3") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("aafe65b8-8630-43ef-b7c3-f52f6049832c") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("7171a02e-6783-46cc-b6be-1e9860924ce8") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("da705bfd-e526-42f8-b878-395154912f58") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style>
+<style>
+    *{box-sizing:border-box;}
+    body{margin:0;}
+    ::-webkit-scrollbar{width:10px;height:10px;}
+    ::-webkit-scrollbar-thumb{background:#D9D5CD;border-radius:8px;}
+    ::-webkit-scrollbar-track{background:transparent;}
+    input[type=date]::-webkit-calendar-picker-indicator{cursor:pointer;}
+  </style>
+
+</helmet>
+
+<div style="font-family:'Manrope',-apple-system,BlinkMacSystemFont,sans-serif;min-height:100vh;background:#F4F3F0;color:#1F1D1A;position:relative;">
+
+  <header style="display:flex;align-items:center;gap:14px;padding:14px 30px;background:#fff;border-bottom:1px solid #E6E4DF;position:sticky;top:0;z-index:30;">
+    <div style="{{ logoStyle }}">WV</div>
+    <div style="display:flex;flex-direction:column;gap:1px;">
+      <div style="font-size:15.5px;font-weight:800;letter-spacing:-0.01em;white-space:nowrap;">Churches &amp; Events — Asset Manager</div>
+      <div style="font-size:12.5px;color:#6F6A62;font-weight:500;">World Vision UK · CAMD Asset Register</div>
+    </div>
+    <div style="flex:1;"></div>
+    <div style="display:flex;align-items:center;gap:4px;background:#F2F0EB;border:1px solid #E6E4DF;border-radius:11px;padding:4px;">
+      <sc-for list="{{ roleBtns }}" as="r" hint-placeholder-count="2">
+        <button onclick="{{ r.onClick }}" style="{{ r.style }}">{{ r.label }}</button>
+      </sc-for>
+    </div>
+    <div style="display:flex;align-items:center;gap:9px;padding:6px 12px 6px 8px;background:#fff;border:1px solid #E6E4DF;border-radius:999px;">
+      <div style="{{ avatarStyle }}">{{ userInitials }}</div>
+      <div style="display:flex;flex-direction:column;line-height:1.15;">
+        <span style="font-size:13px;font-weight:700;">{{ userName }}</span>
+        <span style="font-size:11px;color:#8A857C;font-weight:600;">{{ userRoleLabel }}</span>
+      </div>
+    </div>
+  </header>
+
+  <nav style="display:flex;align-items:center;gap:4px;padding:0 30px;background:#fff;border-bottom:1px solid #E6E4DF;position:sticky;top:61px;z-index:25;overflow-x:auto;">
+    <sc-for list="{{ navItems }}" as="t" hint-placeholder-count="5">
+      <button onclick="{{ t.onClick }}" style="{{ t.style }}">
+        {{ t.label }}
+        <sc-if value="{{ t.showBadge }}" hint-placeholder-val="{{ false }}">
+          <span style="{{ t.badgeStyle }}">{{ t.badge }}</span>
+        </sc-if>
+      </button>
+    </sc-for>
+  </nav>
+
+  <di<sc-if value="{{ loading }}">
+  <div style="display:flex;align-items:center;gap:8px;padding:8px 30px;background:#EEF4FC;border-bottom:1px solid #C5D8F5;font-size:12px;color:#2A6FDB;font-weight:600;">
+    <span style="font-size:13px;">⟳</span>
+    <span>Loading assets from SharePoint…</span>
+  </div>
+</sc-if>
+<sc-if value="{{ loadError }}">
+  <div style="display:flex;align-items:center;gap:8px;padding:8px 30px;background:#FCEEEC;border-bottom:1px solid #F5C5C0;font-size:12px;color:#B42318;font-weight:600;">
+    <span style="font-size:13px;">⚠</span>
+    <span>Could not load data from SharePoint: {{ loadError }}</span>
+  </div>
+</sc-if>
+<sc-if value="{{ !loading && !loadError }}">
+  <div style="display:flex;align-items:center;gap:8px;padding:8px 30px;background:#EFF7F1;border-bottom:1px solid #B8E3C4;font-size:12px;color:#1B7A43;font-weight:600;">
+    <span style="font-size:13px;">✓</span>
+    <span>Live data — connected to SharePoint</span>
+  </div>
+</sc-if>
+
+  <main style="max-width:1280px;margin:0 auto;padding:26px 30px 90px;">
+
+    <!-- ============ REGISTER ============ -->
+    <sc-if value="{{ isRegister }}" hint-placeholder-val="{{ true }}">
+      <section style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:13px;margin-bottom:22px;">
+        <sc-for list="{{ summaryCards }}" as="card" hint-placeholder-count="5">
+          <div style="{{ card.cardStyle }}" onclick="{{ card.onClick }}">
+            <div style="display:flex;align-items:center;gap:7px;">
+              <span style="{{ card.dotStyle }}"></span>
+              <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:#6F6A62;">{{ card.label }}</span>
+            </div>
+            <div style="display:flex;align-items:baseline;gap:6px;">
+              <span style="{{ card.valueStyle }}">{{ card.value }}</span>
+              <span style="font-size:12px;color:#9A958C;font-weight:600;">{{ card.unit }}</span>
+            </div>
+          </div>
+        </sc-for>
+      </section>
+
+      <section style="background:#fff;border:1px solid #E6E4DF;border-radius:16px;overflow:hidden;">
+        <div style="padding:16px 18px;display:flex;flex-direction:column;gap:14px;border-bottom:1px solid #EFEDE8;">
+          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+            <div style="position:relative;flex:1;min-width:240px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9A958C" stroke-width="2" stroke-linecap="round" style="position:absolute;left:13px;top:50%;transform:translateY(-50%);"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+              <input value="{{ search }}" oninput="{{ onSearch }}" placeholder="Search by name, ID or location…" style="width:100%;padding:10px 14px 10px 39px;border:1px solid #E0DDD6;border-radius:10px;font-size:14px;font-family:inherit;color:#1F1D1A;outline:none;background:#FAF9F6;">
+            </div>
+            <div style="font-size:13px;color:#6F6A62;font-weight:600;white-space:nowrap;">{{ resultText }}</div>
+            <sc-if value="{{ isAdmin }}" hint-placeholder-val="{{ true }}">
+              <button onclick="{{ openAdd }}" style="{{ ui.primary }}">+ Add asset</button>
+            </sc-if>
+          </div>
+          <div style="display:flex;gap:7px;flex-wrap:wrap;">
+            <sc-for list="{{ catChips }}" as="chip" hint-placeholder-count="6">
+              <button style="{{ chip.style }}" onclick="{{ chip.onClick }}">{{ chip.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="overflow-x:auto;">
+          <div style="min-width:880px;">
+            <div style="display:grid;grid-template-columns:minmax(180px,2.2fr) minmax(90px,1fr) minmax(120px,1.4fr) minmax(90px,1fr) minmax(140px,1.6fr) minmax(80px,0.9fr) 34px;background:#FAF9F6;">
+              <div style="{{ ui.th }}">Asset</div>
+              <div style="{{ ui.th }}">Category</div>
+              <div style="{{ ui.th }}">Availability</div>
+              <div style="{{ ui.th }}">Status</div>
+              <div style="{{ ui.th }}">Location</div>
+              <div style="{{ ui.th }}">Loanable</div>
+              <div style="border-bottom:1px solid #ECEAE4;"></div>
+            </div>
+            <sc-for list="{{ rows }}" as="row" hint-placeholder-count="8">
+              <div style="{{ row.rowStyle }}" style-hover="{{ row.rowHover }}" onclick="{{ row.onClick }}">
+                <div style="{{ ui.td }}">
+                  <div style="{{ ui.idText }}">{{ row.id }}</div>
+                  <div style="{{ ui.nameText }}">{{ row.name }}</div>
+                </div>
+                <div style="{{ ui.tdMuted }}">{{ row.category }}</div>
+                <div style="{{ ui.td }}">
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <div style="width:62px;height:7px;border-radius:4px;background:#EDEBE5;overflow:hidden;flex:0 0 auto;">
+                      <div style="{{ row.barStyle }}"></div>
+                    </div>
+                    <span style="font-size:13px;font-weight:700;color:#1F1D1A;white-space:nowrap;">{{ row.availText }}</span>
+                  </div>
+                </div>
+                <div style="{{ ui.td }}"><span style="{{ row.badgeStyle }}">{{ row.statusLabel }}</span></div>
+                <div style="{{ ui.tdMuted }}">{{ row.location }}</div>
+                <div style="{{ ui.tdMuted }}">{{ row.loanLabel }}</div>
+                <div style="padding:14px 18px;border-bottom:1px solid #F1EFEA;display:flex;align-items:center;justify-content:center;"><span style="color:#C9C4BA;font-size:18px;font-weight:700;">›</span></div>
+              </div>
+            </sc-for>
+          </div>
+          <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:54px 20px;text-align:center;color:#9A958C;font-size:14px;">No assets match your filters.</div>
+          </sc-if>
+        </div>
+      </section>
+    </sc-if>
+
+    <!-- ============ REQUESTS & APPROVALS ============ -->
+    <sc-if value="{{ isRequests }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-bottom:20px;">
+        <h1 style="{{ ui.h1 }}">Requests &amp; Approvals</h1>
+        <p style="{{ ui.sub }}">Approve or decline booking requests. Approving reserves stock and emails the requester.</p>
+      </div>
+      <section style="{{ ui.panel }}padding:18px;margin-bottom:18px;">
+        <div style="display:flex;align-items:center;gap:9px;margin-bottom:14px;">
+          <h2 style="{{ ui.h2 }}">Pending approval</h2>
+          <span style="{{ pendingPill }}">{{ pendingCount }}</span>
+        </div>
+        <sc-if value="{{ hasPending }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:11px;">
+            <sc-for list="{{ pendingRows }}" as="b" hint-placeholder-count="3">
+              <div style="display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid #EFE3D6;background:#FFFCF8;border-radius:13px;">
+                <div onclick="{{ b.onClick }}" style="flex:1;cursor:pointer;display:flex;flex-direction:column;gap:5px;min-width:0;">
+                  <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;">
+                    <span style="{{ ui.idText }}">{{ b.id }}</span>
+                    <span style="font-size:15px;font-weight:700;">{{ b.qtyAsset }}</span>
+                  </div>
+                  <div style="font-size:13px;color:#6F6A62;">{{ b.metaLine }}</div>
+                </div>
+                <div style="display:flex;gap:8px;flex:0 0 auto;">
+                  <button onclick="{{ b.onReject }}" style="{{ ui.ghostSm }}">Decline</button>
+                  <button onclick="{{ b.onApprove }}" style="{{ ui.primarySm }}">Approve</button>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ noPending }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:30px;text-align:center;color:#9A958C;font-size:14px;">No requests waiting for approval. 🎉</div>
+        </sc-if>
+      </section>
+
+      <section style="{{ ui.panel }}overflow:hidden;">
+        <div style="padding:15px 18px;border-bottom:1px solid #EFEDE8;"><h2 style="{{ ui.h2 }}">All requests</h2></div>
+        <div style="overflow-x:auto;">
+          <div style="min-width:760px;">
+            <div style="display:grid;grid-template-columns:minmax(90px,0.9fr) minmax(150px,1.8fr) minmax(110px,1.1fr) minmax(120px,1.3fr) minmax(150px,1.5fr) minmax(90px,1fr);background:#FAF9F6;">
+              <div style="{{ ui.th }}">Ref</div><div style="{{ ui.th }}">Asset</div><div style="{{ ui.th }}">Requester</div><div style="{{ ui.th }}">Event</div><div style="{{ ui.th }}">Dates</div><div style="{{ ui.th }}">Status</div>
+            </div>
+            <sc-for list="{{ allRequestRows }}" as="b" hint-placeholder-count="6">
+              <div style="{{ b.rowStyle }}" style-hover="{{ b.rowHover }}" onclick="{{ b.onClick }}">
+                <div style="{{ ui.td }}"><span style="{{ ui.idText }}">{{ b.id }}</span></div>
+                <div style="{{ ui.td }}"><span style="font-weight:600;font-size:14px;">{{ b.qtyAsset }}</span></div>
+                <div style="{{ ui.tdMuted }}">{{ b.requester }}</div>
+                <div style="{{ ui.tdMuted }}">{{ b.event }}</div>
+                <div style="{{ ui.tdMuted }}">{{ b.dateRange }}</div>
+                <div style="{{ ui.td }}"><span style="{{ b.badgeStyle }}">{{ b.status }}</span></div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+    </sc-if>
+
+    <!-- ============ MY REQUESTS ============ -->
+    <sc-if value="{{ isMyRequests }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-bottom:20px;">
+        <h1 style="{{ ui.h1 }}">My Requests</h1>
+        <p style="{{ ui.sub }}">Track the bookings you have requested and what you currently have on loan.</p>
+      </div>
+      <sc-if value="{{ hasMine }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:11px;">
+          <sc-for list="{{ myRows }}" as="b" hint-placeholder-count="4">
+            <div onclick="{{ b.onClick }}" style="{{ ui.panel }}padding:15px 17px;cursor:pointer;display:flex;align-items:center;gap:14px;">
+              <div style="flex:1;display:flex;flex-direction:column;gap:5px;min-width:0;">
+                <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;">
+                  <span style="{{ ui.idText }}">{{ b.id }}</span>
+                  <span style="font-size:15px;font-weight:700;">{{ b.qtyAsset }}</span>
+                </div>
+                <div style="font-size:13px;color:#6F6A62;">{{ b.metaLine }}</div>
+              </div>
+              <span style="{{ b.badgeStyle }}">{{ b.status }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{ noMine }}" hint-placeholder-val="{{ false }}">
+        <div style="{{ ui.panel }}padding:40px;text-align:center;color:#9A958C;font-size:14px;">You have no bookings yet. Open the Asset Register to request one.</div>
+      </sc-if>
+    </sc-if>
+
+    <!-- ============ CALENDAR ============ -->
+    <sc-if value="{{ isCalendar }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:18px;flex-wrap:wrap;">
+        <div>
+          <h1 style="{{ ui.h1 }}">Booking Calendar</h1>
+          <p style="{{ ui.sub }}">Assets reserved or on loan, by day and event.</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <button onclick="{{ calPrev }}" style="{{ ui.iconBtn }}">‹</button>
+          <span style="font-size:16px;font-weight:800;min-width:150px;text-align:center;">{{ calLabel }}</span>
+          <button onclick="{{ calNext }}" style="{{ ui.iconBtn }}">›</button>
+        </div>
+      </div>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:14px;">
+        <sc-for list="{{ eventLegend }}" as="e" hint-placeholder-count="4">
+          <div style="display:flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:#4A463F;">
+            <span style="width:11px;height:11px;border-radius:3px;background:{{ e.color }};"></span>{{ e.label }}
+          </div>
+        </sc-for>
+      </div>
+      <section style="{{ ui.panel }}overflow:hidden;">
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);background:#FAF9F6;border-bottom:1px solid #EFEDE8;">
+          <sc-for list="{{ weekdays }}" as="w" hint-placeholder-count="7">
+            <div style="padding:10px;text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:#9A958C;">{{ w }}</div>
+          </sc-for>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);">
+          <sc-for list="{{ calCells }}" as="c" hint-placeholder-count="42">
+            <div style="{{ c.cellStyle }}">
+              <div style="{{ c.dayStyle }}">{{ c.day }}</div>
+              <div style="display:flex;flex-direction:column;gap:3px;">
+                <sc-for list="{{ c.events }}" as="ev" hint-placeholder-count="0">
+                  <div onclick="{{ ev.onClick }}" style="{{ ev.style }}">{{ ev.label }}</div>
+                </sc-for>
+                <sc-if value="{{ c.hasMore }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:10px;color:#9A958C;font-weight:600;padding-left:2px;">{{ c.moreLabel }}</div>
+                </sc-if>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+    </sc-if>
+
+    <!-- ============ RETURNS & REMINDERS ============ -->
+    <sc-if value="{{ isReturns }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-bottom:18px;">
+        <h1 style="{{ ui.h1 }}">Returns &amp; Reminders</h1>
+        <p style="{{ ui.sub }}">Everything currently on loan, with automated return reminders and escalations.</p>
+      </div>
+      <section style="display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:18px;">
+        <div style="display:flex;gap:11px;padding:15px 17px;background:#FCEBE9;border:1px solid #F3D5D0;border-radius:13px;align-items:center;">
+          <div style="font-size:30px;font-weight:800;color:#B42318;line-height:1;">{{ overdueCount }}</div>
+          <div style="font-size:13px;font-weight:600;color:#8A2B22;">Overdue<br>escalated to line manager</div>
+        </div>
+        <div style="display:flex;gap:11px;padding:15px 17px;background:#FEF4E3;border:1px solid #F3E3C4;border-radius:13px;align-items:center;">
+          <div style="font-size:30px;font-weight:800;color:#B25C00;line-height:1;">{{ dueSoonCount }}</div>
+          <div style="font-size:13px;font-weight:600;color:#8A5410;">Due within 3 days<br>reminder scheduled</div>
+        </div>
+      </section>
+      <section style="{{ ui.panel }}padding:14px 17px;margin-bottom:18px;background:#F7FAFC;border-color:#DCE7EF;">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:#5E7A91;margin-bottom:6px;">⚙ Automated reminder schedule (Power Automate)</div>
+        <div style="font-size:13px;color:#3D5666;line-height:1.6;">Daily flow checks loans due within 3 days → emails the assignee. On the due date → reminder to assignee &amp; line manager. Past due → escalation email to admin &amp; stakeholder.</div>
+      </section>
+      <sc-if value="{{ hasOnLoan }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:11px;">
+          <sc-for list="{{ loanRows }}" as="b" hint-placeholder-count="4">
+            <div style="{{ b.cardStyle }}">
+              <div onclick="{{ b.onClick }}" style="flex:1;cursor:pointer;display:flex;flex-direction:column;gap:5px;min-width:0;">
+                <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;">
+                  <span style="{{ ui.idText }}">{{ b.id }}</span>
+                  <span style="font-size:15px;font-weight:700;">{{ b.qtyAsset }}</span>
+                  <span style="{{ b.duePill }}">{{ b.dueText }}</span>
+                </div>
+                <div style="font-size:13px;color:#6F6A62;">{{ b.metaLine }}</div>
+              </div>
+              <div style="display:flex;gap:8px;flex:0 0 auto;">
+                <button onclick="{{ b.onRemind }}" style="{{ ui.ghostSm }}">Send reminder</button>
+                <button onclick="{{ b.onReturn }}" style="{{ ui.primarySm }}">Mark returned</button>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{ noOnLoan }}" hint-placeholder-val="{{ false }}">
+        <div style="{{ ui.panel }}padding:40px;text-align:center;color:#9A958C;font-size:14px;">Nothing is currently on loan.</div>
+      </sc-if>
+    </sc-if>
+
+    <!-- ============ REPORTING ============ -->
+    <sc-if value="{{ isReporting }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-bottom:18px;">
+        <h1 style="{{ ui.h1 }}">Reporting</h1>
+        <p style="{{ ui.sub }}">Snapshot for stakeholders — stock, loans, condition and upcoming returns.</p>
+      </div>
+      <section style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:13px;margin-bottom:20px;">
+        <sc-for list="{{ reportMetrics }}" as="m" hint-placeholder-count="5">
+          <div style="{{ ui.panel }}padding:16px 18px;display:flex;flex-direction:column;gap:6px;">
+            <span style="{{ m.valueStyle }}">{{ m.value }}</span>
+            <span style="font-size:12px;color:#6F6A62;font-weight:600;">{{ m.label }}</span>
+          </div>
+        </sc-for>
+      </section>
+      <section style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div style="{{ ui.panel }}padding:18px;">
+          <h2 style="{{ ui.h2 }}margin-bottom:15px;">Stock by category</h2>
+          <div style="display:flex;flex-direction:column;gap:13px;">
+            <sc-for list="{{ catReport }}" as="r" hint-placeholder-count="5">
+              <div style="display:flex;flex-direction:column;gap:5px;">
+                <div style="display:flex;justify-content:space-between;font-size:13px;"><span style="font-weight:600;">{{ r.label }}</span><span style="color:#6F6A62;font-weight:600;">{{ r.detail }}</span></div>
+                <div style="height:9px;border-radius:5px;background:#EDEBE5;overflow:hidden;"><div style="{{ r.barStyle }}"></div></div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="{{ ui.panel }}padding:18px;">
+          <h2 style="{{ ui.h2 }}margin-bottom:15px;">Bookings by status</h2>
+          <div style="display:flex;flex-direction:column;gap:13px;">
+            <sc-for list="{{ statusReport }}" as="r" hint-placeholder-count="5">
+              <div style="display:flex;flex-direction:column;gap:5px;">
+                <div style="display:flex;justify-content:space-between;font-size:13px;"><span style="font-weight:600;">{{ r.label }}</span><span style="color:#6F6A62;font-weight:600;">{{ r.value }}</span></div>
+                <div style="height:9px;border-radius:5px;background:#EDEBE5;overflow:hidden;"><div style="{{ r.barStyle }}"></div></div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="{{ ui.panel }}padding:18px;">
+          <h2 style="{{ ui.h2 }}margin-bottom:15px;">Assets by condition</h2>
+          <div style="display:flex;flex-direction:column;gap:13px;">
+            <sc-for list="{{ condReport }}" as="r" hint-placeholder-count="4">
+              <div style="display:flex;flex-direction:column;gap:5px;">
+                <div style="display:flex;justify-content:space-between;font-size:13px;"><span style="font-weight:600;">{{ r.label }}</span><span style="color:#6F6A62;font-weight:600;">{{ r.value }}</span></div>
+                <div style="height:9px;border-radius:5px;background:#EDEBE5;overflow:hidden;"><div style="{{ r.barStyle }}"></div></div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="{{ ui.panel }}padding:18px;">
+          <h2 style="{{ ui.h2 }}margin-bottom:15px;">Upcoming returns</h2>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <sc-for list="{{ upcomingReturns }}" as="r" hint-placeholder-count="4">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding-bottom:10px;border-bottom:1px solid #F1EFEA;">
+                <div style="font-size:13px;font-weight:600;min-width:0;">{{ r.asset }}<div style="font-size:12px;color:#9A958C;font-weight:500;">{{ r.event }}</div></div>
+                <span style="{{ r.pill }}">{{ r.dueText }}</span>
+              </div>
+            </sc-for>
+            <sc-if value="{{ noUpcoming }}" hint-placeholder-val="{{ false }}"><div style="color:#9A958C;font-size:13px;">No active loans.</div></sc-if>
+          </div>
+        </div>
+      </section>
+    </sc-if>
+  </main>
+
+  <!-- ============ ASSET DETAIL DRAWER ============ -->
+  <sc-if value="{{ detailOpen }}" hint-placeholder-val="{{ false }}">
+    <div onclick="{{ closeDetail }}" style="position:fixed;inset:0;background:rgba(31,29,26,0.34);z-index:40;"></div>
+    <aside style="position:fixed;top:0;right:0;height:100vh;width:460px;max-width:94vw;background:#fff;z-index:50;box-shadow:-12px 0 44px rgba(0,0,0,0.18);display:flex;flex-direction:column;font-family:'Manrope',sans-serif;">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:22px 24px;border-bottom:1px solid #EFEDE8;">
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="{{ ui.idText }}">{{ detail.id }}</div>
+          <div style="font-size:20px;font-weight:800;letter-spacing:-0.01em;line-height:1.2;">{{ detail.name }}</div>
+          <div style="{{ detail.badgeStyle }}">{{ detail.statusLabel }}</div>
+        </div>
+        <button onclick="{{ closeDetail }}" style="{{ ui.closeBtn }}">×</button>
+      </div>
+      <div style="flex:1;overflow-y:auto;padding:22px 24px;display:flex;flex-direction:column;gap:22px;">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+          <div style="background:#F7FAF8;border:1px solid #E3EDE6;border-radius:12px;padding:13px;text-align:center;">
+            <div style="font-size:24px;font-weight:800;color:#1B7A43;line-height:1;">{{ detail.avail }}</div>
+            <div style="font-size:11px;color:#6F6A62;font-weight:600;margin-top:4px;">Available</div>
+          </div>
+          <div style="background:#F6F8FC;border:1px solid #E2E8F1;border-radius:12px;padding:13px;text-align:center;">
+            <div style="font-size:24px;font-weight:800;color:#2D4F8E;line-height:1;">{{ detail.onLoan }}</div>
+            <div style="font-size:11px;color:#6F6A62;font-weight:600;margin-top:4px;">On loan</div>
+          </div>
+          <div style="background:#FAF9F6;border:1px solid #E6E4DF;border-radius:12px;padding:13px;text-align:center;">
+            <div style="font-size:24px;font-weight:800;color:#1F1D1A;line-height:1;">{{ detail.total }}</div>
+            <div style="font-size:11px;color:#6F6A62;font-weight:600;margin-top:4px;">Total stock</div>
+          </div>
+        </div>
+        <sc-if value="{{ detail.hasRepair }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size:13px;color:#B42318;font-weight:600;background:#FCEBE9;border-radius:9px;padding:9px 12px;">{{ detail.repairText }}</div>
+        </sc-if>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;">
+          <sc-for list="{{ detail.fields }}" as="f" hint-placeholder-count="6">
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <div style="{{ ui.label }}">{{ f.label }}</div>
+              <div style="font-size:14px;font-weight:600;color:#1F1D1A;line-height:1.35;">{{ f.value }}</div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:9px;">
+          <div style="{{ ui.label }}">Current &amp; upcoming bookings</div>
+          <sc-if value="{{ detail.hasBookings }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:7px;">
+              <sc-for list="{{ detail.bookings }}" as="bk" hint-placeholder-count="2">
+                <div onclick="{{ bk.onClick }}" style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border:1px solid #EFEDE8;border-radius:10px;cursor:pointer;">
+                  <div style="font-size:13px;min-width:0;"><span style="font-weight:700;">{{ bk.qtyEvent }}</span><div style="color:#9A958C;font-size:12px;">{{ bk.line }}</div></div>
+                  <span style="{{ bk.badgeStyle }}">{{ bk.status }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ detail.noBookings }}" hint-placeholder-val="{{ true }}">
+            <div style="font-size:13px;color:#9A958C;">No active bookings.</div>
+          </sc-if>
+        </div>
+      </div>
+      <div style="padding:16px 24px;border-top:1px solid #EFEDE8;display:flex;flex-direction:column;gap:10px;background:#FAF9F6;">
+        <button onclick="{{ detail.onBook }}" style="{{ detail.bookBtnStyle }}">{{ detail.bookBtnLabel }}</button>
+        <sc-if value="{{ isAdmin }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;gap:10px;">
+            <button onclick="{{ detail.onEdit }}" style="{{ ui.ghostFlex }}">Edit asset</button>
+            <button onclick="{{ detail.onDelete }}" style="{{ ui.dangerFlex }}">Remove</button>
+          </div>
+        </sc-if>
+      </div>
+    </aside>
+  </sc-if>
+
+  <!-- ============ BOOKING MODAL ============ -->
+  <sc-if value="{{ bookingOpen }}" hint-placeholder-val="{{ false }}">
+    <div onclick="{{ closeBooking }}" style="position:fixed;inset:0;background:rgba(31,29,26,0.40);z-index:60;display:flex;align-items:center;justify-content:center;padding:24px;">
+      <div onclick="{{ stop }}" style="background:#fff;border-radius:18px;width:520px;max-width:100%;max-height:92vh;overflow-y:auto;box-shadow:0 24px 70px rgba(0,0,0,0.28);">
+        <div style="padding:22px 24px 18px;border-bottom:1px solid #EFEDE8;">
+          <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:#E8601C;margin-bottom:6px;">Book an asset</div>
+          <div style="font-size:20px;font-weight:800;letter-spacing:-0.01em;">{{ booking.assetName }}</div>
+          <div style="font-size:13px;color:#6F6A62;margin-top:4px;">{{ booking.availLine }}</div>
+        </div>
+        <div style="padding:22px 24px;display:flex;flex-direction:column;gap:18px;">
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="{{ ui.label }}">Quantity to book</div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <button onclick="{{ booking.dec }}" style="{{ ui.stepBtn }}">−</button>
+              <input value="{{ booking.qty }}" oninput="{{ booking.onQty }}" type="number" min="1" max="{{ booking.maxQty }}" style="width:80px;text-align:center;padding:10px;border:1px solid #E0DDD6;border-radius:10px;font-size:16px;font-weight:700;font-family:inherit;outline:none;">
+              <button onclick="{{ booking.inc }}" style="{{ ui.stepBtn }}">+</button>
+              <span style="font-size:13px;color:#9A958C;font-weight:600;">of {{ booking.maxQty }} available</span>
+            </div>
+          </div>
+          <div style="display:flex;gap:14px;">
+            <div style="flex:1;display:flex;flex-direction:column;gap:7px;">
+              <div style="{{ ui.label }}">Requested by</div>
+              <input value="{{ booking.requester }}" oninput="{{ booking.onRequester }}" placeholder="Your name" style="{{ ui.input }}">
+            </div>
+            <div style="flex:1.3;display:flex;flex-direction:column;gap:7px;">
+              <div style="{{ ui.label }}">Work email</div>
+              <input value="{{ booking.email }}" oninput="{{ booking.onEmail }}" type="email" placeholder="name@worldvision.org.uk" style="{{ ui.input }}">
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="{{ ui.label }}">Event / purpose</div>
+            <input value="{{ booking.event }}" oninput="{{ booking.onEvent }}" placeholder="e.g. Spring Harvest 2026" style="{{ ui.input }}">
+          </div>
+          <div style="display:flex;gap:14px;">
+            <div style="flex:1;display:flex;flex-direction:column;gap:7px;">
+              <div style="{{ ui.label }}">Collection date</div>
+              <input value="{{ booking.checkout }}" oninput="{{ booking.onCheckout }}" type="date" style="{{ ui.input }}">
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:7px;">
+              <div style="{{ ui.label }}">Return by</div>
+              <input value="{{ booking.ret }}" oninput="{{ booking.onRet }}" type="date" min="{{ booking.checkout }}" style="{{ ui.input }}">
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="{{ ui.label }}">Notes (optional)</div>
+            <input value="{{ booking.note }}" oninput="{{ booking.onNote }}" placeholder="Anything the admin should know" style="{{ ui.input }}">
+          </div>
+          <div onclick="{{ booking.toggleAgree }}" style="display:flex;align-items:center;gap:11px;cursor:pointer;padding:11px 13px;background:#FAF9F6;border:1px solid #EFEDE8;border-radius:11px;">
+            <div style="{{ booking.checkStyle }}">{{ booking.checkMark }}</div>
+            <span style="font-size:13px;color:#4A463F;font-weight:600;">I agree to the asset loan terms &amp; conditions</span>
+          </div>
+          <sc-if value="{{ booking.hasError }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:13px;color:#B42318;font-weight:600;">{{ booking.error }}</div>
+          </sc-if>
+        </div>
+        <div style="padding:16px 24px;border-top:1px solid #EFEDE8;display:flex;gap:10px;justify-content:flex-end;background:#FAF9F6;">
+          <button onclick="{{ closeBooking }}" style="{{ ui.ghost }}">Cancel</button>
+          <button onclick="{{ booking.submit }}" style="{{ booking.submitStyle }}">Submit request</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ============ ASSET EDITOR MODAL ============ -->
+  <sc-if value="{{ editorOpen }}" hint-placeholder-val="{{ false }}">
+    <div onclick="{{ closeEditor }}" style="position:fixed;inset:0;background:rgba(31,29,26,0.40);z-index:60;display:flex;align-items:center;justify-content:center;padding:24px;">
+      <div onclick="{{ stop }}" style="background:#fff;border-radius:18px;width:540px;max-width:100%;max-height:92vh;overflow-y:auto;box-shadow:0 24px 70px rgba(0,0,0,0.28);">
+        <div style="padding:22px 24px;border-bottom:1px solid #EFEDE8;font-size:20px;font-weight:800;">{{ editor.title }}</div>
+        <div style="padding:22px 24px;display:flex;flex-direction:column;gap:16px;">
+          <div style="display:flex;gap:14px;">
+            <div style="width:140px;display:flex;flex-direction:column;gap:7px;">
+              <div style="{{ ui.label }}">Asset ID</div>
+              <input value="{{ editor.id }}" oninput="{{ editor.onId }}" style="{{ ui.input }}">
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:7px;">
+              <div style="{{ ui.label }}">Asset name</div>
+              <input value="{{ editor.name }}" oninput="{{ editor.onName }}" style="{{ ui.input }}">
+            </div>
+          </div>
+          <div style="display:flex;gap:14px;">
+            <div style="flex:1;display:flex;flex-direction:column;gap:7px;">
+              <div style="{{ ui.label }}">Category</div>
+              <select value="{{ editor.category }}" onchange="{{ editor.onCategory }}" style="{{ ui.input }}">
+                <sc-for list="{{ categoryOptions }}" as="o" hint-placeholder-count="5"><option value="{{ o }}">{{ o }}</option></sc-for>
+              </select>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:7px;">
+              <div style="{{ ui.label }}">Condition</div>
+              <select value="{{ editor.condition }}" onchange="{{ editor.onCondition }}" style="{{ ui.input }}">
+                <sc-for list="{{ conditionOptions }}" as="o" hint-placeholder-count="4"><option value="{{ o }}">{{ o }}</option></sc-for>
+              </select>
+            </div>
+          </div>
+          <div style="display:flex;gap:14px;">
+            <div style="flex:1;display:flex;flex-direction:column;gap:7px;">
+              <div style="{{ ui.label }}">Total quantity</div>
+              <input value="{{ editor.totalQty }}" oninput="{{ editor.onQty }}" type="number" min="0" style="{{ ui.input }}">
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:7px;">
+              <div style="{{ ui.label }}">Units in repair</div>
+              <input value="{{ editor.inRepairQty }}" oninput="{{ editor.onRepair }}" type="number" min="0" style="{{ ui.input }}">
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="{{ ui.label }}">Location / storage</div>
+            <input value="{{ editor.location }}" oninput="{{ editor.onLocation }}" style="{{ ui.input }}">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="{{ ui.label }}">Description / specs</div>
+            <input value="{{ editor.specs }}" oninput="{{ editor.onSpecs }}" placeholder="Size, weight, accessories…" style="{{ ui.input }}">
+          </div>
+          <div onclick="{{ editor.toggleLoan }}" style="display:flex;align-items:center;gap:11px;cursor:pointer;">
+            <div style="{{ editor.loanStyle }}">{{ editor.loanMark }}</div>
+            <span style="font-size:14px;font-weight:600;">Available for cross-team loan</span>
+          </div>
+          <sc-if value="{{ editor.hasError }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:13px;color:#B42318;font-weight:600;">{{ editor.error }}</div>
+          </sc-if>
+        </div>
+        <div style="padding:16px 24px;border-top:1px solid #EFEDE8;display:flex;gap:10px;justify-content:flex-end;background:#FAF9F6;">
+          <button onclick="{{ closeEditor }}" style="{{ ui.ghost }}">Cancel</button>
+          <button onclick="{{ editor.save }}" style="{{ ui.primary }}">{{ editor.saveLabel }}</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ============ CONFIRM DELETE ============ -->
+  <sc-if value="{{ confirmOpen }}" hint-placeholder-val="{{ false }}">
+    <div onclick="{{ cancelDelete }}" style="position:fixed;inset:0;background:rgba(31,29,26,0.40);z-index:65;display:flex;align-items:center;justify-content:center;padding:24px;">
+      <div onclick="{{ stop }}" style="background:#fff;border-radius:18px;width:400px;max-width:100%;box-shadow:0 24px 70px rgba(0,0,0,0.28);padding:24px;">
+        <div style="font-size:18px;font-weight:800;margin-bottom:8px;">Remove asset?</div>
+        <div style="font-size:14px;color:#6F6A62;line-height:1.5;margin-bottom:20px;">{{ confirmText }}</div>
+        <div style="display:flex;gap:10px;justify-content:flex-end;">
+          <button onclick="{{ cancelDelete }}" style="{{ ui.ghost }}">Cancel</button>
+          <button onclick="{{ doDelete }}" style="{{ ui.danger }}">Remove asset</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ============ TOAST / EMAIL / BOOKING MODAL ============ -->
+  <sc-if value="{{ toastOpen }}" hint-placeholder-val="{{ false }}">
+    <div onclick="{{ closeToast }}" style="position:fixed;inset:0;background:rgba(31,29,26,0.42);z-index:70;display:flex;align-items:center;justify-content:center;padding:24px;">
+      <div onclick="{{ stop }}" style="background:#fff;border-radius:18px;width:480px;max-width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 24px 70px rgba(0,0,0,0.30);">
+
+        <sc-if value="{{ toast.isBooking }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:22px 24px;border-bottom:1px solid #EFEDE8;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">
+            <div>
+              <div style="{{ ui.idText }}">{{ toast.bk.id }}</div>
+              <div style="font-size:19px;font-weight:800;margin-top:5px;">{{ toast.bk.asset }}</div>
+            </div>
+            <button onclick="{{ closeToast }}" style="{{ ui.closeBtn }}">×</button>
+          </div>
+          <div style="padding:22px 24px;display:flex;flex-direction:column;gap:18px;">
+            <span style="{{ toast.bk.badgeStyle }}">{{ toast.bk.status }}</span>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+              <sc-for list="{{ toast.bk.fields }}" as="f" hint-placeholder-count="6">
+                <div style="display:flex;flex-direction:column;gap:4px;"><div style="{{ ui.label }}">{{ f.label }}</div><div style="font-size:14px;font-weight:600;line-height:1.35;">{{ f.value }}</div></div>
+              </sc-for>
+            </div>
+          </div>
+          <sc-if value="{{ toast.bk.hasActions }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:16px 24px;border-top:1px solid #EFEDE8;display:flex;gap:10px;flex-wrap:wrap;background:#FAF9F6;">
+              <sc-if value="{{ toast.showApprove }}" hint-placeholder-val="{{ false }}"><button onclick="{{ toast.onApprove }}" style="{{ ui.primarySm }}">Approve</button></sc-if>
+              <sc-if value="{{ toast.showReject }}" hint-placeholder-val="{{ false }}"><button onclick="{{ toast.onReject }}" style="{{ ui.ghostSm }}">Decline</button></sc-if>
+              <sc-if value="{{ toast.showHandover }}" hint-placeholder-val="{{ false }}"><button onclick="{{ toast.onHandover }}" style="{{ ui.primarySm }}">Confirm handover (→ In use)</button></sc-if>
+              <sc-if value="{{ toast.showRemind }}" hint-placeholder-val="{{ false }}"><button onclick="{{ toast.onRemind }}" style="{{ ui.ghostSm }}">Send reminder</button></sc-if>
+              <sc-if value="{{ toast.showReturn }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                  <sc-if value="{{ toast.returnMulti }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:#544E46;">
+                      <span>Qty returned</span>
+                      <input value="{{ toast.returnQty }}" oninput="{{ toast.onReturnQty }}" type="number" min="0" max="{{ toast.returnMax }}" style="width:58px;padding:7px 9px;border:1px solid #E2DACE;border-radius:8px;font-size:14px;font-weight:600;font-family:inherit;text-align:center;">
+                      <span style="color:#9A958C;">of {{ toast.returnMax }}</span>
+                    </div>
+                  </sc-if>
+                  <button onclick="{{ toast.onReturn }}" style="{{ ui.primarySm }}">Mark returned</button>
+                </div>
+              </sc-if>
+            </div>
+          </sc-if>
+        </sc-if>
+
+        <sc-if value="{{ toast.isEmail }}" hint-placeholder-val="{{ false }}">
+          <div style="{{ toast.headerStyle }}">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="font-size:18px;">✉</span>
+              <div style="font-size:16px;font-weight:800;">{{ toast.heading }}</div>
+            </div>
+            <button onclick="{{ closeToast }}" style="background:rgba(255,255,255,0.25);border:none;width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:18px;color:#fff;line-height:1;">×</button>
+          </div>
+          <div style="padding:20px 24px;display:flex;flex-direction:column;gap:14px;">
+            <div style="border:1px solid #EFEDE8;border-radius:12px;overflow:hidden;">
+              <div style="padding:11px 14px;background:#FAF9F6;border-bottom:1px solid #EFEDE8;font-size:12px;color:#6F6A62;font-weight:600;">{{ toast.fromTo }}</div>
+              <div style="padding:14px;">
+                <div style="font-size:14px;font-weight:700;margin-bottom:10px;">{{ toast.subject }}</div>
+                <div style="display:flex;flex-direction:column;gap:8px;">
+                  <sc-for list="{{ toast.body }}" as="line" hint-placeholder-count="4"><div style="font-size:13px;color:#4A463F;line-height:1.5;">{{ line }}</div></sc-for>
+                </div>
+              </div>
+            </div>
+            <sc-if value="{{ toast.hasNote }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:12px;color:#5E7A91;background:#F2F7FB;border-radius:9px;padding:9px 12px;font-weight:600;">{{ toast.note2 }}</div>
+            </sc-if>
+            <sc-if value="{{ toast.hasCal }}" hint-placeholder-val="{{ false }}">
+              <div style="border:1px dashed #C9C4BA;border-radius:12px;padding:13px 15px;display:flex;align-items:center;gap:13px;">
+                <div style="width:40px;height:40px;border-radius:9px;background:#FBF3EC;display:flex;align-items:center;justify-content:center;font-size:18px;flex:0 0 auto;">📅</div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:13px;font-weight:700;">{{ toast.calEvent.title }}</div>
+                  <div style="font-size:12px;color:#9A958C;">{{ toast.calEvent.range }} · {{ toast.calEvent.loc }}</div>
+                </div>
+                <sc-if value="{{ toast.calAdded }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;font-weight:700;color:#1B7A43;white-space:nowrap;">✓ Added</span></sc-if>
+                <sc-if value="{{ toast.calNotAdded }}" hint-placeholder-val="{{ true }}"><button onclick="{{ addToCal }}" style="{{ ui.ghostSm }}">Add to calendar</button></sc-if>
+              </div>
+            </sc-if>
+            <div style="font-size:11px;color:#B0AAA0;text-align:center;font-weight:600;">Simulated — sent automatically by Power Automate + Outlook</div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ toast.isWarning }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:24px;">
+            <div style="display:flex;align-items:center;gap:11px;margin-bottom:14px;">
+              <div style="width:38px;height:38px;border-radius:10px;background:#FCEBE9;display:flex;align-items:center;justify-content:center;font-size:20px;">⚠</div>
+              <div style="font-size:17px;font-weight:800;">{{ toast.heading }}</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:20px;">
+              <sc-for list="{{ toast.body }}" as="line" hint-placeholder-count="2"><div style="font-size:14px;color:#4A463F;line-height:1.5;">{{ line }}</div></sc-for>
+            </div>
+            <div style="display:flex;justify-content:flex-end;"><button onclick="{{ closeToast }}" style="{{ ui.primary }}">Got it</button></div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: &quot;100%&quot;, &quot;height&quot;: &quot;100%&quot; }
+}">
+class Component extends DCLogic {
+  today = '2026-06-17';
+  state = {
+    role: 'Admin',
+    view: 'register',
+    search: '', category: 'All',
+    selectedAssetId: null,
+    bookingOpen: false, bookingFor: null, bookingDraft: null,
+    editorOpen: false, editorMode: 'add', editorDraft: null,
+    confirmDelete: null,
+    toast: null,
+    calY: 2026, calM: 5,
+    assets: [
+      { id:'CAMD-001', name:'Power to Choose — Lightbox Graphic', category:'Branding', totalQty:1, inRepairQty:0, location:'MK Warehouse — Bay A', condition:'Good', loanAllowed:true, owningTeam:'Churches', specs:'3000 × 2250 mm, 30kg frame, double sided' },
+      { id:'CAMD-002', name:'Church Partnership — Lightbox Graphic', category:'Branding', totalQty:1, inRepairQty:0, location:'MK Warehouse — Bay A', condition:'Good', loanAllowed:true, owningTeam:'Churches', specs:'3000 × 2250 mm' },
+      { id:'CAMD-003', name:'Emergency — Curved Fabric Display', category:'Branding', totalQty:2, inRepairQty:0, location:'MK Warehouse — Bay B', condition:'Good', loanAllowed:true, owningTeam:'Churches', specs:'2500 × 2000 mm, aluminium frame' },
+      { id:'CAMD-004', name:'Ready for Photo — Pull-up Banner', category:'Branding', totalQty:4, inRepairQty:0, location:'MK Warehouse — Bay C', condition:'Good', loanAllowed:true, owningTeam:'Churches', specs:'800 × 2000 mm, 2kg, carry bag' },
+      { id:'CAMD-005', name:'Chosen Child QR — Pull-up Banner', category:'Branding', totalQty:2, inRepairQty:0, location:'MK Warehouse — Bay C', condition:'Good', loanAllowed:true, owningTeam:'Churches', specs:'800 × 2000 mm' },
+      { id:'CAMD-006', name:'WV Logo Feather Flags', category:'Branding', totalQty:6, inRepairQty:0, location:'MK Warehouse — Bay A', condition:'Good', loanAllowed:true, owningTeam:'Churches', specs:'2.8 m high, flag kit + spike base' },
+      { id:'CAMD-007', name:'Chosen Child — Square Banners', category:'Branding', totalQty:6, inRepairQty:0, location:'MK Warehouse — Bay C', condition:'Good', loanAllowed:true, owningTeam:'Churches', specs:'1200 × 1200 mm, exterior PVC' },
+      { id:'CAMD-010', name:'Ultra Heavy-Duty Gazebo (3 × 4.5m)', category:'Furniture', totalQty:1, inRepairQty:0, location:'MK Warehouse — Bay A', condition:'Good', loanAllowed:true, owningTeam:'Events', specs:'44.5 kg, printed walls, weights, carry bag' },
+      { id:'CAMD-011', name:'Poseur Tables (with covers)', category:'Furniture', totalQty:2, inRepairQty:0, location:'MK Warehouse — Bay B', condition:'Good', loanAllowed:true, owningTeam:'Events', specs:'104–110 cm high, black stretch covers' },
+      { id:'CAMD-012', name:'Bar Stools', category:'Furniture', totalQty:4, inRepairQty:0, location:'MK Warehouse — Bay B', condition:'Fair', loanAllowed:true, owningTeam:'Events', specs:'H95.5 × W49.5 × D47 cm, 3.5kg' },
+      { id:'CAMD-013', name:'Wooden Easels (A1)', category:'Furniture', totalQty:8, inRepairQty:0, location:'MK Warehouse — Bay C', condition:'Good', loanAllowed:true, owningTeam:'Events', specs:'Display easels up to A1' },
+      { id:'CAMD-014', name:'A-Frame Chalkboards', category:'Furniture', totalQty:3, inRepairQty:1, location:'MK Warehouse — Bay C', condition:'Needs repair', loanAllowed:true, owningTeam:'Events', specs:'1180–1400 × 700–750 mm, 11–15.5kg' },
+      { id:'CAMD-015', name:'Plastic Water Weights', category:'Furniture', totalQty:13, inRepairQty:0, location:'MK Warehouse — Bay A', condition:'Good', loanAllowed:true, owningTeam:'Events', specs:'30L, 33.2kg filled, for feather flags' },
+      { id:'CAMD-016', name:'Pop-up Clear Lectern', category:'Furniture', totalQty:1, inRepairQty:0, location:'MK Warehouse — Bay B', condition:'Good', loanAllowed:true, owningTeam:'Events', specs:'Collapsible clear lectern' },
+      { id:'CAMD-020', name:'Ring Lights', category:'Lighting', totalQty:4, inRepairQty:0, location:'MK Warehouse — Bay A', condition:'Good', loanAllowed:true, owningTeam:'Events', specs:'For photo & video capture' },
+      { id:'CAMD-021', name:'Fairy Lights (battery & mains)', category:'Lighting', totalQty:8, inRepairQty:0, location:'MK Warehouse — Bay A', condition:'Good', loanAllowed:true, owningTeam:'Events', specs:'Battery and plug-in sets' },
+      { id:'CAMD-022', name:'Clip-on Banner Lights', category:'Lighting', totalQty:6, inRepairQty:0, location:'MK Warehouse — Bay A', condition:'Good', loanAllowed:true, owningTeam:'Events', specs:'Clip-on lights for pull-up banners' },
+      { id:'CAMD-030', name:'Branded T-shirts', category:'Merch', totalQty:120, inRepairQty:0, location:'MK Warehouse — Bay C', condition:'Good', loanAllowed:true, owningTeam:'Churches', specs:'Assorted sizes' },
+      { id:'CAMD-031', name:'Branded Caps', category:'Merch', totalQty:60, inRepairQty:0, location:'MK Warehouse — Bay C', condition:'Good', loanAllowed:true, owningTeam:'Churches', specs:'One size' },
+      { id:'CAMD-032', name:'Water Bottles', category:'Merch', totalQty:90, inRepairQty:0, location:'MK Warehouse — Bay C', condition:'Good', loanAllowed:true, owningTeam:'Churches', specs:'Reusable, branded' },
+      { id:'CAMD-033', name:'Tote Bags', category:'Merch', totalQty:150, inRepairQty:0, location:'MK Warehouse — Bay C', condition:'Good', loanAllowed:true, owningTeam:'Churches', specs:'Cotton, branded' },
+      { id:'CAMD-034', name:'Hoodies', category:'Merch', totalQty:30, inRepairQty:0, location:'MK Warehouse — Bay C', condition:'Good', loanAllowed:true, owningTeam:'Churches', specs:'Assorted sizes' },
+      { id:'CAMD-040', name:'Transport Suitcases & Bags', category:'Equipment', totalQty:6, inRepairQty:0, location:'MK Warehouse — Bay A', condition:'Good', loanAllowed:true, owningTeam:'Events', specs:'2 large + 4 small' },
+      { id:'CAMD-041', name:'Orange Jerry Cans', category:'Equipment', totalQty:4, inRepairQty:0, location:'MK Warehouse — Bay A', condition:'Good', loanAllowed:true, owningTeam:'Events', specs:'Plastic, for water transport' },
+      { id:'CAMD-042', name:'Events Stationery Box', category:'Equipment', totalQty:1, inRepairQty:0, location:'MK Warehouse — Mezzanine', condition:'Good', loanAllowed:true, owningTeam:'Events', specs:'Pens, tape, tools, first aid, perspex holders' },
+      { id:'CAMD-043', name:'iPads & Charging Kit', category:'Equipment', totalQty:4, inRepairQty:1, location:'IT Store', condition:'Needs repair', loanAllowed:true, owningTeam:'Events', specs:'iPads, stands, chargers, cables' },
+      { id:'CAMD-044', name:'Polaroid Camera', category:'Equipment', totalQty:1, inRepairQty:0, location:'MK Warehouse — Mezzanine', condition:'Good', loanAllowed:true, owningTeam:'Events', specs:'Instant camera for photo activities' }
+    ],
+    bookings: [
+      { id:'REQ-1001', assetId:'CAMD-030', assetName:'Branded T-shirts', qty:20, requester:'Sarah Lin', event:'Spring Harvest', checkout:'2026-06-20', ret:'2026-06-30', actual:'', status:'Pending', note:'For the welcome team', created:'2026-06-15' },
+      { id:'REQ-1002', assetId:'CAMD-010', assetName:'Ultra Heavy-Duty Gazebo (3 × 4.5m)', qty:1, requester:'James Owusu', event:'New Wine United', checkout:'2026-06-10', ret:'2026-06-25', actual:'', status:'In use', note:'', created:'2026-06-03' },
+      { id:'REQ-1003', assetId:'CAMD-020', assetName:'Ring Lights', qty:2, requester:'Dan Roberts', event:'Big Church Day Out', checkout:'2026-06-05', ret:'2026-06-14', actual:'', status:'In use', note:'', created:'2026-05-29' },
+      { id:'REQ-1004', assetId:'CAMD-006', assetName:'WV Logo Feather Flags', qty:4, requester:'Priya Patel', event:'CRE Exhibition', checkout:'2026-06-22', ret:'2026-07-02', actual:'', status:'Approved', note:'', created:'2026-06-12' },
+      { id:'REQ-1005', assetId:'CAMD-032', assetName:'Water Bottles', qty:50, requester:'Sarah Lin', event:'Spring Harvest', checkout:'2026-06-19', ret:'2026-06-29', actual:'', status:'Approved', note:'Giveaways', created:'2026-06-13' },
+      { id:'REQ-1006', assetId:'CAMD-012', assetName:'Bar Stools', qty:2, requester:'Mark Bennett', event:'New Wine United', checkout:'2026-06-12', ret:'2026-06-20', actual:'', status:'In use', note:'', created:'2026-06-04' },
+      { id:'REQ-1007', assetId:'CAMD-004', assetName:'Ready for Photo — Pull-up Banner', qty:2, requester:'Sarah Lin', event:'Spring Harvest', checkout:'2026-06-18', ret:'2026-06-28', actual:'', status:'Pending', note:'', created:'2026-06-15' },
+      { id:'REQ-1008', assetId:'CAMD-011', assetName:'Poseur Tables (with covers)', qty:2, requester:'James Owusu', event:'New Wine United', checkout:'2026-06-01', ret:'2026-06-10', actual:'2026-06-09', status:'Returned', returnedQty:2, note:'', created:'2026-05-25' },
+      { id:'REQ-1009', assetId:'CAMD-033', assetName:'Tote Bags', qty:100, requester:'Priya Patel', event:'CRE Exhibition', checkout:'2026-06-21', ret:'2026-07-05', actual:'', status:'Pending', note:'', created:'2026-06-16' },
+      { id:'REQ-1010', assetId:'CAMD-013', assetName:'Wooden Easels (A1)', qty:3, requester:'Dan Roberts', event:'Big Church Day Out', checkout:'2026-06-08', ret:'2026-06-16', actual:'', status:'In use', note:'', created:'2026-06-01' },
+      { id:'REQ-1011', assetId:'CAMD-030', assetName:'Branded T-shirts', qty:40, requester:'Mark Bennett', event:'Big Church Day Out', checkout:'2026-05-20', ret:'2026-05-30', actual:'2026-05-31', status:'Returned', returnedQty:6, note:'Giveaways — most handed out at the event', created:'2026-05-12' },
+      { id:'REQ-1012', assetId:'CAMD-032', assetName:'Water Bottles', qty:30, requester:'Dan Roberts', event:'Big Church Day Out', checkout:'2026-05-20', ret:'2026-05-30', actual:'2026-05-31', status:'Returned', returnedQty:0, note:'All distributed to volunteers', created:'2026-05-12' },
+      { id:'REQ-1013', assetId:'CAMD-020', assetName:'Ring Lights', qty:2, requester:'Priya Patel', event:'CRE Exhibition', checkout:'2026-05-18', ret:'2026-05-28', actual:'2026-05-27', status:'Returned', returnedQty:1, note:'One returned damaged — see Events team', created:'2026-05-10' }
+    ]
+  };
+
+  // ---------- helpers ----------
+  parseD(d){ const p=d.split('-').map(Number); return new Date(p[0],p[1]-1,p[2]); }
+  fmtDate(d){ if(!d) return '—'; return this.parseD(d).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}); }
+  daysFromToday(d){ return Math.round((this.parseD(d)-this.parseD(this.today))/86400000); }
+  eventColor(e){ const m={'Big Church Day Out':'#E8601C','Spring Harvest':'#2D8A4E','New Wine United':'#2D4F8E','CRE Exhibition':'#8A4FA8'}; return m[e]||'#7A756B'; }
+  consumedFor(id){ return this.state.bookings.filter(b=>b.assetId===id).reduce((s,b)=>{
+    if(b.status==='Approved'||b.status==='In use') return s+b.qty;                 // fully out on active loan
+    if(b.status==='Returned'){ const back=(b.returnedQty==null)?b.qty:b.returnedQty; return s+(b.qty-back); } // un-returned remainder is consumed for good
+    return s;                                                                       // Pending / Rejected reserve nothing
+  },0); }
+  availFor(id){ const a=this.state.assets.find(x=>x.id===id); if(!a) return 0; return Math.max(0, a.totalQty-(a.inRepairQty||0)-this.consumedFor(id)); }
+  assetName(id){ const a=this.state.assets.find(x=>x.id===id); return a?a.name:id; }
+  nextReqId(){ let max=1000; this.state.bookings.forEach(b=>{ const n=parseInt(b.id.replace('REQ-','')); if(n>max)max=n; }); return max+1; }
+  showToast(o){ this.setState({ toast:o }); }
+  emailFor(name){ if(!name) return ''; return name.trim().toLowerCase().replace(/[^a-z\s]/g,'').split(/\s+/).filter(Boolean).join('.')+'@worldvision.org.uk'; }
+  recipient(b){ return b.requester+' <'+(b.email||this.emailFor(b.requester))+'>'; }
+
+  // ---------- lifecycle handlers ----------
+  submitBooking(){
+    const d=this.state.bookingDraft; const a=this.state.assets.find(x=>x.id===d.assetId);
+    const id='REQ-'+this.nextReqId();
+    const bk={ id, assetId:d.assetId, assetName:a.name, qty:Number(d.qty)||1, requester:d.requester.trim(), email:(d.email||'').trim(), event:d.event.trim(), checkout:d.checkout, ret:d.ret, actual:'', status:'Pending', note:d.note.trim(), created:this.today };
+    this.setState(s=>({ bookings:[bk,...s.bookings], bookingOpen:false, bookingFor:null, bookingDraft:null }));
+    const fn=bk.requester.split(' ')[0];
+    this.showToast({ kind:'email', accent:'#B25C00',
+      heading:'Request received', subject:'['+id+'] Asset request — '+a.name, fromTo:'Power Automate  →  '+this.recipient(bk),
+      body:['Hi '+fn+',','Thanks — we have received your request to book '+bk.qty+' × '+a.name+' for '+bk.event+'.','Requested dates: '+this.fmtDate(bk.checkout)+'  →  '+this.fmtDate(bk.ret)+'.','Your request '+id+' is now pending approval. You will be emailed once it has been reviewed.'],
+      note2:'A "Pending approval" notification has been sent to the Asset Admin / approver.' });
+  }
+  approve(id){
+    const b=this.state.bookings.find(x=>x.id===id); if(!b) return;
+    const av=this.availFor(b.assetId);
+    if(av < b.qty){ this.showToast({ kind:'warning', heading:'Not enough stock to approve', body:['Only '+av+' of "'+this.assetName(b.assetId)+'" are currently available, but '+b.qty+' were requested.','Wait for stock to return or ask the requester to reduce the quantity, then approve again.'] }); return; }
+    this.setState(s=>({ bookings:s.bookings.map(x=>x.id===id?{...x,status:'Approved'}:x), toast:null }));
+    const a=this.state.assets.find(x=>x.id===b.assetId); const fn=b.requester.split(' ')[0];
+    this.showToast({ kind:'email', accent:'#0E7C86',
+      heading:'Request approved', subject:'['+id+'] Approved — '+a.name, fromTo:'Power Automate  →  '+this.recipient(b),
+      body:['Hi '+fn+',','Good news — your request for '+b.qty+' × '+a.name+' ('+b.event+') has been approved.','Collection from '+a.location+' on '+this.fmtDate(b.checkout)+'. Please return by '+this.fmtDate(b.ret)+'.','Please review the loan terms & conditions before collection.'],
+      calEvent:{ title:b.qty+'× '+a.name+' — '+b.event, range:this.fmtDate(b.checkout)+' → '+this.fmtDate(b.ret), loc:a.location }, calAdded:false });
+  }
+  reject(id){
+    const b=this.state.bookings.find(x=>x.id===id); if(!b) return;
+    this.setState(s=>({ bookings:s.bookings.map(x=>x.id===id?{...x,status:'Rejected'}:x), toast:null }));
+    const fn=b.requester.split(' ')[0];
+    this.showToast({ kind:'email', accent:'#B42318',
+      heading:'Request declined', subject:'['+id+'] Declined — '+b.assetName, fromTo:'Power Automate  →  '+this.recipient(b),
+      body:['Hi '+fn+',','Unfortunately your request for '+b.qty+' × '+b.assetName+' ('+b.event+') could not be approved on this occasion.','Please contact the Events team if you would like to discuss alternatives.'] });
+  }
+  handover(id){
+    const b=this.state.bookings.find(x=>x.id===id); if(!b) return;
+    this.setState(s=>({ bookings:s.bookings.map(x=>x.id===id?{...x,status:'In use'}:x), toast:null }));
+    const a=this.state.assets.find(x=>x.id===b.assetId); const fn=b.requester.split(' ')[0];
+    this.showToast({ kind:'email', accent:'#2D4F8E',
+      heading:'Handover confirmed', subject:'['+id+'] Handover — '+a.name, fromTo:'Power Automate  →  '+this.recipient(b),
+      body:['Hi '+fn+',','You now have '+b.qty+' × '+a.name+' ('+a.id+') on loan for '+b.event+'.','You are responsible for the asset until it is returned by '+this.fmtDate(b.ret)+'.','Loan terms & conditions: sharepoint/churches-events/asset-loan-policy'] });
+  }
+  markReturned(id, retQty){
+    const b=this.state.bookings.find(x=>x.id===id); if(!b) return;
+    const R=(retQty==null||retQty==='')?b.qty:Math.max(0,Math.min(b.qty,Math.round(Number(retQty))||0));
+    const notBack=b.qty-R;
+    this.setState(s=>({ bookings:s.bookings.map(x=>x.id===id?{...x,status:'Returned',returnedQty:R,actual:this.today}:x), toast:null }));
+    const line = R===b.qty
+      ? 'Thanks — all '+b.qty+' × '+b.assetName+' have been booked back in on '+this.fmtDate(this.today)+'. The stock is available again for other bookings.'
+      : (R===0
+        ? 'Recorded on '+this.fmtDate(this.today)+': none of the '+b.qty+' × '+b.assetName+' were returned — all '+b.qty+' logged as distributed / consumed and removed from available stock.'
+        : R+' of '+b.qty+' × '+b.assetName+' booked back in on '+this.fmtDate(this.today)+'. The remaining '+notBack+' logged as not returned (distributed / consumed) and removed from available stock.');
+    this.showToast({ kind:'email', accent:'#1B7A43',
+      heading:'Return confirmed', subject:'['+id+'] Returned — '+b.assetName, fromTo:'Power Automate  →  '+this.recipient(b),
+      body:[line,'Please report any damage to the Events team for condition review.'] });
+  }
+  sendReminder(id){
+    const b=this.state.bookings.find(x=>x.id===id); if(!b) return;
+    const fn=b.requester.split(' ')[0]; const dd=this.daysFromToday(b.ret);
+    const due = dd<0 ? 'was due back '+Math.abs(dd)+' day(s) ago' : dd===0 ? 'is due back today' : 'is due back in '+dd+' day(s)';
+    this.setState({ toast:null });
+    this.showToast({ kind:'email', accent:'#B25C00',
+      heading:'Return reminder sent', subject:'['+b.id+'] Reminder — '+b.assetName+' due '+this.fmtDate(b.ret), fromTo:'Power Automate  →  '+this.recipient(b),
+      body:['Hi '+fn+',','A reminder that '+b.qty+' × '+b.assetName+' ('+b.event+') '+due+'.','Please arrange its return to '+(this.state.assets.find(x=>x.id===b.assetId)||{}).location+' or contact the Events team.'],
+      note2: dd<0 ? 'Overdue — escalation copy also sent to line manager & stakeholder.' : '' });
+  }
+  showBookingDetail(id){
+    const b=this.state.bookings.find(x=>x.id===id); if(!b) return;
+    const a=this.state.assets.find(x=>x.id===b.assetId)||{};
+    const isAdmin=this.state.role==='Admin';
+    const showApprove=isAdmin&&b.status==='Pending', showReject=isAdmin&&b.status==='Pending', showHandover=isAdmin&&b.status==='Approved', showReturn=isAdmin&&b.status==='In use', showRemind=isAdmin&&b.status==='In use';
+    const fields=[ {label:'Quantity',value:String(b.qty)}, {label:'Requester',value:b.requester}, {label:'Email',value:b.email||this.emailFor(b.requester)}, {label:'Event',value:b.event}, {label:'Collection',value:this.fmtDate(b.checkout)}, {label:'Return by',value:this.fmtDate(b.ret)}, {label:'Returned',value:b.actual?this.fmtDate(b.actual):'—'}, {label:'Location',value:a.location||'—'}, {label:'Notes',value:b.note||'—'} ];
+    if(b.status==='Returned'){ const back=(b.returnedQty==null)?b.qty:b.returnedQty; fields.push({label:'Qty returned',value:back+' of '+b.qty+(back<b.qty?'  ('+(b.qty-back)+' consumed)':'')}); }
+    this.setState({ toast:{ kind:'booking', id:b.id, statusKey:b.status, asset:b.assetName, fields,
+      showApprove, showReject, showHandover, showReturn, showRemind, hasActions:(showApprove||showReject||showHandover||showReturn||showRemind),
+      returnMulti:b.qty>1, returnMax:b.qty, returnQty:String(b.qty),
+      onReturnQty:(e)=>this.setState(s=>({ toast:{...s.toast, returnQty:e.target.value} })),
+      onApprove:()=>this.approve(b.id), onReject:()=>this.reject(b.id), onHandover:()=>this.handover(b.id), onReturn:()=>this.markReturned(b.id, this.state.toast?this.state.toast.returnQty:b.qty), onRemind:()=>this.sendReminder(b.id) } });
+  }
+
+  // ---------- editor / delete ----------
+  openAdd(){
+    let max=0; this.state.assets.forEach(a=>{ const n=parseInt(a.id.replace('CAMD-','')); if(n>max)max=n; });
+    const sug='CAMD-'+String(max+1).padStart(3,'0');
+    this.setState({ editorOpen:true, editorMode:'add', editorDraft:{ id:sug, name:'', category:'Branding', condition:'Good', totalQty:1, inRepairQty:0, location:'MK Warehouse — Bay A', specs:'', loanAllowed:true }, selectedAssetId:null });
+  }
+  openEdit(id){
+    const a=this.state.assets.find(x=>x.id===id); if(!a) return;
+    this.setState({ editorOpen:true, editorMode:'edit', editorDraft:{...a}, selectedAssetId:null });
+  }
+  saveAsset(){
+    const d=this.state.editorDraft;
+    if(!d.name.trim()){ this.setState({ editorDraft:{...d, _err:'Please enter an asset name.'} }); return; }
+    const clean={ id:d.id.trim()||('CAMD-'+Date.now()), name:d.name.trim(), category:d.category, condition:d.condition, totalQty:Math.max(0,Number(d.totalQty)||0), inRepairQty:Math.max(0,Number(d.inRepairQty)||0), location:d.location.trim(), specs:d.specs.trim(), loanAllowed:!!d.loanAllowed, owningTeam:d.owningTeam||'Churches' };
+    this.setState(s=>{
+      const exists=s.assets.some(a=>a.id===clean.id);
+      const assets = exists ? s.assets.map(a=>a.id===clean.id?{...a,...clean}:a) : [clean,...s.assets];
+      return { assets, editorOpen:false, editorDraft:null };
+    });
+  }
+  doDelete(){
+    const id=this.state.confirmDelete;
+    this.setState(s=>({ assets:s.assets.filter(a=>a.id!==id), bookings:s.bookings.filter(b=>b.assetId!==id), confirmDelete:null, selectedAssetId:null }));
+  }
+
+  renderVals(){
+    const brand='#E8601C';
+    const isAdmin=this.state.role==='Admin';
+    const me = isAdmin ? 'Terri Clarke' : 'Sarah Lin';
+    const myEmail = this.emailFor(me);
+    const cats=['All','Branding','Furniture','Lighting','Equipment','Merch'];
+
+    const SM={ 'Available':{bg:'#E7F4EC',fg:'#1B7A43'}, 'Low stock':{bg:'#FEF4E3',fg:'#B25C00'}, 'Fully booked':{bg:'#E8EEF9',fg:'#2D4F8E'}, 'In repair':{bg:'#FCEBE9',fg:'#B42318'} };
+    const BSM={ 'Pending':{bg:'#FEF4E3',fg:'#B25C00'}, 'Approved':{bg:'#E2F4F5',fg:'#0E7C86'}, 'In use':{bg:'#E8EEF9',fg:'#2D4F8E'}, 'Returned':{bg:'#E7F4EC',fg:'#1B7A43'}, 'Rejected':{bg:'#FCEBE9',fg:'#B42318'} };
+    const CM={ 'Excellent':'#1B7A43','Good':'#3E8E5A','Fair':'#B25C00','Needs repair':'#B42318' };
+    const bbadge=(st)=>{ const m=BSM[st]; return {display:'inline-block',padding:'4px 11px',borderRadius:'999px',fontSize:'12px',fontWeight:'700',background:m.bg,color:m.fg,whiteSpace:'nowrap'}; };
+
+    const ui={
+      panel:'background:#fff;border:1px solid #E6E4DF;border-radius:16px;',
+      label:{fontSize:'11px',fontWeight:'700',textTransform:'uppercase',letterSpacing:'0.06em',color:'#9A958C'},
+      input:'width:100%;padding:11px 13px;border:1px solid #E0DDD6;border-radius:10px;font-size:14px;font-family:inherit;color:#1F1D1A;outline:none;background:#FAF9F6;',
+      h1:'font-size:24px;font-weight:800;letter-spacing:-0.02em;margin:0 0 4px;',
+      h2:{fontSize:'17px',fontWeight:'800',letterSpacing:'-0.01em',margin:'0'},
+      sub:'font-size:14px;color:#6F6A62;margin:0;',
+      th:'text-align:left;padding:12px 18px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#9A958C;border-bottom:1px solid #ECEAE4;white-space:nowrap;',
+      td:{padding:'14px 18px',fontSize:'14px',color:'#3A372F',borderBottom:'1px solid #F1EFEA',verticalAlign:'middle'},
+      tdMuted:{padding:'14px 18px',fontSize:'14px',color:'#6F6A62',borderBottom:'1px solid #F1EFEA',verticalAlign:'middle',whiteSpace:'nowrap'},
+      idText:{fontSize:'11px',fontWeight:'700',letterSpacing:'0.04em',color:'#A39E94',fontFamily:'ui-monospace,monospace'},
+      nameText:{fontSize:'14px',fontWeight:'600',color:'#1F1D1A',marginTop:'2px'},
+      primary:{padding:'11px 18px',borderRadius:'10px',border:'none',background:brand,color:'#fff',fontSize:'14px',fontWeight:'700',cursor:'pointer',fontFamily:'inherit',whiteSpace:'nowrap'},
+      primarySm:{padding:'8px 14px',borderRadius:'9px',border:'none',background:brand,color:'#fff',fontSize:'13px',fontWeight:'700',cursor:'pointer',fontFamily:'inherit',whiteSpace:'nowrap'},
+      ghost:{padding:'11px 16px',borderRadius:'10px',border:'1px solid #D8D4CC',background:'#fff',color:'#1F1D1A',fontSize:'14px',fontWeight:'600',cursor:'pointer',fontFamily:'inherit'},
+      ghostSm:{padding:'8px 14px',borderRadius:'9px',border:'1px solid #D8D4CC',background:'#fff',color:'#1F1D1A',fontSize:'13px',fontWeight:'600',cursor:'pointer',fontFamily:'inherit',whiteSpace:'nowrap'},
+      ghostFlex:{flex:'1',padding:'11px 16px',borderRadius:'10px',border:'1px solid #D8D4CC',background:'#fff',color:'#1F1D1A',fontSize:'14px',fontWeight:'600',cursor:'pointer',fontFamily:'inherit'},
+      danger:{padding:'11px 16px',borderRadius:'10px',border:'1px solid #E7C3BD',background:'#fff',color:'#B42318',fontSize:'14px',fontWeight:'700',cursor:'pointer',fontFamily:'inherit'},
+      dangerFlex:{flex:'1',padding:'11px 16px',borderRadius:'10px',border:'1px solid #E7C3BD',background:'#fff',color:'#B42318',fontSize:'14px',fontWeight:'700',cursor:'pointer',fontFamily:'inherit'},
+      iconBtn:{width:'38px',height:'38px',borderRadius:'10px',border:'1px solid #E0DDD6',background:'#fff',color:'#4A463F',fontSize:'18px',fontWeight:'700',cursor:'pointer',fontFamily:'inherit'},
+      stepBtn:{width:'40px',height:'40px',borderRadius:'10px',border:'1px solid #E0DDD6',background:'#FAF9F6',color:'#1F1D1A',fontSize:'20px',fontWeight:'700',cursor:'pointer',fontFamily:'inherit',lineHeight:'1'},
+      closeBtn:{border:'none',background:'#F2F0EB',width:'34px',height:'34px',borderRadius:'9px',cursor:'pointer',fontSize:'20px',color:'#6F6A62',flex:'0 0 auto',lineHeight:'1'}
+    };
+
+    // ----- tallies -----
+    const assets=this.state.assets, bookings=this.state.bookings;
+    let totalUnits=0, unitsRepair=0, unitsOut=0;
+    assets.forEach(a=>{ totalUnits+=a.totalQty; unitsRepair+=(a.inRepairQty||0); });
+    bookings.forEach(b=>{ if(b.status==='Approved'||b.status==='In use') unitsOut+=b.qty; });
+    const unitsAvail=Math.max(0,totalUnits-unitsRepair-unitsOut);
+    const pendingCount=bookings.filter(b=>b.status==='Pending').length;
+    const inUse=bookings.filter(b=>b.status==='In use');
+    const overdueCount=inUse.filter(b=>this.daysFromToday(b.ret)<0).length;
+    const dueSoonCount=inUse.filter(b=>{const d=this.daysFromToday(b.ret);return d>=0&&d<=3;}).length;
+
+    // ----- role + nav -----
+    const roleBtns=['Admin','Standard user'].map(r=>{
+      const active=(r==='Admin'&&isAdmin)||(r==='Standard user'&&!isAdmin);
+      return { label:r, onClick:()=>this.setState({role:r==='Admin'?'Admin':'Standard',view:'register',selectedAssetId:null,toast:null}),
+        style:{padding:'7px 14px',borderRadius:'8px',border:'none',fontSize:'13px',fontWeight:'700',cursor:'pointer',fontFamily:'inherit',background:active?'#fff':'transparent',color:active?brand:'#6F6A62',boxShadow:active?'0 1px 2px rgba(0,0,0,0.08)':'none'} };
+    });
+
+    const navDefs = isAdmin
+      ? [ {k:'register',l:'Asset Register'}, {k:'requests',l:'Requests & Approvals',badge:pendingCount}, {k:'calendar',l:'Booking Calendar'}, {k:'returns',l:'Returns & Reminders',badge:overdueCount}, {k:'reporting',l:'Reporting'} ]
+      : [ {k:'register',l:'Asset Register'}, {k:'myrequests',l:'My Requests'}, {k:'calendar',l:'Booking Calendar'} ];
+    let view=this.state.view;
+    if(!navDefs.some(n=>n.k===view)) view='register';
+    const navItems=navDefs.map(n=>{
+      const active=view===n.k;
+      return { label:n.l, onClick:()=>this.setState({view:n.k,selectedAssetId:null}),
+        showBadge:(n.badge||0)>0, badge:String(n.badge||0),
+        badgeStyle:{marginLeft:'7px',display:'inline-block',minWidth:'18px',padding:'1px 6px',borderRadius:'999px',background:active?brand:'#E0DDD6',color:active?'#fff':'#6F6A62',fontSize:'11px',fontWeight:'800',textAlign:'center'},
+        style:{position:'relative',padding:'15px 16px 13px',border:'none',background:'transparent',cursor:'pointer',fontFamily:'inherit',fontSize:'14px',fontWeight:active?'800':'600',color:active?'#1F1D1A':'#7A756B',borderBottom:active?'3px solid '+brand:'3px solid transparent',whiteSpace:'nowrap'} };
+    });
+
+    // ----- register summary cards -----
+    const mkCard=(label,value,unit,accent,onClick)=>({ label,value:String(value),unit,onClick,
+      dotStyle:{width:'9px',height:'9px',borderRadius:'50%',background:accent,flex:'0 0 auto'},
+      valueStyle:{fontSize:'29px',fontWeight:'800',lineHeight:'1',color:'#1F1D1A',letterSpacing:'-0.02em'},
+      cardStyle:{display:'flex',flexDirection:'column',gap:'11px',padding:'16px 18px',background:'#fff',border:'1px solid #E6E4DF',borderRadius:'14px',cursor:'pointer',boxShadow:'0 1px 2px rgba(0,0,0,0.03)'} });
+    const summaryCards=[
+      mkCard('Total assets',assets.length,'lines',brand,()=>{}),
+      mkCard('Available',unitsAvail,'units','#1B7A43',()=>{}),
+      mkCard('On loan',unitsOut,'units','#2D4F8E',()=>this.setState({view:isAdmin?'returns':'myrequests'})),
+      mkCard('In repair',unitsRepair,'units','#B42318',()=>{}),
+      mkCard('Pending',pendingCount,'requests','#B25C00',()=>this.setState({view:isAdmin?'requests':'myrequests'}))
+    ];
+
+    // ----- register rows -----
+    const catChips=cats.map(c=>{ const active=this.state.category===c; const base={padding:'7px 14px',borderRadius:'999px',fontSize:'13px',fontWeight:'600',cursor:'pointer',border:'1px solid',whiteSpace:'nowrap',fontFamily:'inherit'};
+      return { label:c, onClick:()=>this.setState({category:c}), style:active?{...base,background:brand,borderColor:brand,color:'#fff'}:{...base,background:'#fff',borderColor:'#E0DDD6',color:'#4A463F'} }; });
+    const q=this.state.search.trim().toLowerCase();
+    const filtered=assets.filter(a=>{
+      if(this.state.category!=='All'&&a.category!==this.state.category) return false;
+      if(q){ const h=(a.id+' '+a.name+' '+a.location+' '+a.category).toLowerCase(); if(!h.includes(q)) return false; }
+      return true;
+    });
+    const rows=filtered.map(a=>{
+      const avail=this.availFor(a.id), onLoan=this.consumedFor(a.id), rep=a.inRepairQty||0;
+      let sk = avail===0 ? 'Fully booked' : ((avail < a.totalQty && avail <= Math.ceil(a.totalQty*0.25)) ? 'Low stock' : 'Available');
+      if(rep>0 && avail===0) sk='In repair';
+      const m=SM[sk]; const pct=a.totalQty>0?Math.round(avail/a.totalQty*100):0;
+      const sel=a.id===this.state.selectedAssetId;
+      return { id:a.id, name:a.name, category:a.category, location:a.location, loanLabel:a.loanAllowed?'Yes':'No',
+        availText:avail+' / '+a.totalQty, statusLabel:sk,
+        barStyle:{width:pct+'%',height:'100%',background:avail===0?'#C9C4BA':'#3E8E5A',borderRadius:'4px'},
+        badgeStyle:{display:'inline-block',padding:'4px 11px',borderRadius:'999px',fontSize:'12px',fontWeight:'700',background:m.bg,color:m.fg,whiteSpace:'nowrap'},
+        onClick:()=>this.setState({selectedAssetId:a.id}),
+        rowStyle:{display:'grid',gridTemplateColumns:'minmax(180px,2.2fr) minmax(90px,1fr) minmax(120px,1.4fr) minmax(90px,1fr) minmax(140px,1.6fr) minmax(80px,0.9fr) 34px',alignItems:'center',cursor:'pointer',background:sel?brand+'10':'transparent'},
+        rowHover:{display:'grid',gridTemplateColumns:'minmax(180px,2.2fr) minmax(90px,1fr) minmax(120px,1.4fr) minmax(90px,1fr) minmax(140px,1.6fr) minmax(80px,0.9fr) 34px',alignItems:'center',cursor:'pointer',background:'#FBF7F3'} };
+    });
+
+    // ----- detail -----
+    let detail=null; const sa=assets.find(a=>a.id===this.state.selectedAssetId);
+    if(sa){
+      const avail=this.availFor(sa.id), onLoan=this.consumedFor(sa.id), rep=sa.inRepairQty||0;
+      let sk = avail===0 ? 'Fully booked' : ((avail < sa.totalQty && avail <= Math.ceil(sa.totalQty*0.25)) ? 'Low stock' : 'Available');
+      if(rep>0 && avail===0) sk='In repair';
+      const m=SM[sk];
+      const bks=bookings.filter(b=>b.assetId===sa.id&&b.status!=='Returned'&&b.status!=='Rejected').map(b=>({
+        qtyEvent:b.qty+'× · '+b.event, line:b.requester+' · '+this.fmtDate(b.checkout)+' → '+this.fmtDate(b.ret),
+        status:b.status, badgeStyle:bbadge(b.status), onClick:()=>this.showBookingDetail(b.id) }));
+      detail={ id:sa.id, name:sa.name, statusLabel:sk, badgeStyle:{display:'inline-flex',padding:'6px 14px',borderRadius:'999px',fontSize:'13px',fontWeight:'700',background:m.bg,color:m.fg},
+        avail:String(avail), onLoan:String(onLoan), total:String(sa.totalQty),
+        hasRepair:rep>0, repairText:rep+' unit(s) currently in repair and unavailable.',
+        fields:[ {label:'Category',value:sa.category}, {label:'Condition',value:sa.condition}, {label:'Location',value:sa.location}, {label:'Owning team',value:sa.owningTeam}, {label:'Loanable',value:sa.loanAllowed?'Yes — cross-team':'No'}, {label:'Specs',value:sa.specs||'—'} ],
+        bookings:bks, hasBookings:bks.length>0, noBookings:bks.length===0,
+        onBook:()=>{ if(avail<=0) return; this.setState({ bookingOpen:true, bookingFor:sa.id, selectedAssetId:null, bookingDraft:{ assetId:sa.id, qty:1, requester:isAdmin?'':me, email:isAdmin?'':myEmail, event:'', checkout:this.today, ret:'', note:'', agree:false } }); },
+        bookBtnLabel: avail>0 ? 'Request to book' : 'Fully booked — none available',
+        bookBtnStyle: avail>0 ? {padding:'13px',borderRadius:'11px',border:'none',background:brand,color:'#fff',fontSize:'15px',fontWeight:'700',cursor:'pointer',fontFamily:'inherit'} : {padding:'13px',borderRadius:'11px',border:'1px solid #E6E4DF',background:'#F2F0EB',color:'#9A958C',fontSize:'15px',fontWeight:'700',cursor:'not-allowed',fontFamily:'inherit'},
+        onEdit:()=>this.openEdit(sa.id), onDelete:()=>this.setState({confirmDelete:sa.id,selectedAssetId:null}) };
+    }
+
+    // ----- booking modal -----
+    let booking=null;
+    if(this.state.bookingOpen && this.state.bookingDraft){
+      const d=this.state.bookingDraft; const a=assets.find(x=>x.id===d.assetId)||{}; const maxQ=this.availFor(d.assetId);
+      const qn=Number(d.qty)||0;
+      let err='';
+      if(qn<1||qn>maxQ) err='Quantity must be between 1 and '+maxQ+'.';
+      else if(!d.requester.trim()) err='Please enter who the booking is for.';
+      else if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((d.email||'').trim())) err='Please enter a valid work email — this is where the confirmation is sent.';
+      else if(!d.event.trim()) err='Please enter the event or purpose.';
+      else if(!d.ret) err='Please choose a return date.';
+      else if(d.ret<d.checkout) err='Return date must be after the collection date.';
+      else if(!d.agree) err='Please agree to the loan terms & conditions.';
+      const setD=(p)=>this.setState(s=>({bookingDraft:{...s.bookingDraft,...p}}));
+      booking={ assetName:a.name, availLine:maxQ+' of '+a.totalQty+' available · '+a.location, maxQty:String(maxQ),
+        qty:String(d.qty), requester:d.requester, email:d.email||'', event:d.event, checkout:d.checkout, ret:d.ret, note:d.note,
+        onQty:(e)=>setD({qty:e.target.value}), inc:()=>setD({qty:Math.min(maxQ,(Number(d.qty)||0)+1)}), dec:()=>setD({qty:Math.max(1,(Number(d.qty)||0)-1)}),
+        onRequester:(e)=>setD({requester:e.target.value}), onEmail:(e)=>setD({email:e.target.value}), onEvent:(e)=>setD({event:e.target.value}),
+        onCheckout:(e)=>setD({checkout:e.target.value}), onRet:(e)=>setD({ret:e.target.value}), onNote:(e)=>setD({note:e.target.value}),
+        toggleAgree:()=>setD({agree:!d.agree}),
+        checkStyle:{width:'22px',height:'22px',borderRadius:'6px',border:'2px solid '+(d.agree?brand:'#C9C4BA'),background:d.agree?brand:'#fff',color:'#fff',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'14px',fontWeight:'800',flex:'0 0 auto'},
+        checkMark:d.agree?'✓':'',
+        hasError:!!err, error:err,
+        submit:()=>{ if(err) return; this.submitBooking(); },
+        submitStyle: err ? {padding:'11px 18px',borderRadius:'10px',border:'none',background:'#E6E4DF',color:'#9A958C',fontSize:'14px',fontWeight:'700',cursor:'not-allowed',fontFamily:'inherit'} : {...ui.primary} };
+    }
+
+    // ----- editor -----
+    let editor=null;
+    if(this.state.editorOpen && this.state.editorDraft){
+      const d=this.state.editorDraft; const setE=(p)=>this.setState(s=>({editorDraft:{...s.editorDraft,...p,_err:''}}));
+      editor={ title:this.state.editorMode==='add'?'Add new asset':'Edit asset', saveLabel:this.state.editorMode==='add'?'Add asset':'Save changes',
+        id:d.id, name:d.name, category:d.category, condition:d.condition, totalQty:String(d.totalQty), inRepairQty:String(d.inRepairQty), location:d.location, specs:d.specs,
+        onId:(e)=>setE({id:e.target.value}), onName:(e)=>setE({name:e.target.value}), onCategory:(e)=>setE({category:e.target.value}), onCondition:(e)=>setE({condition:e.target.value}),
+        onQty:(e)=>setE({totalQty:e.target.value}), onRepair:(e)=>setE({inRepairQty:e.target.value}), onLocation:(e)=>setE({location:e.target.value}), onSpecs:(e)=>setE({specs:e.target.value}),
+        toggleLoan:()=>setE({loanAllowed:!d.loanAllowed}),
+        loanStyle:{width:'22px',height:'22px',borderRadius:'6px',border:'2px solid '+(d.loanAllowed?brand:'#C9C4BA'),background:d.loanAllowed?brand:'#fff',color:'#fff',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'14px',fontWeight:'800',flex:'0 0 auto'},
+        loanMark:d.loanAllowed?'✓':'', hasError:!!d._err, error:d._err||'', save:()=>this.saveAsset() };
+    }
+
+    // ----- requests views -----
+    const bRow=(b)=>{ const days=this.daysFromToday(b.ret); return {
+      id:b.id, qtyAsset:b.qty+' × '+b.assetName, requester:b.requester, event:b.event, status:b.status,
+      dateRange:this.fmtDate(b.checkout)+' → '+this.fmtDate(b.ret), metaLine:b.requester+' · '+b.event+' · '+this.fmtDate(b.checkout)+' → '+this.fmtDate(b.ret),
+      badgeStyle:bbadge(b.status), onClick:()=>this.showBookingDetail(b.id),
+      onApprove:()=>this.approve(b.id), onReject:()=>this.reject(b.id), onReturn:()=>this.markReturned(b.id), onRemind:()=>this.sendReminder(b.id),
+      rowStyle:{display:'grid',gridTemplateColumns:'minmax(90px,0.9fr) minmax(150px,1.8fr) minmax(110px,1.1fr) minmax(120px,1.3fr) minmax(150px,1.5fr) minmax(90px,1fr)',alignItems:'center',cursor:'pointer',background:'transparent'}, rowHover:{display:'grid',gridTemplateColumns:'minmax(90px,0.9fr) minmax(150px,1.8fr) minmax(110px,1.1fr) minmax(120px,1.3fr) minmax(150px,1.5fr) minmax(90px,1fr)',alignItems:'center',cursor:'pointer',background:'#FBF7F3'} }; };
+    const pendingRows=bookings.filter(b=>b.status==='Pending').map(bRow);
+    const allRequestRows=bookings.map(bRow);
+    const myBookings=bookings.filter(b=>b.requester===me);
+    const myRows=myBookings.map(bRow);
+
+    // ----- returns -----
+    const loanRows=inUse.slice().sort((a,b)=>this.parseD(a.ret)-this.parseD(b.ret)).map(b=>{
+      const days=this.daysFromToday(b.ret); const over=days<0; const soon=days>=0&&days<=3;
+      const r=bRow(b);
+      r.dueText = over ? Math.abs(days)+'d overdue' : days===0 ? 'Due today' : 'Due in '+days+'d';
+      const pc = over?{bg:'#FCEBE9',fg:'#B42318'}:soon?{bg:'#FEF4E3',fg:'#B25C00'}:{bg:'#E8EEF9',fg:'#2D4F8E'};
+      r.duePill={display:'inline-block',padding:'2px 9px',borderRadius:'999px',fontSize:'11px',fontWeight:'800',background:pc.bg,color:pc.fg,whiteSpace:'nowrap'};
+      r.cardStyle={display:'flex',alignItems:'center',gap:'14px',padding:'15px 17px',background:'#fff',border:'1px solid '+(over?'#F3D5D0':'#E6E4DF'),borderRadius:'13px'};
+      return r;
+    });
+
+    // ----- calendar -----
+    const weekdays=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+    const monthNames=['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const calLabel=monthNames[this.state.calM]+' '+this.state.calY;
+    const first=new Date(this.state.calY,this.state.calM,1);
+    const startDow=(first.getDay()+6)%7;
+    const startDate=new Date(this.state.calY,this.state.calM,1-startDow);
+    const calCells=[];
+    for(let i=0;i<42;i++){
+      const dt=new Date(startDate); dt.setDate(startDate.getDate()+i);
+      const ds=dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0');
+      const inMonth=dt.getMonth()===this.state.calM; const isToday=ds===this.today;
+      const evts=bookings.filter(b=>(b.status==='Approved'||b.status==='In use')&&b.checkout<=ds&&b.ret>=ds).map(b=>({
+        label:b.qty+'× '+(b.assetName.length>16?b.assetName.slice(0,15)+'…':b.assetName), event:b.event,
+        style:{fontSize:'10px',fontWeight:'700',color:'#fff',background:this.eventColor(b.event),borderRadius:'5px',padding:'2px 5px',cursor:'pointer',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'},
+        onClick:()=>this.showBookingDetail(b.id) }));
+      calCells.push({ day:String(dt.getDate()), events:evts.slice(0,3), hasMore:evts.length>3, moreLabel:'+'+(evts.length-3)+' more',
+        cellStyle:{minHeight:'104px',padding:'7px',borderRight:(i%7!==6)?'1px solid #F1EFEA':'none',borderBottom:'1px solid #F1EFEA',background:inMonth?(isToday?'#FFF6EF':'#fff'):'#FAFAF8',display:'flex',flexDirection:'column',gap:'5px',overflow:'hidden'},
+        dayStyle:{fontSize:'12px',fontWeight:isToday?'800':'600',color:inMonth?(isToday?brand:'#3A372F'):'#C4BFB5',alignSelf:'flex-start',width:'22px',height:'22px',display:'flex',alignItems:'center',justifyContent:'center',borderRadius:'7px',background:isToday?'#FBE7D8':'transparent'} });
+    }
+    const eventLegend=['Big Church Day Out','Spring Harvest','New Wine United','CRE Exhibition'].map(e=>({label:e,color:this.eventColor(e)}));
+
+    // ----- reporting -----
+    const reportMetrics=[
+      {label:'Total assets',value:String(assets.length),valueStyle:{fontSize:'27px',fontWeight:'800',color:'#1F1D1A',lineHeight:'1'}},
+      {label:'Units in stock',value:String(totalUnits),valueStyle:{fontSize:'27px',fontWeight:'800',color:'#1F1D1A',lineHeight:'1'}},
+      {label:'Units on loan',value:String(unitsOut),valueStyle:{fontSize:'27px',fontWeight:'800',color:'#2D4F8E',lineHeight:'1'}},
+      {label:'Overdue',value:String(overdueCount),valueStyle:{fontSize:'27px',fontWeight:'800',color:'#B42318',lineHeight:'1'}},
+      {label:'Pending approval',value:String(pendingCount),valueStyle:{fontSize:'27px',fontWeight:'800',color:'#B25C00',lineHeight:'1'}}
+    ];
+    const catUnits=cats.slice(1).map(c=>({c,u:assets.filter(a=>a.category===c).reduce((s,a)=>s+a.totalQty,0),n:assets.filter(a=>a.category===c).length}));
+    const maxCatU=Math.max(1,...catUnits.map(x=>x.u));
+    const catReport=catUnits.map(x=>({label:x.c,detail:x.n+' assets · '+x.u+' units',barStyle:{width:Math.round(x.u/maxCatU*100)+'%',height:'100%',background:brand,borderRadius:'5px'}}));
+    const stArr=['Pending','Approved','In use','Returned','Rejected'].map(s=>({s,v:bookings.filter(b=>b.status===s).length}));
+    const maxSt=Math.max(1,...stArr.map(x=>x.v));
+    const statusReport=stArr.map(x=>({label:x.s,value:String(x.v),barStyle:{width:Math.round(x.v/maxSt*100)+'%',height:'100%',background:BSM[x.s].fg,borderRadius:'5px'}}));
+    const cArr=['Excellent','Good','Fair','Needs repair'].map(c=>({c,v:assets.filter(a=>a.condition===c).length}));
+    const maxC=Math.max(1,...cArr.map(x=>x.v));
+    const condReport=cArr.map(x=>({label:x.c,value:String(x.v),barStyle:{width:Math.round(x.v/maxC*100)+'%',height:'100%',background:CM[x.c],borderRadius:'5px'}}));
+    const upcomingReturns=inUse.slice().sort((a,b)=>this.parseD(a.ret)-this.parseD(b.ret)).map(b=>{
+      const days=this.daysFromToday(b.ret); const over=days<0;
+      const pc=over?{bg:'#FCEBE9',fg:'#B42318'}:(days<=3?{bg:'#FEF4E3',fg:'#B25C00'}:{bg:'#E8EEF9',fg:'#2D4F8E'});
+      return {asset:b.qty+'× '+b.assetName,event:b.event,dueText:over?Math.abs(days)+'d overdue':(days===0?'Due today':this.fmtDate(b.ret)),pill:{display:'inline-block',padding:'3px 10px',borderRadius:'999px',fontSize:'12px',fontWeight:'700',background:pc.bg,color:pc.fg,whiteSpace:'nowrap'}};
+    });
+
+    // ----- toast -----
+    let toast=null; const t=this.state.toast;
+    if(t){
+      toast={...t, isEmail:t.kind==='email', isBooking:t.kind==='booking', isWarning:t.kind==='warning',
+        hasNote:!!t.note2, hasCal:!!t.calEvent, calNotAdded:(!!t.calEvent&&!t.calAdded),
+        headerStyle:'padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px;color:#fff;background:'+(t.accent||brand)+';' };
+      if(t.kind==='booking'){ toast.bk={ id:t.id, asset:t.asset, status:t.statusKey, badgeStyle:bbadge(t.statusKey), fields:t.fields, hasActions:t.hasActions }; }
+    }
+
+    return {
+      ui, isAdmin, brand,
+      logoStyle:{width:'38px',height:'38px',borderRadius:'10px',background:brand,display:'flex',alignItems:'center',justifyContent:'center',color:'#fff',fontWeight:'800',fontSize:'14px',flex:'0 0 auto'},
+      avatarStyle:{width:'30px',height:'30px',borderRadius:'50%',background:'#1F1D1A',color:'#fff',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'12px',fontWeight:'800',flex:'0 0 auto'},
+      userName:me, userInitials:me.split(' ').map(x=>x[0]).join(''), userRoleLabel:isAdmin?'Asset Admin':'Standard user',
+      roleBtns, navItems,
+      isRegister:view==='register', isRequests:view==='requests', isMyRequests:view==='myrequests', isCalendar:view==='calendar', isReturns:view==='returns', isReporting:view==='reporting',
+      summaryCards, catChips, rows, search:this.state.search, onSearch:(e)=>this.setState({search:e.target.value}),
+      resultText: filtered.length===assets.length ? assets.length+' assets' : filtered.length+' of '+assets.length+' assets',
+      isEmpty:filtered.length===0, openAdd:()=>this.openAdd(),
+      detail, detailOpen:!!detail, closeDetail:()=>this.setState({selectedAssetId:null}),
+      booking, bookingOpen:this.state.bookingOpen, closeBooking:()=>this.setState({bookingOpen:false,bookingDraft:null,bookingFor:null}),
+      editor, editorOpen:this.state.editorOpen, closeEditor:()=>this.setState({editorOpen:false,editorDraft:null}),
+      categoryOptions:['Branding','Furniture','Lighting','Equipment','Merch'], conditionOptions:['Excellent','Good','Fair','Needs repair'],
+      confirmOpen:!!this.state.confirmDelete, confirmText:this.state.confirmDelete?('"'+this.assetName(this.state.confirmDelete)+'" and its bookings will be removed from the register. This cannot be undone.'):'',
+      cancelDelete:()=>this.setState({confirmDelete:null}), doDelete:()=>this.doDelete(),
+      pendingCount:String(pendingCount), hasPending:pendingRows.length>0, noPending:pendingRows.length===0, pendingRows, allRequestRows,
+      pendingPill:{display:'inline-block',minWidth:'22px',padding:'2px 8px',borderRadius:'999px',background:'#FBE7D8',color:brand,fontSize:'13px',fontWeight:'800',textAlign:'center'},
+      hasMine:myRows.length>0, noMine:myRows.length===0, myRows,
+      weekdays, calLabel, calCells, eventLegend, calPrev:()=>this.setState(s=>{let m=s.calM-1,y=s.calY;if(m<0){m=11;y--;}return{calM:m,calY:y};}), calNext:()=>this.setState(s=>{let m=s.calM+1,y=s.calY;if(m>11){m=0;y++;}return{calM:m,calY:y};}),
+      overdueCount:String(overdueCount), dueSoonCount:String(dueSoonCount), hasOnLoan:loanRows.length>0, noOnLoan:loanRows.length===0, loanRows,
+      reportMetrics, catReport, statusReport, condReport, upcomingReturns, noUpcoming:upcomingReturns.length===0,
+      toast, toastOpen:!!toast, closeToast:()=>this.setState({toast:null}), addToCal:()=>this.setState(s=>({toast:{...s.toast,calAdded:true}})),
+      stop:(e)=>{ if(e&&e.stopPropagation) e.stopPropagation(); }
+    };
+  }
+}
+</script>
+
+
+</body></html>
+
+<script data-dc-script>
+
+class Component extends DCLogic {
+  today = new Date().toISOString().split('T')[0];
+  state = {
+    role: 'Admin',
+    view: 'register',
+    search: '', category: 'All',
+    selectedAssetId: null,
+    bookingOpen: false, bookingFor: null, bookingDraft: null,
+    editorOpen: false, editorMode: 'add', editorDraft: null,
+    confirmDelete: null,
+    toast: null,
+    calY: new Date().getFullYear(), calM: new Date().getMonth(),
+    assets: [],
+    bookings: [],
+    loading: true,
+    loadError: null
+  };
+
+  async componentDidMount() {
+    try {
+      const [assetsRes, bookingsRes] = await Promise.all([
+        fetch('/api/sp?action=getassets'),
+        fetch('/api/sp?action=getbookings')
+      ]);
+      if (!assetsRes.ok) throw new Error('Assets fetch failed: HTTP ' + assetsRes.status);
+      if (!bookingsRes.ok) throw new Error('Bookings fetch failed: HTTP ' + bookingsRes.status);
+      const assets   = await assetsRes.json();
+      const bookings = await bookingsRes.json();
+      this.setState({ assets, bookings, loading: false });
+    } catch(err) {
+      console.error('[AssetManager] Load error:', err);
+      this.setState({ loading: false, loadError: err.message });
+    }
+  }
+
+
+  // ---------- helpers ----------
+  parseD(d){ const p=d.split('-').map(Number); return new Date(p[0],p[1]-1,p[2]); }
+  fmtDate(d){ if(!d) return '—'; return this.parseD(d).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}); }
+  daysFromToday(d){ return Math.round((this.parseD(d)-this.parseD(this.today))/86400000); }
+  eventColor(e){ const m={'Big Church Day Out':'#E8601C','Spring Harvest':'#2D8A4E','New Wine United':'#2D4F8E','CRE Exhibition':'#8A4FA8'}; return m[e]||'#7A756B'; }
+  consumedFor(id){ return this.state.bookings.filter(b=>b.assetId===id).reduce((s,b)=>{
+    if(b.status==='Approved'||b.status==='In use') return s+b.qty;                 // fully out on active loan
+    if(b.status==='Returned'){ const back=(b.returnedQty==null)?b.qty:b.returnedQty; return s+(b.qty-back); } // un-returned remainder is consumed for good
+    return s;                                                                       // Pending / Rejected reserve nothing
+  },0); }
+  availFor(id){ const a=this.state.assets.find(x=>x.id===id); if(!a) return 0; return Math.max(0, a.totalQty-(a.inRepairQty||0)-this.consumedFor(id)); }
+  assetName(id){ const a=this.state.assets.find(x=>x.id===id); return a?a.name:id; }
+  nextReqId(){ let max=1000; this.state.bookings.forEach(b=>{ const n=parseInt(b.id.replace('REQ-','')); if(n>max)max=n; }); return max+1; }
+  showToast(o){ this.setState({ toast:o }); }
+  emailFor(name){ if(!name) return ''; return name.trim().toLowerCase().replace(/[^a-z\s]/g,'').split(/\s+/).filter(Boolean).join('.')+'@worldvision.org.uk'; }
+  recipient(b){ return b.requester+' <'+(b.email||this.emailFor(b.requester))+'>'; }
+
+  // ---------- lifecycle handlers ----------
+  submitBooking(){
+    const d=this.state.bookingDraft; const a=this.state.assets.find(x=>x.id===d.assetId);
+    const id='REQ-'+this.nextReqId();
+    const bk={ id, assetId:d.assetId, assetName:a.name, qty:Number(d.qty)||1, requester:d.requester.trim(), email:(d.email||'').trim(), event:d.event.trim(), checkout:d.checkout, ret:d.ret, actual:'', status:'Pending', note:d.note.trim(), created:this.today };
+    this.setState(s=>({ bookings:[bk,...s.bookings], bookingOpen:false, bookingFor:null, bookingDraft:null }));
+    const fn=bk.requester.split(' ')[0];
+    this.showToast({ kind:'email', accent:'#B25C00',
+      heading:'Request received', subject:'['+id+'] Asset request — '+a.name, fromTo:'Power Automate  →  '+this.recipient(bk),
+      body:['Hi '+fn+',','Thanks — we have received your request to book '+bk.qty+' × '+a.name+' for '+bk.event+'.','Requested dates: '+this.fmtDate(bk.checkout)+'  →  '+this.fmtDate(bk.ret)+'.','Your request '+id+' is now pending approval. You will be emailed once it has been reviewed.'],
+      note2:'A "Pending approval" notification has been sent to the Asset Admin / approver.' });
+  }
+  approve(id){
+    const b=this.state.bookings.find(x=>x.id===id); if(!b) return;
+    const av=this.availFor(b.assetId);
+    if(av < b.qty){ this.showToast({ kind:'warning', heading:'Not enough stock to approve', body:['Only '+av+' of "'+this.assetName(b.assetId)+'" are currently available, but '+b.qty+' were requested.','Wait for stock to return or ask the requester to reduce the quantity, then approve again.'] }); return; }
+    this.setState(s=>({ bookings:s.bookings.map(x=>x.id===id?{...x,status:'Approved'}:x), toast:null }));
+    const a=this.state.assets.find(x=>x.id===b.assetId); const fn=b.requester.split(' ')[0];
+    this.showToast({ kind:'email', accent:'#0E7C86',
+      heading:'Request approved', subject:'['+id+'] Approved — '+a.name, fromTo:'Power Automate  →  '+this.recipient(b),
+      body:['Hi '+fn+',','Good news — your request for '+b.qty+' × '+a.name+' ('+b.event+') has been approved.','Collection from '+a.location+' on '+this.fmtDate(b.checkout)+'. Please return by '+this.fmtDate(b.ret)+'.','Please review the loan terms & conditions before collection.'],
+      calEvent:{ title:b.qty+'× '+a.name+' — '+b.event, range:this.fmtDate(b.checkout)+' → '+this.fmtDate(b.ret), loc:a.location }, calAdded:false });
+  }
+  reject(id){
+    const b=this.state.bookings.find(x=>x.id===id); if(!b) return;
+    this.setState(s=>({ bookings:s.bookings.map(x=>x.id===id?{...x,status:'Rejected'}:x), toast:null }));
+    const fn=b.requester.split(' ')[0];
+    this.showToast({ kind:'email', accent:'#B42318',
+      heading:'Request declined', subject:'['+id+'] Declined — '+b.assetName, fromTo:'Power Automate  →  '+this.recipient(b),
+      body:['Hi '+fn+',','Unfortunately your request for '+b.qty+' × '+b.assetName+' ('+b.event+') could not be approved on this occasion.','Please contact the Events team if you would like to discuss alternatives.'] });
+  }
+  handover(id){
+    const b=this.state.bookings.find(x=>x.id===id); if(!b) return;
+    this.setState(s=>({ bookings:s.bookings.map(x=>x.id===id?{...x,status:'In use'}:x), toast:null }));
+    const a=this.state.assets.find(x=>x.id===b.assetId); const fn=b.requester.split(' ')[0];
+    this.showToast({ kind:'email', accent:'#2D4F8E',
+      heading:'Handover confirmed', subject:'['+id+'] Handover — '+a.name, fromTo:'Power Automate  →  '+this.recipient(b),
+      body:['Hi '+fn+',','You now have '+b.qty+' × '+a.name+' ('+a.id+') on loan for '+b.event+'.','You are responsible for the asset until it is returned by '+this.fmtDate(b.ret)+'.','Loan terms & conditions: sharepoint/churches-events/asset-loan-policy'] });
+  }
+  markReturned(id, retQty){
+    const b=this.state.bookings.find(x=>x.id===id); if(!b) return;
+    const R=(retQty==null||retQty==='')?b.qty:Math.max(0,Math.min(b.qty,Math.round(Number(retQty))||0));
+    const notBack=b.qty-R;
+    this.setState(s=>({ bookings:s.bookings.map(x=>x.id===id?{...x,status:'Returned',returnedQty:R,actual:this.today}:x), toast:null }));
+    const line = R===b.qty
+      ? 'Thanks — all '+b.qty+' × '+b.assetName+' have been booked back in on '+this.fmtDate(this.today)+'. The stock is available again for other bookings.'
+      : (R===0
+        ? 'Recorded on '+this.fmtDate(this.today)+': none of the '+b.qty+' × '+b.assetName+' were returned — all '+b.qty+' logged as distributed / consumed and removed from available stock.'
+        : R+' of '+b.qty+' × '+b.assetName+' booked back in on '+this.fmtDate(this.today)+'. The remaining '+notBack+' logged as not returned (distributed / consumed) and removed from available stock.');
+    this.showToast({ kind:'email', accent:'#1B7A43',
+      heading:'Return confirmed', subject:'['+id+'] Returned — '+b.assetName, fromTo:'Power Automate  →  '+this.recipient(b),
+      body:[line,'Please report any damage to the Events team for condition review.'] });
+  }
+  sendReminder(id){
+    const b=this.state.bookings.find(x=>x.id===id); if(!b) return;
+    const fn=b.requester.split(' ')[0]; const dd=this.daysFromToday(b.ret);
+    const due = dd<0 ? 'was due back '+Math.abs(dd)+' day(s) ago' : dd===0 ? 'is due back today' : 'is due back in '+dd+' day(s)';
+    this.setState({ toast:null });
+    this.showToast({ kind:'email', accent:'#B25C00',
+      heading:'Return reminder sent', subject:'['+b.id+'] Reminder — '+b.assetName+' due '+this.fmtDate(b.ret), fromTo:'Power Automate  →  '+this.recipient(b),
+      body:['Hi '+fn+',','A reminder that '+b.qty+' × '+b.assetName+' ('+b.event+') '+due+'.','Please arrange its return to '+(this.state.assets.find(x=>x.id===b.assetId)||{}).location+' or contact the Events team.'],
+      note2: dd<0 ? 'Overdue — escalation copy also sent to line manager & stakeholder.' : '' });
+  }
+  showBookingDetail(id){
+    const b=this.state.bookings.find(x=>x.id===id); if(!b) return;
+    const a=this.state.assets.find(x=>x.id===b.assetId)||{};
+    const isAdmin=this.state.role==='Admin';
+    const showApprove=isAdmin&&b.status==='Pending', showReject=isAdmin&&b.status==='Pending', showHandover=isAdmin&&b.status==='Approved', showReturn=isAdmin&&b.status==='In use', showRemind=isAdmin&&b.status==='In use';
+    const fields=[ {label:'Quantity',value:String(b.qty)}, {label:'Requester',value:b.requester}, {label:'Email',value:b.email||this.emailFor(b.requester)}, {label:'Event',value:b.event}, {label:'Collection',value:this.fmtDate(b.checkout)}, {label:'Return by',value:this.fmtDate(b.ret)}, {label:'Returned',value:b.actual?this.fmtDate(b.actual):'—'}, {label:'Location',value:a.location||'—'}, {label:'Notes',value:b.note||'—'} ];
+    if(b.status==='Returned'){ const back=(b.returnedQty==null)?b.qty:b.returnedQty; fields.push({label:'Qty returned',value:back+' of '+b.qty+(back<b.qty?'  ('+(b.qty-back)+' consumed)':'')}); }
+    this.setState({ toast:{ kind:'booking', id:b.id, statusKey:b.status, asset:b.assetName, fields,
+      showApprove, showReject, showHandover, showReturn, showRemind, hasActions:(showApprove||showReject||showHandover||showReturn||showRemind),
+      returnMulti:b.qty>1, returnMax:b.qty, returnQty:String(b.qty),
+      onReturnQty:(e)=>this.setState(s=>({ toast:{...s.toast, returnQty:e.target.value} })),
+      onApprove:()=>this.approve(b.id), onReject:()=>this.reject(b.id), onHandover:()=>this.handover(b.id), onReturn:()=>this.markReturned(b.id, this.state.toast?this.state.toast.returnQty:b.qty), onRemind:()=>this.sendReminder(b.id) } });
+  }
+
+  // ---------- editor / delete ----------
+  openAdd(){
+    let max=0; this.state.assets.forEach(a=>{ const n=parseInt(a.id.replace('CAMD-','')); if(n>max)max=n; });
+    const sug='CAMD-'+String(max+1).padStart(3,'0');
+    this.setState({ editorOpen:true, editorMode:'add', editorDraft:{ id:sug, name:'', category:'Branding', condition:'Good', totalQty:1, inRepairQty:0, location:'MK Warehouse — Bay A', specs:'', loanAllowed:true }, selectedAssetId:null });
+  }
+  openEdit(id){
+    const a=this.state.assets.find(x=>x.id===id); if(!a) return;
+    this.setState({ editorOpen:true, editorMode:'edit', editorDraft:{...a}, selectedAssetId:null });
+  }
+  saveAsset(){
+    const d=this.state.editorDraft;
+    if(!d.name.trim()){ this.setState({ editorDraft:{...d, _err:'Please enter an asset name.'} }); return; }
+    const clean={ id:d.id.trim()||('CAMD-'+Date.now()), name:d.name.trim(), category:d.category, condition:d.condition, totalQty:Math.max(0,Number(d.totalQty)||0), inRepairQty:Math.max(0,Number(d.inRepairQty)||0), location:d.location.trim(), specs:d.specs.trim(), loanAllowed:!!d.loanAllowed, owningTeam:d.owningTeam||'Churches' };
+    this.setState(s=>{
+      const exists=s.assets.some(a=>a.id===clean.id);
+      const assets = exists ? s.assets.map(a=>a.id===clean.id?{...a,...clean}:a) : [clean,...s.assets];
+      return { assets, editorOpen:false, editorDraft:null };
+    });
+  }
+  doDelete(){
+    const id=this.state.confirmDelete;
+    this.setState(s=>({ assets:s.assets.filter(a=>a.id!==id), bookings:s.bookings.filter(b=>b.assetId!==id), confirmDelete:null, selectedAssetId:null }));
+  }
+
+  renderVals(){
+    const brand='#E8601C';
+    const isAdmin=this.state.role==='Admin';
+    const me = isAdmin ? 'Terri Clarke' : 'Sarah Lin';
+    const myEmail = this.emailFor(me);
+    const cats=['All','Branding','Furniture','Lighting','Equipment','Merch'];
+
+    const SM={ 'Available':{bg:'#E7F4EC',fg:'#1B7A43'}, 'Low stock':{bg:'#FEF4E3',fg:'#B25C00'}, 'Fully booked':{bg:'#E8EEF9',fg:'#2D4F8E'}, 'In repair':{bg:'#FCEBE9',fg:'#B42318'} };
+    const BSM={ 'Pending':{bg:'#FEF4E3',fg:'#B25C00'}, 'Approved':{bg:'#E2F4F5',fg:'#0E7C86'}, 'In use':{bg:'#E8EEF9',fg:'#2D4F8E'}, 'Returned':{bg:'#E7F4EC',fg:'#1B7A43'}, 'Rejected':{bg:'#FCEBE9',fg:'#B42318'} };
+    const CM={ 'Excellent':'#1B7A43','Good':'#3E8E5A','Fair':'#B25C00','Needs repair':'#B42318' };
+    const bbadge=(st)=>{ const m=BSM[st]; return {display:'inline-block',padding:'4px 11px',borderRadius:'999px',fontSize:'12px',fontWeight:'700',background:m.bg,color:m.fg,whiteSpace:'nowrap'}; };
+
+    const ui={
+      panel:'background:#fff;border:1px solid #E6E4DF;border-radius:16px;',
+      label:{fontSize:'11px',fontWeight:'700',textTransform:'uppercase',letterSpacing:'0.06em',color:'#9A958C'},
+      input:'width:100%;padding:11px 13px;border:1px solid #E0DDD6;border-radius:10px;font-size:14px;font-family:inherit;color:#1F1D1A;outline:none;background:#FAF9F6;',
+      h1:'font-size:24px;font-weight:800;letter-spacing:-0.02em;margin:0 0 4px;',
+      h2:{fontSize:'17px',fontWeight:'800',letterSpacing:'-0.01em',margin:'0'},
+      sub:'font-size:14px;color:#6F6A62;margin:0;',
+      th:'text-align:left;padding:12px 18px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#9A958C;border-bottom:1px solid #ECEAE4;white-space:nowrap;',
+      td:{padding:'14px 18px',fontSize:'14px',color:'#3A372F',borderBottom:'1px solid #F1EFEA',verticalAlign:'middle'},
+      tdMuted:{padding:'14px 18px',fontSize:'14px',color:'#6F6A62',borderBottom:'1px solid #F1EFEA',verticalAlign:'middle',whiteSpace:'nowrap'},
+      idText:{fontSize:'11px',fontWeight:'700',letterSpacing:'0.04em',color:'#A39E94',fontFamily:'ui-monospace,monospace'},
+      nameText:{fontSize:'14px',fontWeight:'600',color:'#1F1D1A',marginTop:'2px'},
+      primary:{padding:'11px 18px',borderRadius:'10px',border:'none',background:brand,color:'#fff',fontSize:'14px',fontWeight:'700',cursor:'pointer',fontFamily:'inherit',whiteSpace:'nowrap'},
+      primarySm:{padding:'8px 14px',borderRadius:'9px',border:'none',background:brand,color:'#fff',fontSize:'13px',fontWeight:'700',cursor:'pointer',fontFamily:'inherit',whiteSpace:'nowrap'},
+      ghost:{padding:'11px 16px',borderRadius:'10px',border:'1px solid #D8D4CC',background:'#fff',color:'#1F1D1A',fontSize:'14px',fontWeight:'600',cursor:'pointer',fontFamily:'inherit'},
+      ghostSm:{padding:'8px 14px',borderRadius:'9px',border:'1px solid #D8D4CC',background:'#fff',color:'#1F1D1A',fontSize:'13px',fontWeight:'600',cursor:'pointer',fontFamily:'inherit',whiteSpace:'nowrap'},
+      ghostFlex:{flex:'1',padding:'11px 16px',borderRadius:'10px',border:'1px solid #D8D4CC',background:'#fff',color:'#1F1D1A',fontSize:'14px',fontWeight:'600',cursor:'pointer',fontFamily:'inherit'},
+      danger:{padding:'11px 16px',borderRadius:'10px',border:'1px solid #E7C3BD',background:'#fff',color:'#B42318',fontSize:'14px',fontWeight:'700',cursor:'pointer',fontFamily:'inherit'},
+      dangerFlex:{flex:'1',padding:'11px 16px',borderRadius:'10px',border:'1px solid #E7C3BD',background:'#fff',color:'#B42318',fontSize:'14px',fontWeight:'700',cursor:'pointer',fontFamily:'inherit'},
+      iconBtn:{width:'38px',height:'38px',borderRadius:'10px',border:'1px solid #E0DDD6',background:'#fff',color:'#4A463F',fontSize:'18px',fontWeight:'700',cursor:'pointer',fontFamily:'inherit'},
+      stepBtn:{width:'40px',height:'40px',borderRadius:'10px',border:'1px solid #E0DDD6',background:'#FAF9F6',color:'#1F1D1A',fontSize:'20px',fontWeight:'700',cursor:'pointer',fontFamily:'inherit',lineHeight:'1'},
+      closeBtn:{border:'none',background:'#F2F0EB',width:'34px',height:'34px',borderRadius:'9px',cursor:'pointer',fontSize:'20px',color:'#6F6A62',flex:'0 0 auto',lineHeight:'1'}
+    };
+
+    // ----- tallies -----
+    const assets=this.state.assets, bookings=this.state.bookings;
+    let totalUnits=0, unitsRepair=0, unitsOut=0;
+    assets.forEach(a=>{ totalUnits+=a.totalQty; unitsRepair+=(a.inRepairQty||0); });
+    bookings.forEach(b=>{ if(b.status==='Approved'||b.status==='In use') unitsOut+=b.qty; });
+    const unitsAvail=Math.max(0,totalUnits-unitsRepair-unitsOut);
+    const pendingCount=bookings.filter(b=>b.status==='Pending').length;
+    const inUse=bookings.filter(b=>b.status==='In use');
+    const overdueCount=inUse.filter(b=>this.daysFromToday(b.ret)<0).length;
+    const dueSoonCount=inUse.filter(b=>{const d=this.daysFromToday(b.ret);return d>=0&&d<=3;}).length;
+
+    // ----- role + nav -----
+    const roleBtns=['Admin','Standard user'].map(r=>{
+      const active=(r==='Admin'&&isAdmin)||(r==='Standard user'&&!isAdmin);
+      return { label:r, onClick:()=>this.setState({role:r==='Admin'?'Admin':'Standard',view:'register',selectedAssetId:null,toast:null}),
+        style:{padding:'7px 14px',borderRadius:'8px',border:'none',fontSize:'13px',fontWeight:'700',cursor:'pointer',fontFamily:'inherit',background:active?'#fff':'transparent',color:active?brand:'#6F6A62',boxShadow:active?'0 1px 2px rgba(0,0,0,0.08)':'none'} };
+    });
+
+    const navDefs = isAdmin
+      ? [ {k:'register',l:'Asset Register'}, {k:'requests',l:'Requests & Approvals',badge:pendingCount}, {k:'calendar',l:'Booking Calendar'}, {k:'returns',l:'Returns & Reminders',badge:overdueCount}, {k:'reporting',l:'Reporting'} ]
+      : [ {k:'register',l:'Asset Register'}, {k:'myrequests',l:'My Requests'}, {k:'calendar',l:'Booking Calendar'} ];
+    let view=this.state.view;
+    if(!navDefs.some(n=>n.k===view)) view='register';
+    const navItems=navDefs.map(n=>{
+      const active=view===n.k;
+      return { label:n.l, onClick:()=>this.setState({view:n.k,selectedAssetId:null}),
+        showBadge:(n.badge||0)>0, badge:String(n.badge||0),
+        badgeStyle:{marginLeft:'7px',display:'inline-block',minWidth:'18px',padding:'1px 6px',borderRadius:'999px',background:active?brand:'#E0DDD6',color:active?'#fff':'#6F6A62',fontSize:'11px',fontWeight:'800',textAlign:'center'},
+        style:{position:'relative',padding:'15px 16px 13px',border:'none',background:'transparent',cursor:'pointer',fontFamily:'inherit',fontSize:'14px',fontWeight:active?'800':'600',color:active?'#1F1D1A':'#7A756B',borderBottom:active?'3px solid '+brand:'3px solid transparent',whiteSpace:'nowrap'} };
+    });
+
+    // ----- register summary cards -----
+    const mkCard=(label,value,unit,accent,onClick)=>({ label,value:String(value),unit,onClick,
+      dotStyle:{width:'9px',height:'9px',borderRadius:'50%',background:accent,flex:'0 0 auto'},
+      valueStyle:{fontSize:'29px',fontWeight:'800',lineHeight:'1',color:'#1F1D1A',letterSpacing:'-0.02em'},
+      cardStyle:{display:'flex',flexDirection:'column',gap:'11px',padding:'16px 18px',background:'#fff',border:'1px solid #E6E4DF',borderRadius:'14px',cursor:'pointer',boxShadow:'0 1px 2px rgba(0,0,0,0.03)'} });
+    const summaryCards=[
+      mkCard('Total assets',assets.length,'lines',brand,()=>{}),
+      mkCard('Available',unitsAvail,'units','#1B7A43',()=>{}),
+      mkCard('On loan',unitsOut,'units','#2D4F8E',()=>this.setState({view:isAdmin?'returns':'myrequests'})),
+      mkCard('In repair',unitsRepair,'units','#B42318',()=>{}),
+      mkCard('Pending',pendingCount,'requests','#B25C00',()=>this.setState({view:isAdmin?'requests':'myrequests'}))
+    ];
+
+    // ----- register rows -----
+    const catChips=cats.map(c=>{ const active=this.state.category===c; const base={padding:'7px 14px',borderRadius:'999px',fontSize:'13px',fontWeight:'600',cursor:'pointer',border:'1px solid',whiteSpace:'nowrap',fontFamily:'inherit'};
+      return { label:c, onClick:()=>this.setState({category:c}), style:active?{...base,background:brand,borderColor:brand,color:'#fff'}:{...base,background:'#fff',borderColor:'#E0DDD6',color:'#4A463F'} }; });
+    const q=this.state.search.trim().toLowerCase();
+    const filtered=assets.filter(a=>{
+      if(this.state.category!=='All'&&a.category!==this.state.category) return false;
+      if(q){ const h=(a.id+' '+a.name+' '+a.location+' '+a.category).toLowerCase(); if(!h.includes(q)) return false; }
+      return true;
+    });
+    const rows=filtered.map(a=>{
+      const avail=this.availFor(a.id), onLoan=this.consumedFor(a.id), rep=a.inRepairQty||0;
+      let sk = avail===0 ? 'Fully booked' : ((avail < a.totalQty && avail <= Math.ceil(a.totalQty*0.25)) ? 'Low stock' : 'Available');
+      if(rep>0 && avail===0) sk='In repair';
+      const m=SM[sk]; const pct=a.totalQty>0?Math.round(avail/a.totalQty*100):0;
+      const sel=a.id===this.state.selectedAssetId;
+      return { id:a.id, name:a.name, category:a.category, location:a.location, loanLabel:a.loanAllowed?'Yes':'No',
+        availText:avail+' / '+a.totalQty, statusLabel:sk,
+        barStyle:{width:pct+'%',height:'100%',background:avail===0?'#C9C4BA':'#3E8E5A',borderRadius:'4px'},
+        badgeStyle:{display:'inline-block',padding:'4px 11px',borderRadius:'999px',fontSize:'12px',fontWeight:'700',background:m.bg,color:m.fg,whiteSpace:'nowrap'},
+        onClick:()=>this.setState({selectedAssetId:a.id}),
+        rowStyle:{display:'grid',gridTemplateColumns:'minmax(180px,2.2fr) minmax(90px,1fr) minmax(120px,1.4fr) minmax(90px,1fr) minmax(140px,1.6fr) minmax(80px,0.9fr) 34px',alignItems:'center',cursor:'pointer',background:sel?brand+'10':'transparent'},
+        rowHover:{display:'grid',gridTemplateColumns:'minmax(180px,2.2fr) minmax(90px,1fr) minmax(120px,1.4fr) minmax(90px,1fr) minmax(140px,1.6fr) minmax(80px,0.9fr) 34px',alignItems:'center',cursor:'pointer',background:'#FBF7F3'} };
+    });
+
+    // ----- detail -----
+    let detail=null; const sa=assets.find(a=>a.id===this.state.selectedAssetId);
+    if(sa){
+      const avail=this.availFor(sa.id), onLoan=this.consumedFor(sa.id), rep=sa.inRepairQty||0;
+      let sk = avail===0 ? 'Fully booked' : ((avail < sa.totalQty && avail <= Math.ceil(sa.totalQty*0.25)) ? 'Low stock' : 'Available');
+      if(rep>0 && avail===0) sk='In repair';
+      const m=SM[sk];
+      const bks=bookings.filter(b=>b.assetId===sa.id&&b.status!=='Returned'&&b.status!=='Rejected').map(b=>({
+        qtyEvent:b.qty+'× · '+b.event, line:b.requester+' · '+this.fmtDate(b.checkout)+' → '+this.fmtDate(b.ret),
+        status:b.status, badgeStyle:bbadge(b.status), onClick:()=>this.showBookingDetail(b.id) }));
+      detail={ id:sa.id, name:sa.name, statusLabel:sk, badgeStyle:{display:'inline-flex',padding:'6px 14px',borderRadius:'999px',fontSize:'13px',fontWeight:'700',background:m.bg,color:m.fg},
+        avail:String(avail), onLoan:String(onLoan), total:String(sa.totalQty),
+        hasRepair:rep>0, repairText:rep+' unit(s) currently in repair and unavailable.',
+        fields:[ {label:'Category',value:sa.category}, {label:'Condition',value:sa.condition}, {label:'Location',value:sa.location}, {label:'Owning team',value:sa.owningTeam}, {label:'Loanable',value:sa.loanAllowed?'Yes — cross-team':'No'}, {label:'Specs',value:sa.specs||'—'} ],
+        bookings:bks, hasBookings:bks.length>0, noBookings:bks.length===0,
+        onBook:()=>{ if(avail<=0) return; this.setState({ bookingOpen:true, bookingFor:sa.id, selectedAssetId:null, bookingDraft:{ assetId:sa.id, qty:1, requester:isAdmin?'':me, email:isAdmin?'':myEmail, event:'', checkout:this.today, ret:'', note:'', agree:false } }); },
+        bookBtnLabel: avail>0 ? 'Request to book' : 'Fully booked — none available',
+        bookBtnStyle: avail>0 ? {padding:'13px',borderRadius:'11px',border:'none',background:brand,color:'#fff',fontSize:'15px',fontWeight:'700',cursor:'pointer',fontFamily:'inherit'} : {padding:'13px',borderRadius:'11px',border:'1px solid #E6E4DF',background:'#F2F0EB',color:'#9A958C',fontSize:'15px',fontWeight:'700',cursor:'not-allowed',fontFamily:'inherit'},
+        onEdit:()=>this.openEdit(sa.id), onDelete:()=>this.setState({confirmDelete:sa.id,selectedAssetId:null}) };
+    }
+
+    // ----- booking modal -----
+    let booking=null;
+    if(this.state.bookingOpen && this.state.bookingDraft){
+      const d=this.state.bookingDraft; const a=assets.find(x=>x.id===d.assetId)||{}; const maxQ=this.availFor(d.assetId);
+      const qn=Number(d.qty)||0;
+      let err='';
+      if(qn<1||qn>maxQ) err='Quantity must be between 1 and '+maxQ+'.';
+      else if(!d.requester.trim()) err='Please enter who the booking is for.';
+      else if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((d.email||'').trim())) err='Please enter a valid work email — this is where the confirmation is sent.';
+      else if(!d.event.trim()) err='Please enter the event or purpose.';
+      else if(!d.ret) err='Please choose a return date.';
+      else if(d.ret<d.checkout) err='Return date must be after the collection date.';
+      else if(!d.agree) err='Please agree to the loan terms & conditions.';
+      const setD=(p)=>this.setState(s=>({bookingDraft:{...s.bookingDraft,...p}}));
+      booking={ assetName:a.name, availLine:maxQ+' of '+a.totalQty+' available · '+a.location, maxQty:String(maxQ),
+        qty:String(d.qty), requester:d.requester, email:d.email||'', event:d.event, checkout:d.checkout, ret:d.ret, note:d.note,
+        onQty:(e)=>setD({qty:e.target.value}), inc:()=>setD({qty:Math.min(maxQ,(Number(d.qty)||0)+1)}), dec:()=>setD({qty:Math.max(1,(Number(d.qty)||0)-1)}),
+        onRequester:(e)=>setD({requester:e.target.value}), onEmail:(e)=>setD({email:e.target.value}), onEvent:(e)=>setD({event:e.target.value}),
+        onCheckout:(e)=>setD({checkout:e.target.value}), onRet:(e)=>setD({ret:e.target.value}), onNote:(e)=>setD({note:e.target.value}),
+        toggleAgree:()=>setD({agree:!d.agree}),
+        checkStyle:{width:'22px',height:'22px',borderRadius:'6px',border:'2px solid '+(d.agree?brand:'#C9C4BA'),background:d.agree?brand:'#fff',color:'#fff',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'14px',fontWeight:'800',flex:'0 0 auto'},
+        checkMark:d.agree?'✓':'',
+        hasError:!!err, error:err,
+        submit:()=>{ if(err) return; this.submitBooking(); },
+        submitStyle: err ? {padding:'11px 18px',borderRadius:'10px',border:'none',background:'#E6E4DF',color:'#9A958C',fontSize:'14px',fontWeight:'700',cursor:'not-allowed',fontFamily:'inherit'} : {...ui.primary} };
+    }
+
+    // ----- editor -----
+    let editor=null;
+    if(this.state.editorOpen && this.state.editorDraft){
+      const d=this.state.editorDraft; const setE=(p)=>this.setState(s=>({editorDraft:{...s.editorDraft,...p,_err:''}}));
+      editor={ title:this.state.editorMode==='add'?'Add new asset':'Edit asset', saveLabel:this.state.editorMode==='add'?'Add asset':'Save changes',
+        id:d.id, name:d.name, category:d.category, condition:d.condition, totalQty:String(d.totalQty), inRepairQty:String(d.inRepairQty), location:d.location, specs:d.specs,
+        onId:(e)=>setE({id:e.target.value}), onName:(e)=>setE({name:e.target.value}), onCategory:(e)=>setE({category:e.target.value}), onCondition:(e)=>setE({condition:e.target.value}),
+        onQty:(e)=>setE({totalQty:e.target.value}), onRepair:(e)=>setE({inRepairQty:e.target.value}), onLocation:(e)=>setE({location:e.target.value}), onSpecs:(e)=>setE({specs:e.target.value}),
+        toggleLoan:()=>setE({loanAllowed:!d.loanAllowed}),
+        loanStyle:{width:'22px',height:'22px',borderRadius:'6px',border:'2px solid '+(d.loanAllowed?brand:'#C9C4BA'),background:d.loanAllowed?brand:'#fff',color:'#fff',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'14px',fontWeight:'800',flex:'0 0 auto'},
+        loanMark:d.loanAllowed?'✓':'', hasError:!!d._err, error:d._err||'', save:()=>this.saveAsset() };
+    }
+
+    // ----- requests views -----
+    const bRow=(b)=>{ const days=this.daysFromToday(b.ret); return {
+      id:b.id, qtyAsset:b.qty+' × '+b.assetName, requester:b.requester, event:b.event, status:b.status,
+      dateRange:this.fmtDate(b.checkout)+' → '+this.fmtDate(b.ret), metaLine:b.requester+' · '+b.event+' · '+this.fmtDate(b.checkout)+' → '+this.fmtDate(b.ret),
+      badgeStyle:bbadge(b.status), onClick:()=>this.showBookingDetail(b.id),
+      onApprove:()=>this.approve(b.id), onReject:()=>this.reject(b.id), onReturn:()=>this.markReturned(b.id), onRemind:()=>this.sendReminder(b.id),
+      rowStyle:{display:'grid',gridTemplateColumns:'minmax(90px,0.9fr) minmax(150px,1.8fr) minmax(110px,1.1fr) minmax(120px,1.3fr) minmax(150px,1.5fr) minmax(90px,1fr)',alignItems:'center',cursor:'pointer',background:'transparent'}, rowHover:{display:'grid',gridTemplateColumns:'minmax(90px,0.9fr) minmax(150px,1.8fr) minmax(110px,1.1fr) minmax(120px,1.3fr) minmax(150px,1.5fr) minmax(90px,1fr)',alignItems:'center',cursor:'pointer',background:'#FBF7F3'} }; };
+    const pendingRows=bookings.filter(b=>b.status==='Pending').map(bRow);
+    const allRequestRows=bookings.map(bRow);
+    const myBookings=bookings.filter(b=>b.requester===me);
+    const myRows=myBookings.map(bRow);
+
+    // ----- returns -----
+    const loanRows=inUse.slice().sort((a,b)=>this.parseD(a.ret)-this.parseD(b.ret)).map(b=>{
+      const days=this.daysFromToday(b.ret); const over=days<0; const soon=days>=0&&days<=3;
+      const r=bRow(b);
+      r.dueText = over ? Math.abs(days)+'d overdue' : days===0 ? 'Due today' : 'Due in '+days+'d';
+      const pc = over?{bg:'#FCEBE9',fg:'#B42318'}:soon?{bg:'#FEF4E3',fg:'#B25C00'}:{bg:'#E8EEF9',fg:'#2D4F8E'};
+      r.duePill={display:'inline-block',padding:'2px 9px',borderRadius:'999px',fontSize:'11px',fontWeight:'800',background:pc.bg,color:pc.fg,whiteSpace:'nowrap'};
+      r.cardStyle={display:'flex',alignItems:'center',gap:'14px',padding:'15px 17px',background:'#fff',border:'1px solid '+(over?'#F3D5D0':'#E6E4DF'),borderRadius:'13px'};
+      return r;
+    });
+
+    // ----- calendar -----
+    const weekdays=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+    const monthNames=['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const calLabel=monthNames[this.state.calM]+' '+this.state.calY;
+    const first=new Date(this.state.calY,this.state.calM,1);
+    const startDow=(first.getDay()+6)%7;
+    const startDate=new Date(this.state.calY,this.state.calM,1-startDow);
+    const calCells=[];
+    for(let i=0;i<42;i++){
+      const dt=new Date(startDate); dt.setDate(startDate.getDate()+i);
+      const ds=dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0');
+      const inMonth=dt.getMonth()===this.state.calM; const isToday=ds===this.today;
+      const evts=bookings.filter(b=>(b.status==='Approved'||b.status==='In use')&&b.checkout<=ds&&b.ret>=ds).map(b=>({
+        label:b.qty+'× '+(b.assetName.length>16?b.assetName.slice(0,15)+'…':b.assetName), event:b.event,
+        style:{fontSize:'10px',fontWeight:'700',color:'#fff',background:this.eventColor(b.event),borderRadius:'5px',padding:'2px 5px',cursor:'pointer',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'},
+        onClick:()=>this.showBookingDetail(b.id) }));
+      calCells.push({ day:String(dt.getDate()), events:evts.slice(0,3), hasMore:evts.length>3, moreLabel:'+'+(evts.length-3)+' more',
+        cellStyle:{minHeight:'104px',padding:'7px',borderRight:(i%7!==6)?'1px solid #F1EFEA':'none',borderBottom:'1px solid #F1EFEA',background:inMonth?(isToday?'#FFF6EF':'#fff'):'#FAFAF8',display:'flex',flexDirection:'column',gap:'5px',overflow:'hidden'},
+        dayStyle:{fontSize:'12px',fontWeight:isToday?'800':'600',color:inMonth?(isToday?brand:'#3A372F'):'#C4BFB5',alignSelf:'flex-start',width:'22px',height:'22px',display:'flex',alignItems:'center',justifyContent:'center',borderRadius:'7px',background:isToday?'#FBE7D8':'transparent'} });
+    }
+    const eventLegend=['Big Church Day Out','Spring Harvest','New Wine United','CRE Exhibition'].map(e=>({label:e,color:this.eventColor(e)}));
+
+    // ----- reporting -----
+    const reportMetrics=[
+      {label:'Total assets',value:String(assets.length),valueStyle:{fontSize:'27px',fontWeight:'800',color:'#1F1D1A',lineHeight:'1'}},
+      {label:'Units in stock',value:String(totalUnits),valueStyle:{fontSize:'27px',fontWeight:'800',color:'#1F1D1A',lineHeight:'1'}},
+      {label:'Units on loan',value:String(unitsOut),valueStyle:{fontSize:'27px',fontWeight:'800',color:'#2D4F8E',lineHeight:'1'}},
+      {label:'Overdue',value:String(overdueCount),valueStyle:{fontSize:'27px',fontWeight:'800',color:'#B42318',lineHeight:'1'}},
+      {label:'Pending approval',value:String(pendingCount),valueStyle:{fontSize:'27px',fontWeight:'800',color:'#B25C00',lineHeight:'1'}}
+    ];
+    const catUnits=cats.slice(1).map(c=>({c,u:assets.filter(a=>a.category===c).reduce((s,a)=>s+a.totalQty,0),n:assets.filter(a=>a.category===c).length}));
+    const maxCatU=Math.max(1,...catUnits.map(x=>x.u));
+    const catReport=catUnits.map(x=>({label:x.c,detail:x.n+' assets · '+x.u+' units',barStyle:{width:Math.round(x.u/maxCatU*100)+'%',height:'100%',background:brand,borderRadius:'5px'}}));
+    const stArr=['Pending','Approved','In use','Returned','Rejected'].map(s=>({s,v:bookings.filter(b=>b.status===s).length}));
+    const maxSt=Math.max(1,...stArr.map(x=>x.v));
+    const statusReport=stArr.map(x=>({label:x.s,value:String(x.v),barStyle:{width:Math.round(x.v/maxSt*100)+'%',height:'100%',background:BSM[x.s].fg,borderRadius:'5px'}}));
+    const cArr=['Excellent','Good','Fair','Needs repair'].map(c=>({c,v:assets.filter(a=>a.condition===c).length}));
+    const maxC=Math.max(1,...cArr.map(x=>x.v));
+    const condReport=cArr.map(x=>({label:x.c,value:String(x.v),barStyle:{width:Math.round(x.v/maxC*100)+'%',height:'100%',background:CM[x.c],borderRadius:'5px'}}));
+    const upcomingReturns=inUse.slice().sort((a,b)=>this.parseD(a.ret)-this.parseD(b.ret)).map(b=>{
+      const days=this.daysFromToday(b.ret); const over=days<0;
+      const pc=over?{bg:'#FCEBE9',fg:'#B42318'}:(days<=3?{bg:'#FEF4E3',fg:'#B25C00'}:{bg:'#E8EEF9',fg:'#2D4F8E'});
+      return {asset:b.qty+'× '+b.assetName,event:b.event,dueText:over?Math.abs(days)+'d overdue':(days===0?'Due today':this.fmtDate(b.ret)),pill:{display:'inline-block',padding:'3px 10px',borderRadius:'999px',fontSize:'12px',fontWeight:'700',background:pc.bg,color:pc.fg,whiteSpace:'nowrap'}};
+    });
+
+    // ----- toast -----
+    let toast=null; const t=this.state.toast;
+    if(t){
+      toast={...t, isEmail:t.kind==='email', isBooking:t.kind==='booking', isWarning:t.kind==='warning',
+        hasNote:!!t.note2, hasCal:!!t.calEvent, calNotAdded:(!!t.calEvent&&!t.calAdded),
+        headerStyle:'padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px;color:#fff;background:'+(t.accent||brand)+';' };
+      if(t.kind==='booking'){ toast.bk={ id:t.id, asset:t.asset, status:t.statusKey, badgeStyle:bbadge(t.statusKey), fields:t.fields, hasActions:t.hasActions }; }
+    }
+
+    return {
+      ui, isAdmin, brand,
+      logoStyle:{width:'38px',height:'38px',borderRadius:'10px',background:brand,display:'flex',alignItems:'center',justifyContent:'center',color:'#fff',fontWeight:'800',fontSize:'14px',flex:'0 0 auto'},
+      avatarStyle:{width:'30px',height:'30px',borderRadius:'50%',background:'#1F1D1A',color:'#fff',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'12px',fontWeight:'800',flex:'0 0 auto'},
+      userName:me, userInitials:me.split(' ').map(x=>x[0]).join(''), userRoleLabel:isAdmin?'Asset Admin':'Standard user',
+      roleBtns, navItems,
+      isRegister:view==='register', isRequests:view==='requests', isMyRequests:view==='myrequests', isCalendar:view==='calendar', isReturns:view==='returns', isReporting:view==='reporting',
+      summaryCards, catChips, rows, search:this.state.search, onSearch:(e)=>this.setState({search:e.target.value}),
+      resultText: filtered.length===assets.length ? assets.length+' assets' : filtered.length+' of '+assets.length+' assets',
+      isEmpty:filtered.length===0, openAdd:()=>this.openAdd(),
+      detail, detailOpen:!!detail, closeDetail:()=>this.setState({selectedAssetId:null}),
+      booking, bookingOpen:this.state.bookingOpen, closeBooking:()=>this.setState({bookingOpen:false,bookingDraft:null,bookingFor:null}),
+      editor, editorOpen:this.state.editorOpen, closeEditor:()=>this.setState({editorOpen:false,editorDraft:null}),
+      categoryOptions:['Branding','Furniture','Lighting','Equipment','Merch'], conditionOptions:['Excellent','Good','Fair','Needs repair'],
+      confirmOpen:!!this.state.confirmDelete, confirmText:this.state.confirmDelete?('"'+this.assetName(this.state.confirmDelete)+'" and its bookings will be removed from the register. This cannot be undone.'):'',
+      cancelDelete:()=>this.setState({confirmDelete:null}), doDelete:()=>this.doDelete(),
+      pendingCount:String(pendingCount), hasPending:pendingRows.length>0, noPending:pendingRows.length===0, pendingRows, allRequestRows,
+      pendingPill:{display:'inline-block',minWidth:'22px',padding:'2px 8px',borderRadius:'999px',background:'#FBE7D8',color:brand,fontSize:'13px',fontWeight:'800',textAlign:'center'},
+      hasMine:myRows.length>0, noMine:myRows.length===0, myRows,
+      weekdays, calLabel, calCells, eventLegend, calPrev:()=>this.setState(s=>{let m=s.calM-1,y=s.calY;if(m<0){m=11;y--;}return{calM:m,calY:y};}), calNext:()=>this.setState(s=>{let m=s.calM+1,y=s.calY;if(m>11){m=0;y++;}return{calM:m,calY:y};}),
+      overdueCount:String(overdueCount), dueSoonCount:String(dueSoonCount), hasOnLoan:loanRows.length>0, noOnLoan:loanRows.length===0, loanRows,
+      reportMetrics, catReport, statusReport, condReport, upcomingReturns, noUpcoming:upcomingReturns.length===0,
+      toast, toastOpen:!!toast, closeToast:()=>this.setState({toast:null}), addToCal:()=>this.setState(s=>({toast:{...s.toast,calAdded:true}})),
+      stop:(e)=>{ if(e&&e.stopPropagation) e.stopPropagation(); }
+    };
+  }
+}
+
+</script>
+</x-dc>
+</body>
+</html>
