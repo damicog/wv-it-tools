@@ -79,16 +79,16 @@ app.http('sp', {
                 const assets = rows.map(item => {
                     const f = item.fields;
                     return {
-                        id:          f.AssetId         || '',
+                        id:          f.field_0         || '',
                         name:        f.Title           || '',
-                        category:    f.Category        || 'Equipment',
-                        totalQty:    Number(f.TotalQty)    || 0,
-                        inRepairQty: Number(f.InRepairQty) || 0,
-                        location:    f.Location        || '',
-                        condition:   f.Condition       || 'Good',
-                        loanAllowed: f.LoanAllowed !== false,
-                        owningTeam:  f.OwningTeam      || '',
-                        specs:       f.Specs           || '',
+                        category:    f.field_2         || 'Equipment',
+                        totalQty:    Number(f.field_3)     || 0,
+                        inRepairQty: Number(f.field_4)     || 0,
+                        location:    f.field_5         || '',
+                        condition:   f.field_6         || 'Good',
+                        loanAllowed: f.field_7 > 0,
+                        owningTeam:  f.field_8         || '',
+                        specs:       f.field_9         || '',
                         _spId:       item.id
                     };
                 });
