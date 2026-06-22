@@ -1174,7 +1174,8 @@ class Component extends DCLogic {
   renderVals(){
     const brand='#E8601C';
     const meObj=this.state.me||{};
-    const isAdmin=meObj.isAdmin||false;
+    const canAdmin=meObj.isAdmin||false;
+    const isAdmin=canAdmin && this.state.role==='Admin';
     const me=meObj.name||'You';
     const myEmail=meObj.email||'';
     const cats=['All','Branding','Furniture','Lighting','Equipment','Merch'];
