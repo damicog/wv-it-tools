@@ -99,10 +99,28 @@ app.http('sp', {
             if (!user) {
                 return okRes({ name: 'User', email: '', isAdmin: false });
             }
+
+            // Get real display name from Graph API
+            let displayName = user.name;
+            try {
+                const profileRes = await fetch(
+                    `https://graph.microsoft.com/v1.0/users/${user.email}?$select=displayName,givenName`,
+                    { headers: { Authorization: `Bearer ${token}` } }
+                );
+                if (profileRes.ok) {
+                    const profile = await profileRes.json();
+                    displayName = profile.givenName || profile.displayName || displayName;
+                }
+            } catch (e) {
+                // Fall back to formatting email username
+                const parts = user.email.split('@')[0].split('.');
+                displayName = parts.map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(' ');
+            }
+
             const adminEmails = (process.env.ADMIN_EMAILS || '')
                 .split(',').map(e => e.trim().toLowerCase()).filter(Boolean);
             const isAdmin = adminEmails.includes((user.email || '').toLowerCase());
-            return okRes({ name: user.name, email: user.email, isAdmin });
+            return okRes({ name: displayName, email: user.email, isAdmin });
         }
 
         // ── ROUTE: getassets ─────────────────────────────────────────────
@@ -234,29 +252,7 @@ app.http('sp', {
                 return errRes(502, 'Error updating booking: ' + e.message);
             }
         }
-if (action === 'updatereminder') {
-            try {
-                const body = await request.json();
-                const { spId } = body;
-                if (!spId) return errRes(400, 'Missing spId');
-                const now = new Date().toISOString();
-                const patchRes = await fetch(
-                    `https://graph.microsoft.com/v1.0/sites/${siteId}/lists/Bookings/items/${spId}`,
-                    {
-                        method: 'PATCH',
-                        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ fields: { ReminderSent: now } })
-                    }
-                );
-                if (!patchRes.ok) {
-                    const err = await patchRes.json().catch(() => ({}));
-                    throw new Error(err.error?.message || 'Update failed');
-                }
-                return okRes({ success: true });
-            } catch (e) {
-                return errRes(502, 'Error updating reminder: ' + e.message);
-            }
-        }
+
         return errRes(400, `Unknown action "${action}".`);
     }
 });
