@@ -1154,15 +1154,20 @@ class Component extends DCLogic {
     }
   }
 
-  sendReminder(id){
+ async sendReminder(id){
     const b=this.state.bookings.find(x=>x.id===id); if(!b) return;
-    const fn=b.requester.split(' ')[0]; const dd=this.daysFromToday(b.ret);
-    const due = dd<0 ? 'was due back '+Math.abs(dd)+' day(s) ago' : dd===0 ? 'is due back today' : 'is due back in '+dd+' day(s)';
-    this.setState({ toast:null });
-    this.showToast({ kind:'email', accent:'#B25C00',
-      heading:'Return reminder sent', subject:'['+b.id+'] Reminder — '+b.assetName+' due '+this.fmtDate(b.ret), fromTo:'Power Automate  →  '+this.recipient(b),
-      body:['Hi '+fn+',','A reminder that '+b.qty+' × '+b.assetName+' ('+b.event+') '+due+'.','Please arrange its return to '+(this.state.assets.find(x=>x.id===b.assetId)||{}).location+' or contact the Events team.'],
-      note2: dd<0 ? 'Overdue — escalation copy also sent to line manager & stakeholder.' : '' });
+    try {
+      await this._spPost('updatereminder', { spId:b._spId });
+      const fn=b.requester.split(' ')[0]; const dd=this.daysFromToday(b.ret);
+      const due = dd<0 ? 'was due back '+Math.abs(dd)+' day(s) ago' : dd===0 ? 'is due back today' : 'is due back in '+dd+' day(s)';
+      this.setState({ toast:null });
+      this.showToast({ kind:'email', accent:'#B25C00',
+        heading:'Return reminder sent', subject:'['+b.id+'] Reminder — '+b.assetName+' due '+this.fmtDate(b.ret), fromTo:'Power Automate  →  '+this.recipient(b),
+        body:['Hi '+fn+',','A reminder that '+b.qty+' × '+b.assetName+' ('+b.event+') '+due+'.','Please arrange its return to '+(this.state.assets.find(x=>x.id===b.assetId)||{}).location+' or contact the Events team.'],
+        note2: dd<0 ? 'Overdue — escalation copy also sent to line manager & stakeholder.' : '' });
+    } catch(err) {
+      this.showToast({ kind:'warning', heading:'Error', body:['Could not send reminder: '+err.message] });
+    }
   }
   showBookingDetail(id){
     const b=this.state.bookings.find(x=>x.id===id); if(!b) return;
