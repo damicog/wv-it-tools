@@ -234,7 +234,29 @@ app.http('sp', {
                 return errRes(502, 'Error updating booking: ' + e.message);
             }
         }
-
+if (action === 'updatereminder') {
+            try {
+                const body = await request.json();
+                const { spId } = body;
+                if (!spId) return errRes(400, 'Missing spId');
+                const now = new Date().toISOString();
+                const patchRes = await fetch(
+                    `https://graph.microsoft.com/v1.0/sites/${siteId}/lists/Bookings/items/${spId}`,
+                    {
+                        method: 'PATCH',
+                        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ fields: { ReminderSent: now } })
+                    }
+                );
+                if (!patchRes.ok) {
+                    const err = await patchRes.json().catch(() => ({}));
+                    throw new Error(err.error?.message || 'Update failed');
+                }
+                return okRes({ success: true });
+            } catch (e) {
+                return errRes(502, 'Error updating reminder: ' + e.message);
+            }
+        }
         return errRes(400, `Unknown action "${action}".`);
     }
 });
