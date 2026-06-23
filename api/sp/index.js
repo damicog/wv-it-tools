@@ -111,9 +111,12 @@ app.http('sp', {
                     const profile = await profileRes.json();
                     displayName = profile.givenName || profile.displayName || displayName;
                 }
-            } catch (e) {
-                // Fall back to formatting email username
-                const parts = user.email.split('@')[0].split('.');
+            } catch (e) { /* use fallback */ }
+
+            // If name looks like email username (e.g. giuseppe.damico) reformat it
+            const looksLikeEmail = displayName && !displayName.includes(' ') && displayName.includes('.');
+            if (looksLikeEmail) {
+                const parts = displayName.split('.');
                 displayName = parts.map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(' ');
             }
 
