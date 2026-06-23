@@ -11,7 +11,7 @@
   ],
   "responseOverrides": {
     "401": {
-      "redirect": "/.auth/login/aad",
+      "redirect": "/.auth/login/aad?post_login_redirect_uri=/asset-manager-live.html",
       "statusCode": 302
     }
   }
