@@ -522,13 +522,7 @@
           <button onclick="{{ calNext }}" style="{{ ui.iconBtn }}">›</button>
         </div>
       </div>
-      <div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:14px;">
-        <sc-for list="{{ eventLegend }}" as="e" hint-placeholder-count="4">
-          <div style="display:flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:#4A463F;">
-            <span style="width:11px;height:11px;border-radius:3px;background:{{ e.color }};"></span>{{ e.label }}
-          </div>
-        </sc-for>
-      </div>
+
       <section style="{{ ui.panel }}overflow:hidden;">
         <div style="display:grid;grid-template-columns:repeat(7,1fr);background:#FAF9F6;border-bottom:1px solid #EFEDE8;">
           <sc-for list="{{ weekdays }}" as="w" hint-placeholder-count="7">
@@ -1029,7 +1023,7 @@ class Component extends DCLogic {
   parseD(d){ const p=d.split('-').map(Number); return new Date(p[0],p[1]-1,p[2]); }
   fmtDate(d){ if(!d) return '—'; return this.parseD(d).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}); }
   daysFromToday(d){ return Math.round((this.parseD(d)-this.parseD(this.today))/86400000); }
-  eventColor(e){ const m={'Big Church Day Out':'#E8601C','Spring Harvest':'#2D8A4E','New Wine United':'#2D4F8E','CRE Exhibition':'#8A4FA8'}; return m[e]||'#7A756B'; }
+  eventColor(e){ const pal=['#E8601C','#2D8A4E','#2D4F8E','#8A4FA8','#0E7C86','#B25C00','#1A6B5A','#7A3B69','#3D6B9E','#4A7C59']; if(!e) return '#7A756B'; let h=0; for(let i=0;i<e.length;i++){h=(h<<5)-h+e.charCodeAt(i);h|=0;} return pal[Math.abs(h)%pal.length]; }
   consumedFor(id){ return this.state.bookings.filter(b=>b.assetId===id).reduce((s,b)=>{
     if(b.status==='Approved'||b.status==='In use') return s+b.qty;                 // fully out on active loan
     if(b.status==='Returned'){ const back=(b.returnedQty==null)?b.qty:b.returnedQty; return s+(b.qty-back); } // un-returned remainder is consumed for good
@@ -1440,7 +1434,7 @@ class Component extends DCLogic {
         cellStyle:{minHeight:'104px',padding:'7px',borderRight:(i%7!==6)?'1px solid #F1EFEA':'none',borderBottom:'1px solid #F1EFEA',background:inMonth?(isToday?'#FFF6EF':'#fff'):'#FAFAF8',display:'flex',flexDirection:'column',gap:'5px',overflow:'hidden'},
         dayStyle:{fontSize:'12px',fontWeight:isToday?'800':'600',color:inMonth?(isToday?brand:'#3A372F'):'#C4BFB5',alignSelf:'flex-start',width:'22px',height:'22px',display:'flex',alignItems:'center',justifyContent:'center',borderRadius:'7px',background:isToday?'#FBE7D8':'transparent'} });
     }
-    const eventLegend=['Big Church Day Out','Spring Harvest','New Wine United','CRE Exhibition'].map(e=>({label:e,color:this.eventColor(e)}));
+
 
     // ----- reporting -----
     const reportMetrics=[
@@ -1493,7 +1487,7 @@ class Component extends DCLogic {
       pendingCount:String(pendingCount), hasPending:pendingRows.length>0, noPending:pendingRows.length===0, pendingRows, allRequestRows,
       pendingPill:{display:'inline-block',minWidth:'22px',padding:'2px 8px',borderRadius:'999px',background:'#FBE7D8',color:brand,fontSize:'13px',fontWeight:'800',textAlign:'center'},
       hasMine:myRows.length>0, noMine:myRows.length===0, myRows,
-      weekdays, calLabel, calCells, eventLegend, calPrev:()=>this.setState(s=>{let m=s.calM-1,y=s.calY;if(m<0){m=11;y--;}return{calM:m,calY:y};}), calNext:()=>this.setState(s=>{let m=s.calM+1,y=s.calY;if(m>11){m=0;y++;}return{calM:m,calY:y};}),
+      weekdays, calLabel, calCells, calPrev:()=>this.setState(s=>{let m=s.calM-1,y=s.calY;if(m<0){m=11;y--;}return{calM:m,calY:y};}), calNext:()=>this.setState(s=>{let m=s.calM+1,y=s.calY;if(m>11){m=0;y++;}return{calM:m,calY:y};}),
       overdueCount:String(overdueCount), dueSoonCount:String(dueSoonCount), hasOnLoan:loanRows.length>0, noOnLoan:loanRows.length===0, loanRows,
       reportMetrics, catReport, statusReport, condReport, upcomingReturns, noUpcoming:upcomingReturns.length===0,
       toast, toastOpen:!!toast, closeToast:()=>this.setState({toast:null}), addToCal:()=>this.setState(s=>({toast:{...s.toast,calAdded:true}})),
