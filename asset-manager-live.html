@@ -556,16 +556,16 @@
       <section style="display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:18px;">
         <div style="display:flex;gap:11px;padding:15px 17px;background:#FCEBE9;border:1px solid #F3D5D0;border-radius:13px;align-items:center;">
           <div style="font-size:30px;font-weight:800;color:#B42318;line-height:1;">{{ overdueCount }}</div>
-          <div style="font-size:13px;font-weight:600;color:#8A2B22;">Overdue<br>escalated to line manager</div>
+          <div style="font-size:13px;font-weight:600;color:#8A2B22;">Overdue<br>daily email to requester &amp; admin</div>
         </div>
         <div style="display:flex;gap:11px;padding:15px 17px;background:#FEF4E3;border:1px solid #F3E3C4;border-radius:13px;align-items:center;">
           <div style="font-size:30px;font-weight:800;color:#B25C00;line-height:1;">{{ dueSoonCount }}</div>
-          <div style="font-size:13px;font-weight:600;color:#8A5410;">Due within 3 days<br>reminder scheduled</div>
+          <div style="font-size:13px;font-weight:600;color:#8A5410;">Due within 3 days<br>reminder email due tomorrow</div>
         </div>
       </section>
       <section style="{{ ui.panel }}padding:14px 17px;margin-bottom:18px;background:#F7FAFC;border-color:#DCE7EF;">
-        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:#5E7A91;margin-bottom:6px;">⚙ Automated reminder schedule (Power Automate)</div>
-        <div style="font-size:13px;color:#3D5666;line-height:1.6;">Daily flow checks loans due within 3 days → emails the assignee. On the due date → reminder to assignee &amp; line manager. Past due → escalation email to admin &amp; stakeholder.</div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:#5E7A91;margin-bottom:6px;">⚙ Automated email flows (Power Automate)</div>
+        <div style="font-size:13px;color:#3D5666;line-height:1.6;">Return due tomorrow → reminder email to requester. Past due date → daily email to requester &amp; admin until returned. Admin can also trigger a manual reminder at any time using the Send reminder button below.</div>
       </section>
       <sc-if value="{{ hasOnLoan }}" hint-placeholder-val="{{ true }}">
         <div style="display:flex;flex-direction:column;gap:11px;">
@@ -1173,7 +1173,7 @@ class Component extends DCLogic {
       this.showToast({ kind:'email', accent:'#B25C00',
         heading:'Return reminder sent', subject:'['+b.id+'] Reminder — '+b.assetName+' due '+this.fmtDate(b.ret), fromTo:'Power Automate  →  '+this.recipient(b),
         body:['Hi '+fn+',','A reminder that '+b.qty+' × '+b.assetName+' ('+b.event+') '+due+'.','Please arrange its return to '+(this.state.assets.find(x=>x.id===b.assetId)||{}).location+' or contact the Events team.'],
-        note2: dd<0 ? 'Overdue — escalation copy also sent to line manager & stakeholder.' : '' });
+        note2: dd<0 ? 'Overdue — a copy has also been sent to the admin.' : '' });
     } catch(err) {
       this.showToast({ kind:'warning', heading:'Error', body:['Could not send reminder: '+err.message] });
     }
