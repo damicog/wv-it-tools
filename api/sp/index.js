@@ -256,6 +256,101 @@ app.http('sp', {
             }
         }
 
+        // ── ROUTE: createasset (POST) ────────────────────────────────────
+        if (action === 'createasset') {
+            try {
+                const body = await request.json();
+                const createRes = await fetch(
+                    `https://graph.microsoft.com/v1.0/sites/${siteId}/lists/Assets/items`,
+                    {
+                        method: 'POST',
+                        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            fields: {
+                                Title:      body.name        || '',
+                                field_0:    body.id          || '',
+                                field_2:    body.category    || 'Equipment',
+                                field_3:    Number(body.totalQty)    || 1,
+                                field_4:    Number(body.inRepairQty) || 0,
+                                field_5:    body.location    || '',
+                                field_6:    body.condition   || 'Good',
+                                field_7:    body.loanAllowed ? 1 : 0,
+                                field_8:    body.owningTeam  || 'Churches',
+                                field_9:    body.specs       || ''
+                            }
+                        })
+                    }
+                );
+                const created = await createRes.json();
+                if (!createRes.ok) throw new Error(created.error?.message || 'Create asset failed');
+                return okRes({ _spId: created.id });
+            } catch (e) {
+                return errRes(502, 'Error creating asset: ' + e.message);
+            }
+        }
+
+        // ── ROUTE: updateasset (POST) ────────────────────────────────────
+        if (action === 'updateasset') {
+            try {
+                const body = await request.json();
+                const { spId } = body;
+                if (!spId) return errRes(400, 'Missing spId');
+
+                const patchRes = await fetch(
+                    `https://graph.microsoft.com/v1.0/sites/${siteId}/lists/Assets/items/${spId}`,
+                    {
+                        method: 'PATCH',
+                        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            fields: {
+                                Title:      body.name        || '',
+                                field_0:    body.id          || '',
+                                field_2:    body.category    || 'Equipment',
+                                field_3:    Number(body.totalQty)    || 1,
+                                field_4:    Number(body.inRepairQty) || 0,
+                                field_5:    body.location    || '',
+                                field_6:    body.condition   || 'Good',
+                                field_7:    body.loanAllowed ? 1 : 0,
+                                field_8:    body.owningTeam  || 'Churches',
+                                field_9:    body.specs       || ''
+                            }
+                        })
+                    }
+                );
+                if (!patchRes.ok) {
+                    const err = await patchRes.json().catch(() => ({}));
+                    throw new Error(err.error?.message || 'Update failed: HTTP ' + patchRes.status);
+                }
+                return okRes({ success: true });
+            } catch (e) {
+                return errRes(502, 'Error updating asset: ' + e.message);
+            }
+        }
+
+        // ── ROUTE: deleteasset (POST) ────────────────────────────────────
+        if (action === 'deleteasset') {
+            try {
+                const body = await request.json();
+                const { spId } = body;
+                if (!spId) return errRes(400, 'Missing spId');
+
+                const delRes = await fetch(
+                    `https://graph.microsoft.com/v1.0/sites/${siteId}/lists/Assets/items/${spId}`,
+                    {
+                        method: 'DELETE',
+                        headers: { Authorization: `Bearer ${token}` }
+                    }
+                );
+                if (!delRes.ok && delRes.status !== 204) {
+                    const err = await delRes.json().catch(() => ({}));
+                    throw new Error(err.error?.message || 'Delete failed: HTTP ' + delRes.status);
+                }
+                return okRes({ success: true });
+            } catch (e) {
+                return errRes(502, 'Error deleting asset: ' + e.message);
+            }
+        }
+
         return errRes(400, `Unknown action "${action}".`);
     }
 });
