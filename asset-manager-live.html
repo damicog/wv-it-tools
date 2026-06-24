@@ -998,7 +998,22 @@ class Component extends DCLogic {
       ]);
       const me       = meRes.ok       ? await meRes.json()       : { name:'User', email:'', isAdmin:false };
       const assets   = assetsRes.ok   ? await assetsRes.json()   : [];
-      const bookings = bookingsRes.ok ? await bookingsRes.json() : [];
+      const rawBookings = bookingsRes.ok ? await bookingsRes.json() : [];
+
+      // ── Auto-flip Approved → In use when checkout date has arrived ──────
+      const today = this.today;
+      const toFlip = rawBookings.filter(b => b.status === 'Approved' && b.checkout && b.checkout <= today && b._spId);
+      const flipped = new Set();
+      await Promise.all(toFlip.map(async b => {
+        try {
+          await this._spPost('updatebooking', { spId: b._spId, status: 'In use' });
+          flipped.add(b.id);
+        } catch(e) {
+          console.warn('[AssetManager] Auto-flip failed for', b.id, e.message);
+        }
+      }));
+      const bookings = rawBookings.map(b => flipped.has(b.id) ? { ...b, status: 'In use' } : b);
+
       this.setState({ me, assets, bookings, loading: false });
     } catch(err) {
       console.error('[AssetManager] Load error:', err);
