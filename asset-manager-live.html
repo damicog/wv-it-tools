@@ -1193,19 +1193,41 @@ class Component extends DCLogic {
     const a=this.state.assets.find(x=>x.id===id); if(!a) return;
     this.setState({ editorOpen:true, editorMode:'edit', editorDraft:{...a}, selectedAssetId:null });
   }
-  saveAsset(){
+  async saveAsset(){
     const d=this.state.editorDraft;
     if(!d.name.trim()){ this.setState({ editorDraft:{...d, _err:'Please enter an asset name.'} }); return; }
     const clean={ id:d.id.trim()||('CAMD-'+Date.now()), name:d.name.trim(), category:d.category, condition:d.condition, totalQty:Math.max(0,Number(d.totalQty)||0), inRepairQty:Math.max(0,Number(d.inRepairQty)||0), location:d.location.trim(), specs:d.specs.trim(), loanAllowed:!!d.loanAllowed, owningTeam:d.owningTeam||'Churches' };
-    this.setState(s=>{
-      const exists=s.assets.some(a=>a.id===clean.id);
-      const assets = exists ? s.assets.map(a=>a.id===clean.id?{...a,...clean}:a) : [clean,...s.assets];
-      return { assets, editorOpen:false, editorDraft:null };
-    });
+    const isEdit = this.state.editorMode==='edit';
+    try {
+      if(isEdit){
+        const spId = d._spId;
+        if(!spId) throw new Error('No SharePoint ID — cannot update.');
+        await this._spPost('updateasset', { ...clean, spId });
+        this.setState(s=>({ assets:s.assets.map(a=>a.id===clean.id?{...a,...clean}:a), editorOpen:false, editorDraft:null }));
+        this.showToast({ kind:'success', heading:'Asset updated', body:[clean.name+' has been updated in the register.'] });
+      } else {
+        const result = await this._spPost('createasset', clean);
+        const newAsset = { ...clean, _spId: result._spId };
+        this.setState(s=>({ assets:[newAsset,...s.assets], editorOpen:false, editorDraft:null }));
+        this.showToast({ kind:'success', heading:'Asset added', body:[clean.name+' ('+clean.id+') has been added to the register.'] });
+      }
+    } catch(err) {
+      this.showToast({ kind:'warning', heading:isEdit?'Update failed':'Add failed', body:['Could not save the asset: '+err.message,'Please try again or contact the admin.'] });
+    }
   }
-  doDelete(){
+  async doDelete(){
     const id=this.state.confirmDelete;
-    this.setState(s=>({ assets:s.assets.filter(a=>a.id!==id), bookings:s.bookings.filter(b=>b.assetId!==id), confirmDelete:null, selectedAssetId:null }));
+    const asset=this.state.assets.find(a=>a.id===id);
+    if(!asset){ this.setState({ confirmDelete:null }); return; }
+    if(!asset._spId){ this.showToast({ kind:'warning', heading:'Delete failed', body:['This asset has no SharePoint ID. It may need to be removed manually.'] }); this.setState({ confirmDelete:null }); return; }
+    try {
+      await this._spPost('deleteasset', { spId: asset._spId });
+      this.setState(s=>({ assets:s.assets.filter(a=>a.id!==id), bookings:s.bookings.filter(b=>b.assetId!==id), confirmDelete:null, selectedAssetId:null }));
+      this.showToast({ kind:'success', heading:'Asset removed', body:[asset.name+' has been removed from the register.'] });
+    } catch(err) {
+      this.setState({ confirmDelete:null });
+      this.showToast({ kind:'warning', heading:'Delete failed', body:['Could not delete the asset: '+err.message,'Please try again or contact the admin.'] });
+    }
   }
 
   renderVals(){
