@@ -164,7 +164,7 @@ app.http('sp', {
                         assetName:   f.AssetName       || '',
                         qty:         Number(f.QTY)          || 0,
                         returnedQty: f.ReturnedQty != null ? Number(f.ReturnedQty) : null,
-                        damagedQty:  f.DamagedQty  != null ? Number(f.DamagedQty)  : 0,
+                        damagedQty:  f.DamagedQTY  != null ? Number(f.DamagedQTY)  : 0,
                         damageNotes: f.DamageNotes || '',
                         requester:   f.RequesterName   || '',
                         email:       f.RequesterEmail  || '',
@@ -239,7 +239,7 @@ app.http('sp', {
                 const fields = { Status: status };
                 if (returnedQty !== undefined && returnedQty !== null) fields.ReturnedQty = returnedQty;
                 if (actualReturn) fields.ActualReturn = actualReturn + 'T00:00:00Z';
-                if (damagedQty !== undefined && damagedQty !== null) fields.DamagedQty = damagedQty;
+                if (damagedQty !== undefined && damagedQty !== null) fields.DamagedQTY = damagedQty;
                 if (damageNotes !== undefined && damageNotes !== null) fields.DamageNotes = damageNotes;
 
                 const patchRes = await fetch(
