@@ -864,7 +864,54 @@
     </div>
   </sc-if>
 
-  <!-- ============ TOAST / EMAIL / BOOKING MODAL ============ -->
+  <!-- ============ RETURN MODAL ============ -->
+  <sc-if value="{{ returnOpen }}" hint-placeholder-val="{{ false }}">
+    <div onclick="{{ closeReturnModal }}" style="position:fixed;inset:0;background:rgba(31,29,26,0.42);z-index:75;display:flex;align-items:center;justify-content:center;padding:24px;">
+      <div onclick="{{ stop }}" style="background:#fff;border-radius:18px;width:460px;max-width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 24px 70px rgba(0,0,0,0.30);">
+        <div style="padding:22px 24px;border-bottom:1px solid #EFEDE8;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">
+          <div>
+            <div style="font-size:18px;font-weight:800;">{{ returnModal.title }}</div>
+            <div style="font-size:14px;color:#6F6A62;margin-top:3px;">{{ returnModal.assetName }}</div>
+          </div>
+          <button onclick="{{ closeReturnModal }}" style="{{ ui.closeBtn }}">×</button>
+        </div>
+        <div style="padding:22px 24px;display:flex;flex-direction:column;gap:16px;">
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="{{ ui.label }}">Quantity returned</div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <input value="{{ returnModal.returnQty }}" oninput="{{ returnModal.onReturnQty }}" type="number" min="0" max="{{ returnModal.qty }}" style="{{ ui.input }}width:90px;text-align:center;">
+              <span style="font-size:13px;color:#9A958C;">of {{ returnModal.qty }} booked out</span>
+            </div>
+            <div style="font-size:12px;color:#9A958C;">Not all items always come back (e.g. merch). Enter 0 if none were returned.</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="{{ ui.label }}">Any damaged?</div>
+            <div style="display:flex;gap:8px;">
+              <button onclick="{{ returnModal.onDamagedNo }}" style="{{ returnModal.noBtnStyle }}">No</button>
+              <button onclick="{{ returnModal.onDamagedYes }}" style="{{ returnModal.yesBtnStyle }}">Yes</button>
+            </div>
+          </div>
+          <sc-if value="{{ returnModal.showDamageNotes }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <div style="{{ ui.label }}">How many damaged?</div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <input value="{{ returnModal.damagedQty }}" oninput="{{ returnModal.onDamagedQty }}" type="number" min="1" max="{{ returnModal.returnQty }}" style="{{ ui.input }}width:90px;text-align:center;">
+                <span style="font-size:13px;color:#9A958C;">of the {{ returnModal.returnQty }} returned</span>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <div style="{{ ui.label }}">Describe the damage</div>
+              <textarea value="{{ returnModal.damageNotes }}" oninput="{{ returnModal.onDamageNotes }}" placeholder="e.g. torn fabric, missing pole, water damage…" rows="3" style="{{ ui.input }}resize:vertical;font-family:inherit;"></textarea>
+            </div>
+          </sc-if>
+        </div>
+        <div style="padding:16px 24px;border-top:1px solid #EFEDE8;display:flex;gap:10px;justify-content:flex-end;background:#FAF9F6;">
+          <button onclick="{{ closeReturnModal }}" style="{{ ui.ghost }}">Cancel</button>
+          <button onclick="{{ confirmReturnModal }}" style="{{ ui.primary }}">{{ returnModal.confirmLabel }}</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
   <sc-if value="{{ toastOpen }}" hint-placeholder-val="{{ false }}">
     <div onclick="{{ closeToast }}" style="position:fixed;inset:0;background:rgba(31,29,26,0.42);z-index:70;display:flex;align-items:center;justify-content:center;padding:24px;">
       <div onclick="{{ stop }}" style="background:#fff;border-radius:18px;width:480px;max-width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 24px 70px rgba(0,0,0,0.30);">
@@ -892,16 +939,7 @@
               <sc-if value="{{ toast.showHandover }}" hint-placeholder-val="{{ false }}"><button onclick="{{ toast.onHandover }}" style="{{ ui.primarySm }}">Confirm handover (→ In use)</button></sc-if>
               <sc-if value="{{ toast.showRemind }}" hint-placeholder-val="{{ false }}"><button onclick="{{ toast.onRemind }}" style="{{ ui.ghostSm }}">Send reminder</button></sc-if>
               <sc-if value="{{ toast.showReturn }}" hint-placeholder-val="{{ false }}">
-                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-                  <sc-if value="{{ toast.returnMulti }}" hint-placeholder-val="{{ false }}">
-                    <div style="display:flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:#544E46;">
-                      <span>Qty returned</span>
-                      <input value="{{ toast.returnQty }}" oninput="{{ toast.onReturnQty }}" type="number" min="0" max="{{ toast.returnMax }}" style="width:58px;padding:7px 9px;border:1px solid #E2DACE;border-radius:8px;font-size:14px;font-weight:600;font-family:inherit;text-align:center;">
-                      <span style="color:#9A958C;">of {{ toast.returnMax }}</span>
-                    </div>
-                  </sc-if>
-                  <button onclick="{{ toast.onReturn }}" style="{{ ui.primarySm }}">Mark returned</button>
-                </div>
+                <button onclick="{{ toast.onReturn }}" style="{{ ui.primarySm }}">Mark returned</button>
               </sc-if>
               <sc-if value="{{ toast.showUserReturn }}" hint-placeholder-val="{{ false }}">
                 <button onclick="{{ toast.onUserReturn }}" style="{{ ui.primarySm }}">I've returned this</button>
@@ -1041,7 +1079,7 @@ class Component extends DCLogic {
   eventColor(e){ const pal=['#E8601C','#2D8A4E','#2D4F8E','#8A4FA8','#0E7C86','#B25C00','#1A6B5A','#7A3B69','#3D6B9E','#4A7C59']; if(!e) return '#7A756B'; let h=0; for(let i=0;i<e.length;i++){h=(h<<5)-h+e.charCodeAt(i);h|=0;} return pal[Math.abs(h)%pal.length]; }
   consumedFor(id){ return this.state.bookings.filter(b=>b.assetId===id).reduce((s,b)=>{
     if(b.status==='Approved'||b.status==='In use') return s+b.qty;                 // fully out on active loan
-    if(b.status==='Returned'){ const back=(b.returnedQty==null)?b.qty:b.returnedQty; return s+(b.qty-back); } // un-returned remainder is consumed for good
+    if(b.status==='Returned'){ const back=(b.returnedQty==null)?b.qty:b.returnedQty; return s+(b.qty-back)+(b.damagedQty||0); } // un-returned remainder + damaged-on-return both stay unavailable
     return s;                                                                       // Pending / Rejected reserve nothing
   },0); }
   availFor(id){ const a=this.state.assets.find(x=>x.id===id); if(!a) return 0; return Math.max(0, a.totalQty-(a.inRepairQty||0)-this.consumedFor(id)); }
@@ -1117,47 +1155,70 @@ class Component extends DCLogic {
     }
   }
 
-  async markReturned(id, retQty){
+  async markReturned(id, retQty, damagedQty, damageNotes){
     const b=this.state.bookings.find(x=>x.id===id); if(!b) return;
     const R=(retQty==null||retQty==='')?b.qty:Math.max(0,Math.min(b.qty,Math.round(Number(retQty))||0));
+    const D=Math.max(0,Math.min(R,Math.round(Number(damagedQty))||0));
+    const notes=D>0?(damageNotes||'').trim():'';
     const notBack=b.qty-R;
     try {
-      await this._spPost('updatebooking', { spId:b._spId, status:'Returned', returnedQty:R, actualReturn:this.today });
-      this.setState(s=>({ bookings:s.bookings.map(x=>x.id===id?{...x,status:'Returned',returnedQty:R,actual:this.today}:x), toast:null }));
+      await this._spPost('updatebooking', { spId:b._spId, status:'Returned', returnedQty:R, actualReturn:this.today, damagedQty:D, damageNotes:notes });
+      this.setState(s=>({ bookings:s.bookings.map(x=>x.id===id?{...x,status:'Returned',returnedQty:R,actual:this.today,damagedQty:D,damageNotes:notes}:x), toast:null }));
       const line = R===b.qty
         ? 'Thanks — all '+b.qty+' × '+b.assetName+' have been booked back in on '+this.fmtDate(this.today)+'. The stock is available again for other bookings.'
         : (R===0
           ? 'Recorded on '+this.fmtDate(this.today)+': none of the '+b.qty+' × '+b.assetName+' were returned — all '+b.qty+' logged as distributed / consumed and removed from available stock.'
           : R+' of '+b.qty+' × '+b.assetName+' booked back in on '+this.fmtDate(this.today)+'. The remaining '+notBack+' logged as not returned (distributed / consumed) and removed from available stock.');
+      const body=[line];
+      if(D>0) body.push(D+' of the returned '+b.assetName+' logged as damaged.'+(notes?(' Note: '+notes):''));
+      else body.push('Please report any damage to the Events team for condition review.');
       this.showToast({ kind:'email', accent:'#1B7A43',
         heading:'Return confirmed', subject:'['+id+'] Returned — '+b.assetName, fromTo:'Power Automate  →  '+this.recipient(b),
-        body:[line,'Please report any damage to the Events team for condition review.'] });
+        body });
     } catch(err) {
       this.showToast({ kind:'warning', heading:'Error', body:['Could not update booking: '+err.message] });
     }
   }
 
-  async requestReturn(id){
+  openReturnModal(id, mode){
     const b=this.state.bookings.find(x=>x.id===id); if(!b) return;
-    try {
-      await this._spPost('updatebooking', { spId:b._spId, status:'Return Pending' });
-      this.setState(s=>({ bookings:s.bookings.map(x=>x.id===id?{...x,status:'Return Pending'}:x), toast:null }));
-      this.showToast({ kind:'email', accent:'#6B21A8',
-        heading:'Return notified', subject:'['+b.id+'] Return notified — '+b.assetName, fromTo:'Power Automate  →  Asset Admin',
-        body:['The admin has been notified that you have returned '+b.qty+' × '+b.assetName+' for '+b.event+'.','The admin will confirm the return and update the system.'] });
-    } catch(err) {
-      this.showToast({ kind:'warning', heading:'Error', body:['Could not update: '+err.message] });
+    const m = mode || (this.state.role==='Admin' ? 'confirm' : 'request');
+    const preQty = (b.returnedQty!=null) ? b.returnedQty : b.qty;
+    const preDamaged = b.damagedQty>0;
+    this.setState({ toast:null, returnModal:{ id:b.id, qty:b.qty, assetName:b.assetName, mode:m,
+      returnQty:String(preQty), damaged:preDamaged, damagedQty:String(b.damagedQty||0), damageNotes:b.damageNotes||'' } });
+  }
+  setReturnField(p){ this.setState(s=>({ returnModal:{...s.returnModal, ...p} })); }
+  closeReturnModal(){ this.setState({ returnModal:null }); }
+  toggleDamaged(val){
+    const cur=this.state.returnModal;
+    const qty = val ? (Number(cur.damagedQty)>0 ? cur.damagedQty : '1') : '0';
+    this.setReturnField({ damaged:val, damagedQty:qty });
+  }
+  async confirmReturnModal(){
+    const rm=this.state.returnModal; if(!rm) return;
+    const retQty=Math.max(0,Math.min(rm.qty,Math.round(Number(rm.returnQty))||0));
+    const dmgQty=rm.damaged?Math.max(0,Math.min(retQty,Math.round(Number(rm.damagedQty))||0)):0;
+    this.setState({ returnModal:null });
+    if(rm.mode==='request'){
+      await this.requestReturn(rm.id, retQty, rm.damaged, dmgQty, rm.damageNotes);
+    } else {
+      await this.markReturned(rm.id, retQty, dmgQty, rm.damageNotes);
     }
   }
 
-  async requestReturn(id){
+  async requestReturn(id, retQty, damaged, damagedQty, damageNotes){
     const b=this.state.bookings.find(x=>x.id===id); if(!b) return;
+    const R=Math.max(0,Math.min(b.qty,Math.round(Number(retQty))||0));
+    const D=damaged?Math.max(0,Math.min(R,Math.round(Number(damagedQty))||0)):0;
+    const notes=D>0?(damageNotes||'').trim():'';
     try {
-      await this._spPost('updatebooking', { spId:b._spId, status:'Return Pending' });
-      this.setState(s=>({ bookings:s.bookings.map(x=>x.id===id?{...x,status:'Return Pending'}:x), toast:null }));
+      await this._spPost('updatebooking', { spId:b._spId, status:'Return Pending', returnedQty:R, damagedQty:D, damageNotes:notes });
+      this.setState(s=>({ bookings:s.bookings.map(x=>x.id===id?{...x,status:'Return Pending',returnedQty:R,damagedQty:D,damageNotes:notes}:x), toast:null }));
+      const dmgLine = D>0 ? (' '+D+' item(s) flagged as damaged.') : '';
       this.showToast({ kind:'email', accent:'#6B21A8',
         heading:'Return notified', subject:'['+b.id+'] Return notified — '+b.assetName, fromTo:'Power Automate  →  Asset Admin',
-        body:['The admin has been notified that you have returned '+b.qty+' × '+b.assetName+' for '+b.event+'.','The admin will confirm the return and update the system.'] });
+        body:['The admin has been notified that you returned '+R+' of '+b.qty+' × '+b.assetName+' for '+b.event+'.'+dmgLine,'The admin will confirm the return and update the system.'] });
     } catch(err) {
       this.showToast({ kind:'warning', heading:'Error', body:['Could not update: '+err.message] });
     }
@@ -1184,12 +1245,12 @@ class Component extends DCLogic {
     const isAdmin=this.state.role==='Admin';
     const showApprove=isAdmin&&b.status==='Pending', showReject=isAdmin&&b.status==='Pending', showHandover=isAdmin&&b.status==='Approved', showReturn=isAdmin&&b.status==='In use', showRemind=isAdmin&&b.status==='In use', showConfirmReturn=isAdmin&&b.status==='Return Pending', showUserReturn=!isAdmin&&b.status==='In use';
     const fields=[ {label:'Quantity',value:String(b.qty)}, {label:'Requester',value:b.requester}, {label:'Email',value:b.email||this.emailFor(b.requester)}, {label:'Event',value:b.event}, {label:'Collection',value:this.fmtDate(b.checkout)}, {label:'Return by',value:this.fmtDate(b.ret)}, {label:'Returned',value:b.actual?this.fmtDate(b.actual):'—'}, {label:'Location',value:a.location||'—'}, {label:'Notes',value:b.note||'—'} ];
-    if(b.status==='Returned'){ const back=(b.returnedQty==null)?b.qty:b.returnedQty; fields.push({label:'Qty returned',value:back+' of '+b.qty+(back<b.qty?'  ('+(b.qty-back)+' consumed)':'')}); }
+    if(b.status==='Returned'){ const back=(b.returnedQty==null)?b.qty:b.returnedQty; fields.push({label:'Qty returned',value:back+' of '+b.qty+(back<b.qty?'  ('+(b.qty-back)+' consumed)':'')}); if(b.damagedQty>0) fields.push({label:'Damaged',value:b.damagedQty+' item(s)'+(b.damageNotes?(' — '+b.damageNotes):'')}); }
     this.setState({ toast:{ kind:'booking', id:b.id, statusKey:b.status, asset:b.assetName, fields,
       showApprove, showReject, showHandover, showReturn, showRemind, showConfirmReturn, showUserReturn, hasActions:(showApprove||showReject||showHandover||showReturn||showRemind||showConfirmReturn||showUserReturn),
       returnMulti:b.qty>1, returnMax:b.qty, returnQty:String(b.qty),
       onReturnQty:(e)=>this.setState(s=>({ toast:{...s.toast, returnQty:e.target.value} })),
-      onApprove:()=>this.approve(b.id), onReject:()=>this.reject(b.id), onHandover:()=>this.handover(b.id), onReturn:()=>this.markReturned(b.id, this.state.toast?this.state.toast.returnQty:b.qty), onRemind:()=>this.sendReminder(b.id), onUserReturn:()=>this.requestReturn(b.id), onConfirmReturn:()=>this.markReturned(b.id, this.state.toast?this.state.toast.returnQty:b.qty) } });
+      onApprove:()=>this.approve(b.id), onReject:()=>this.reject(b.id), onHandover:()=>this.handover(b.id), onReturn:()=>this.openReturnModal(b.id,'confirm'), onRemind:()=>this.sendReminder(b.id), onUserReturn:()=>this.openReturnModal(b.id,'request'), onConfirmReturn:()=>this.openReturnModal(b.id,'confirm') } });
   }
 
   // ---------- editor / delete ----------
@@ -1411,7 +1472,7 @@ class Component extends DCLogic {
       id:b.id, qtyAsset:b.qty+' × '+b.assetName, requester:b.requester, event:b.event, status:b.status,
       dateRange:this.fmtDate(b.checkout)+' → '+this.fmtDate(b.ret), metaLine:b.requester+' · '+b.event+' · '+this.fmtDate(b.checkout)+' → '+this.fmtDate(b.ret),
       badgeStyle:bbadge(b.status), onClick:()=>this.showBookingDetail(b.id),
-      onApprove:()=>this.approve(b.id), onReject:()=>this.reject(b.id), onReturn:()=>this.markReturned(b.id), onRemind:()=>this.sendReminder(b.id),
+      onApprove:()=>this.approve(b.id), onReject:()=>this.reject(b.id), onReturn:()=>this.openReturnModal(b.id,'confirm'), onRemind:()=>this.sendReminder(b.id),
       rowStyle:{display:'grid',gridTemplateColumns:'minmax(90px,0.9fr) minmax(150px,1.8fr) minmax(110px,1.1fr) minmax(120px,1.3fr) minmax(150px,1.5fr) minmax(90px,1fr)',alignItems:'center',cursor:'pointer',background:'transparent'}, rowHover:{display:'grid',gridTemplateColumns:'minmax(90px,0.9fr) minmax(150px,1.8fr) minmax(110px,1.1fr) minmax(120px,1.3fr) minmax(150px,1.5fr) minmax(90px,1fr)',alignItems:'center',cursor:'pointer',background:'#FBF7F3'} }; };
     const pendingRows=bookings.filter(b=>b.status==='Pending').map(bRow);
     const allRequestRows=bookings.map(bRow);
@@ -1499,6 +1560,23 @@ class Component extends DCLogic {
       categoryOptions:['Branding','Furniture','Lighting','Equipment','Merch'], conditionOptions:['Excellent','Good','Fair','Needs repair'],
       confirmOpen:!!this.state.confirmDelete, confirmText:this.state.confirmDelete?('"'+this.assetName(this.state.confirmDelete)+'" and its bookings will be removed from the register. This cannot be undone.'):'',
       cancelDelete:()=>this.setState({confirmDelete:null}), doDelete:()=>this.doDelete(),
+      returnOpen:!!this.state.returnModal,
+      returnModal: this.state.returnModal ? { ...this.state.returnModal,
+        title: this.state.returnModal.mode==='request' ? "I've returned this" : 'Confirm return',
+        confirmLabel: this.state.returnModal.mode==='request' ? 'Submit ✓' : 'Confirm return ✓',
+        showDamageNotes: !!this.state.returnModal.damaged,
+        noBtnStyle: this.state.returnModal.damaged
+          ? {padding:'8px 18px',borderRadius:'9px',border:'1px solid #D8D4CC',background:'#fff',color:'#1F1D1A',fontSize:'13px',fontWeight:'600',cursor:'pointer',fontFamily:'inherit'}
+          : {padding:'8px 18px',borderRadius:'9px',border:'1px solid '+brand,background:brand,color:'#fff',fontSize:'13px',fontWeight:'700',cursor:'pointer',fontFamily:'inherit'},
+        yesBtnStyle: this.state.returnModal.damaged
+          ? {padding:'8px 18px',borderRadius:'9px',border:'1px solid #B42318',background:'#B42318',color:'#fff',fontSize:'13px',fontWeight:'700',cursor:'pointer',fontFamily:'inherit'}
+          : {padding:'8px 18px',borderRadius:'9px',border:'1px solid #D8D4CC',background:'#fff',color:'#1F1D1A',fontSize:'13px',fontWeight:'600',cursor:'pointer',fontFamily:'inherit'},
+        onReturnQty:(e)=>this.setReturnField({returnQty:e.target.value}),
+        onDamagedNo:()=>this.toggleDamaged(false),
+        onDamagedYes:()=>this.toggleDamaged(true),
+        onDamagedQty:(e)=>this.setReturnField({damagedQty:e.target.value}),
+        onDamageNotes:(e)=>this.setReturnField({damageNotes:e.target.value}) } : null,
+      closeReturnModal:()=>this.closeReturnModal(), confirmReturnModal:()=>this.confirmReturnModal(),
       pendingCount:String(pendingCount), hasPending:pendingRows.length>0, noPending:pendingRows.length===0, pendingRows, allRequestRows,
       pendingPill:{display:'inline-block',minWidth:'22px',padding:'2px 8px',borderRadius:'999px',background:'#FBE7D8',color:brand,fontSize:'13px',fontWeight:'800',textAlign:'center'},
       hasMine:myRows.length>0, noMine:myRows.length===0, myRows,
