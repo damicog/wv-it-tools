@@ -1012,7 +1012,7 @@
 class Component extends DCLogic {
   today = new Date().toISOString().split('T')[0];
   state = {
-    role: 'Admin',
+    role: 'Standard',
     view: 'register',
     search: '', category: 'All',
     selectedAssetId: null,
@@ -1053,7 +1053,7 @@ class Component extends DCLogic {
       }));
       const bookings = rawBookings.map(b => flipped.has(b.id) ? { ...b, status: 'In use' } : b);
 
-      this.setState({ me, assets, bookings, loading: false });
+      this.setState({ me, assets, bookings, loading: false, role: me.isAdmin ? 'Admin' : 'Standard' });
     } catch(err) {
       console.error('[AssetManager] Load error:', err);
       this.setState({ loading: false, loadError: err.message });
@@ -1183,7 +1183,8 @@ class Component extends DCLogic {
 
   openReturnModal(id, mode){
     const b=this.state.bookings.find(x=>x.id===id); if(!b) return;
-    const m = mode || (this.state.role==='Admin' ? 'confirm' : 'request');
+    const realAdmin = !!(this.state.me && this.state.me.isAdmin);
+    const m = mode || (realAdmin && this.state.role==='Admin' ? 'confirm' : 'request');
     const preQty = (b.returnedQty!=null) ? b.returnedQty : b.qty;
     const preDamaged = b.damagedQty>0;
     this.setState({ toast:null, returnModal:{ id:b.id, qty:b.qty, assetName:b.assetName, mode:m,
@@ -1243,7 +1244,7 @@ class Component extends DCLogic {
   showBookingDetail(id){
     const b=this.state.bookings.find(x=>x.id===id); if(!b) return;
     const a=this.state.assets.find(x=>x.id===b.assetId)||{};
-    const isAdmin=this.state.role==='Admin';
+    const isAdmin=!!(this.state.me && this.state.me.isAdmin) && this.state.role==='Admin';
     const showApprove=isAdmin&&b.status==='Pending', showReject=isAdmin&&b.status==='Pending', showHandover=isAdmin&&b.status==='Approved', showReturn=isAdmin&&b.status==='In use', showRemind=isAdmin&&b.status==='In use', showConfirmReturn=isAdmin&&b.status==='Return Pending', showUserReturn=!isAdmin&&b.status==='In use';
     const fields=[ {label:'Quantity',value:String(b.qty)}, {label:'Requester',value:b.requester}, {label:'Email',value:b.email||this.emailFor(b.requester)}, {label:'Event',value:b.event}, {label:'Collection',value:this.fmtDate(b.checkout)}, {label:'Return by',value:this.fmtDate(b.ret)}, {label:'Returned',value:b.actual?this.fmtDate(b.actual):'—'}, {label:'Location',value:a.location||'—'}, {label:'Notes',value:b.note||'—'} ];
     if(b.status==='Returned'){ const back=(b.returnedQty==null)?b.qty:b.returnedQty; fields.push({label:'Qty returned',value:back+' of '+b.qty+(back<b.qty?'  ('+(b.qty-back)+' consumed)':'')}); if(b.damagedQty>0) fields.push({label:'Damaged',value:b.damagedQty+' item(s)'+(b.damageNotes?(' — '+b.damageNotes):'')}); }
