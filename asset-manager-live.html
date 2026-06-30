@@ -313,6 +313,7 @@
       <div style="display:flex;flex-direction:column;line-height:1.15;">
         <span style="font-size:13px;font-weight:700;">{{ userName }}</span>
         <span style="font-size:11px;color:#8A857C;font-weight:600;">{{ userRoleLabel }}</span>
+        <span style="font-size:10px;color:#C4694A;font-weight:600;">{{ debugEmail }}</span>
       </div>
     </div>
   </header>
@@ -1307,6 +1308,7 @@ class Component extends DCLogic {
     const isAdmin=canAdmin && this.state.role==='Admin';
     const me=meObj.name||'You';
     const myEmail=meObj.email||'';
+    const debugEmail = myEmail ? ('login: '+myEmail+' · isAdmin: '+(canAdmin?'yes':'no')) : '';
     const cats=['All','Branding','Furniture','Lighting','Equipment','Merch'];
 
     const SM={ 'Available':{bg:'#E7F4EC',fg:'#1B7A43'}, 'Low stock':{bg:'#FEF4E3',fg:'#B25C00'}, 'Fully booked':{bg:'#E8EEF9',fg:'#2D4F8E'}, 'In repair':{bg:'#FCEBE9',fg:'#B42318'} };
@@ -1548,7 +1550,7 @@ class Component extends DCLogic {
       ui, isAdmin, brand,
       logoStyle:{width:'38px',height:'38px',borderRadius:'10px',background:brand,display:'flex',alignItems:'center',justifyContent:'center',color:'#fff',fontWeight:'800',fontSize:'14px',flex:'0 0 auto'},
       avatarStyle:{width:'30px',height:'30px',borderRadius:'50%',background:'#1F1D1A',color:'#fff',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'12px',fontWeight:'800',flex:'0 0 auto'},
-      userName:me, userInitials:me.split(' ').map(x=>x[0]).join(''), userRoleLabel:isAdmin?'Asset Admin':'Standard user',
+      userName:me, userInitials:me.split(' ').map(x=>x[0]).join(''), userRoleLabel:isAdmin?'Asset Admin':'Standard user', debugEmail,
       roleBtns, navItems,
       isRegister:view==='register', isRequests:view==='requests', isMyRequests:view==='myrequests', isCalendar:view==='calendar', isReturns:view==='returns', isReporting:view==='reporting',
       summaryCards, catChips, rows, search:this.state.search, onSearch:(e)=>this.setState({search:e.target.value}),
