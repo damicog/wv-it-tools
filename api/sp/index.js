@@ -164,6 +164,8 @@ app.http('sp', {
                         assetName:   f.AssetName       || '',
                         qty:         Number(f.QTY)          || 0,
                         returnedQty: f.ReturnedQty != null ? Number(f.ReturnedQty) : null,
+                        damagedQty:  f.DamagedQty  != null ? Number(f.DamagedQty)  : 0,
+                        damageNotes: f.DamageNotes || '',
                         requester:   f.RequesterName   || '',
                         email:       f.RequesterEmail  || '',
                         event:       f.Event           || '',
@@ -231,12 +233,14 @@ app.http('sp', {
         if (action === 'updatebooking') {
             try {
                 const body = await request.json();
-                const { spId, status, returnedQty, actualReturn } = body;
+                const { spId, status, returnedQty, actualReturn, damagedQty, damageNotes } = body;
                 if (!spId) return errRes(400, 'Missing spId');
 
                 const fields = { Status: status };
                 if (returnedQty !== undefined && returnedQty !== null) fields.ReturnedQty = returnedQty;
                 if (actualReturn) fields.ActualReturn = actualReturn + 'T00:00:00Z';
+                if (damagedQty !== undefined && damagedQty !== null) fields.DamagedQty = damagedQty;
+                if (damageNotes !== undefined && damageNotes !== null) fields.DamageNotes = damageNotes;
 
                 const patchRes = await fetch(
                     `https://graph.microsoft.com/v1.0/sites/${siteId}/lists/Bookings/items/${spId}`,
